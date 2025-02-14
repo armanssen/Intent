@@ -6,7 +6,6 @@ import androidx.startup.Initializer
 import com.crux.data.database.AppDatabase
 import com.pluto.Pluto
 import com.pluto.plugins.datastore.pref.PlutoDatastorePreferencesPlugin
-import com.pluto.plugins.datastore.pref.PlutoDatastoreWatcher
 import com.pluto.plugins.exceptions.PlutoExceptionsPlugin
 import com.pluto.plugins.layoutinspector.PlutoLayoutInspectorPlugin
 import com.pluto.plugins.logger.PlutoLoggerPlugin
