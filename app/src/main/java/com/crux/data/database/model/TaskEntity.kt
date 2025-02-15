@@ -2,6 +2,7 @@ package com.crux.data.database.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.crux.domain.model.Task
 
 @Entity
 data class TaskEntity(
@@ -10,4 +11,12 @@ data class TaskEntity(
     val title: String,
     val createdAt: Long,
     val isCompleted: Boolean = false
-)
+) {
+
+    fun toDomain() = Task(
+        id = id,
+        title = title,
+        createdAt = createdAt,
+        isCompleted = isCompleted
+    )
+}
