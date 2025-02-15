@@ -7,8 +7,12 @@ import kotlinx.serialization.Serializable
 @Serializable
 object MainScreenDestination
 
-fun NavGraphBuilder.mainScreen() {
+fun NavGraphBuilder.mainScreen(
+    onClickAddNewTask: () -> Unit
+) {
     composable<MainScreenDestination> {
-        MainScreen()
+        MainScreen(
+            onClickAddNewTask = onClickAddNewTask
+        )
     }
 }
