@@ -1,6 +1,7 @@
 package com.crux.ui.add_or_edit_task.ui
 
 import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import kotlinx.serialization.Serializable
@@ -15,7 +16,18 @@ fun NavGraphBuilder.addOrEditTaskScreen(
 ) {
     composable<AddOrEditTaskScreenDestination>(
         enterTransition = {
-            slideInHorizontally()
+            slideInHorizontally(
+                initialOffsetX = {
+                    it / 2
+                }
+            )
+        },
+        exitTransition = {
+            slideOutHorizontally(
+                targetOffsetX = {
+                    it
+                }
+            )
         }
     ) {
         AddOrEditTaskScreen(
