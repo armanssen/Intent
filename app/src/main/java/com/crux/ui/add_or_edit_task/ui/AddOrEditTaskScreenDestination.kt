@@ -10,14 +10,16 @@ data class AddOrEditTaskScreenDestination(
     val taskId: Int? = null
 )
 
-fun NavGraphBuilder.addOrEditTaskScreen() {
+fun NavGraphBuilder.addOrEditTaskScreen(
+    onClickBack: () -> Unit,
+) {
     composable<AddOrEditTaskScreenDestination>(
         enterTransition = {
             slideInHorizontally()
         }
     ) {
         AddOrEditTaskScreen(
-
+            onClickBack = onClickBack
         )
     }
 }
