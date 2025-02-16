@@ -40,7 +40,11 @@ class MainActivity : ComponentActivity() {
                                 )
                             }
                         )
-                        addOrEditTaskScreen()
+                        addOrEditTaskScreen(
+                            onClickBack = {
+                                navController.navigateUp()
+                            }
+                        )
                     }
                 }
             }

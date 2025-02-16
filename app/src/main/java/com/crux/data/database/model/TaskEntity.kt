@@ -20,3 +20,10 @@ data class TaskEntity(
         isCompleted = isCompleted
     )
 }
+
+fun Task.toEntity() = TaskEntity(
+    id = id,
+    title = title,
+    createdAt = createdAt,
+    isCompleted = isCompleted
+)
