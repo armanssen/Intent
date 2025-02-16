@@ -5,6 +5,7 @@ composeBom = "2025.01.01"
 coreKtx = "1.15.0"
 espressoCore = "3.5.1"
 hilt = "2.51.1"
+hiltNavigationCompose = "1.2.0"
 junit = "4.13.2"
 junitVersion = "1.1.5"
 kotlin = "2.1.10"
@@ -62,6 +63,7 @@ timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
 ## Hilt
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
+androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationCompose"}
 
 # Testing
 junit = { group = "junit", name = "junit", version.ref = "junit" }
