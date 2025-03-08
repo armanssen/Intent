@@ -1,8 +1,14 @@
 package com.crux.ui.main.domain.repository
 
 import com.crux.domain.model.Task
+import kotlinx.coroutines.flow.Flow
 
 internal interface MainRepository {
 
-    suspend fun getAllTasks(): List<Task>
+    fun getAllTasksFlow(): Flow<List<Task>>
+
+    suspend fun updateTaskCompletion(
+        id: Int,
+        isCompleted: Boolean
+    )
 }

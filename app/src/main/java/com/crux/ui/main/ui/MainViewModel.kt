@@ -3,11 +3,13 @@ package com.crux.ui.main.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.crux.ui.main.domain.repository.MainRepository
+import com.crux.ui.model.TaskUi
 import com.crux.ui.model.toUi
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -22,24 +24,44 @@ internal class MainViewModel
     val uiState = _uiState.asStateFlow()
 
     init {
-        getAllTasks()
+        collectAllTasks()
     }
 
     fun onEvent(event: MainScreenEvent) {
-
-    }
-
-    private fun getAllTasks() {
-        viewModelScope.launch {
-            val tasks = repository.getAllTasks().map {
-                it.toUi()
-            }
-
-            _uiState.update {
-                _uiState.value.copy(
-                    tasks = tasks.toPersistentList()
+        when (event) {
+            is MainScreenEvent.OnCheckedChange -> {
+                onCheckedChange(
+                    task = event.task,
+                    isChecked = event.isChecked
                 )
             }
+        }
+    }
+
+    private fun collectAllTasks() {
+        viewModelScope.launch {
+            repository.getAllTasksFlow()
+                .collectLatest { tasks ->
+                    _uiState.update {
+                        it.copy(
+                            tasks = tasks
+                                .map { task -> task.toUi() }
+                                .toPersistentList()
+                        )
+                    }
+                }
+        }
+    }
+
+    private fun onCheckedChange(
+        task: TaskUi,
+        isChecked: Boolean
+    ) {
+        viewModelScope.launch {
+            repository.updateTaskCompletion(
+                id = task.id,
+                isCompleted = isChecked
+            )
         }
     }
 }
