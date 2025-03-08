@@ -3,10 +3,12 @@ package com.crux.util
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.NonRestartableComposable
+import androidx.compose.ui.focus.FocusRequester
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.repeatOnLifecycle
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.delay
 
 @Composable
 @NonRestartableComposable
@@ -22,3 +24,9 @@ inline fun LaunchAndRepeatWithLifecycle(
         }
     }
 }
+
+suspend inline fun FocusRequester.requestFocusWithDelay() {
+    delay(50)
+    this.requestFocus()
+}
+

@@ -1,7 +1,14 @@
 package com.crux.ui.add_or_edit_task.ui
 
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.VisibilityThreshold
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.tween
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.ui.unit.IntOffset
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import kotlinx.serialization.Serializable
@@ -16,17 +23,12 @@ fun NavGraphBuilder.addOrEditTaskScreen(
 ) {
     composable<AddOrEditTaskScreenDestination>(
         enterTransition = {
-            slideInHorizontally(
-                initialOffsetX = {
-                    it / 2
-                }
-            )
+            slideInHorizontally { it / 2 }
         },
-        exitTransition = {
+        popExitTransition = {
             slideOutHorizontally(
-                targetOffsetX = {
-                    it
-                }
+                targetOffsetX = { it },
+                animationSpec = tween(durationMillis = 300)
             )
         }
     ) {
