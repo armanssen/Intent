@@ -15,7 +15,8 @@ import kotlinx.serialization.Serializable
 object MainScreenDestination
 
 fun NavGraphBuilder.mainScreen(
-    onClickAddNewTask: () -> Unit
+    onClickAddNewTask: () -> Unit,
+    onClickTask: (taskId: Int) -> Unit
 ) {
     composable<MainScreenDestination>(
         popEnterTransition = {
@@ -29,7 +30,8 @@ fun NavGraphBuilder.mainScreen(
         }
     ) {
         MainScreen(
-            onClickAddNewTask = onClickAddNewTask
+            onClickAddNewTask = onClickAddNewTask,
+            onClickTask = onClickTask
         )
     }
 }

@@ -1,6 +1,7 @@
 package com.crux.ui.main.ui.component
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -21,12 +22,16 @@ import com.crux.ui.model.TaskUi
 @Composable
 internal fun TaskListItemView(
     task: TaskUi,
+    onClick: () -> Unit,
     onCheckedChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Row(
         modifier = modifier
             .clip(RoundedCornerShape(16.dp))
+            .clickable(
+                onClick = onClick
+            )
             .fillMaxWidth()
             .background(Color(0xFFf3efee))
             .padding(16.dp)

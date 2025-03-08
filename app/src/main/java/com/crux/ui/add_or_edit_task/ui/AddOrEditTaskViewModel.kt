@@ -42,7 +42,7 @@ internal class AddOrEditTaskViewModel
         when (event) {
             is AddOrEditTaskScreenEvent.OnValueChange -> {
                 _uiState.update {
-                    _uiState.value.copy(
+                    it.copy(
                         isTextFieldIncorrect = false,
                         textFieldValue = event.value
                     )
@@ -59,7 +59,7 @@ internal class AddOrEditTaskViewModel
 
         if (task != null) {
             _uiState.update {
-                _uiState.value.copy(
+                it.copy(
                     task = task,
                     textFieldValue = task.title
                 )
@@ -73,7 +73,7 @@ internal class AddOrEditTaskViewModel
 
             if (title.isBlank()) {
                 _uiState.update {
-                    _uiState.value.copy(isTextFieldIncorrect = true)
+                    it.copy(isTextFieldIncorrect = true)
                 }
                 _sideEffects.send(AddOrEditTaskScreenSideEffect.TextFieldEmpty)
                 return@launch
@@ -85,8 +85,7 @@ internal class AddOrEditTaskViewModel
                 repository.updateTask(
                     task = task
                         .copy(
-                            title = title,
-                            createdAt = System.currentTimeMillis()
+                            title = title
                         ).toDomain()
                 )
             } else {

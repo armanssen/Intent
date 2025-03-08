@@ -28,6 +28,7 @@ import com.crux.ui.main.ui.component.TaskListItemView
 @Composable
 internal fun MainScreen(
     onClickAddNewTask: () -> Unit,
+    onClickTask: (taskId: Int) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: MainViewModel = hiltViewModel(),
     uiState: MainScreenState = viewModel.uiState.collectAsState().value,
@@ -48,6 +49,9 @@ internal fun MainScreen(
             items(uiState.tasks) { task ->
                 TaskListItemView(
                     task = task,
+                    onClick = {
+                        onClickTask(task.id)
+                    },
                     onCheckedChange = { isChecked ->
                         onEvent(
                             MainScreenEvent.OnCheckedChange(

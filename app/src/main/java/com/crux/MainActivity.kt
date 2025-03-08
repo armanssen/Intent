@@ -38,6 +38,11 @@ class MainActivity : ComponentActivity() {
                                 navController.navigate(
                                     AddOrEditTaskScreenDestination()
                                 )
+                            },
+                            onClickTask = { taskId ->
+                                navController.navigate(
+                                    AddOrEditTaskScreenDestination(taskId = taskId)
+                                )
                             }
                         )
                         addOrEditTaskScreen(
