@@ -11,45 +11,28 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 
-private val DarkColorScheme = darkColorScheme(
-    background = Color.Black,
+private val LightColorScheme = lightColorScheme(
+    background = GeistLightBackground,
 
-    primary = Color(0xFF737373),
-    primaryContainer = Color(0xFFa3a3a3),
-    onPrimaryContainer = Color.Black,
+    surface = GeistLightBackgroundSecondary,
+    surfaceContainer = GeistLightGray1,
+    surfaceVariant = GeistLightGray2,
+    surfaceContainerHighest = GeistLightGray3,
 
-    surfaceVariant = Color(0xFF171717),
-    surfaceBright = Color(0xFF262626),
-
-    secondary = PurpleGrey80,
-    tertiary = Pink80,
-
-
-
+    primary = GeistLightGray10,
+    onPrimary = Color.White
 )
 
-private val LightColorScheme = lightColorScheme(
-    background = Color(0xFFfcf8f5),
+private val DarkColorScheme = darkColorScheme(
+    background = GeistDarkBackground,
 
-    primary = Color(0xFF171717),
-    primaryContainer = Color(0xFF262626),
-    onPrimaryContainer = Color.White,
+    surface = GeistDarkBackgroundSecondary,
+    surfaceContainer = GeistDarkGray1,
+    surfaceVariant = GeistDarkGray2,
+    surfaceContainerHighest = GeistDarkGray3,
 
-    surfaceVariant = Color(0xFFf3efee),
-    surfaceBright = Color.White,
-
-    secondary = PurpleGrey40,
-    tertiary = Pink40,
-
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+    primary = GeistDarkGray10,
+    onPrimary = Color.Black
 )
 
 @Composable

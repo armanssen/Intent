@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Checkbox
-import androidx.compose.material3.CheckboxColors
 import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.LocalMinimumInteractiveComponentSize
 import androidx.compose.material3.MaterialTheme
@@ -30,7 +29,7 @@ internal fun TaskListItemView(
 ) {
     Row(
         modifier = modifier
-            .clip(RoundedCornerShape(16.dp))
+            .clip(RoundedCornerShape(4.dp))
             .clickable(
                 onClick = onClick
             )
@@ -45,7 +44,7 @@ internal fun TaskListItemView(
                 colors = CheckboxDefaults.colors().copy(
                     checkedBorderColor = MaterialTheme.colorScheme.onSurfaceVariant,
                     checkedBoxColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                    uncheckedBoxColor = MaterialTheme.colorScheme.surfaceBright
+                    uncheckedBoxColor = MaterialTheme.colorScheme.surfaceContainer
                 )
             )
         }

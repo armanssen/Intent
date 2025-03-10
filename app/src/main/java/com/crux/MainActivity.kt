@@ -4,10 +4,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.crux.ui.add_or_edit_task.ui.AddOrEditTaskScreenDestination
@@ -25,32 +21,29 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             CruxTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    val navController = rememberNavController()
+                val navController = rememberNavController()
 
-                    NavHost(
-                        modifier = Modifier.padding(innerPadding),
-                        navController = navController,
-                        startDestination = MainScreenDestination
-                    ) {
-                        mainScreen(
-                            onClickAddNewTask = {
-                                navController.navigate(
-                                    AddOrEditTaskScreenDestination()
-                                )
-                            },
-                            onClickTask = { taskId ->
-                                navController.navigate(
-                                    AddOrEditTaskScreenDestination(taskId = taskId)
-                                )
-                            }
-                        )
-                        addOrEditTaskScreen(
-                            onClickBack = {
-                                navController.navigateUp()
-                            }
-                        )
-                    }
+                NavHost(
+                    navController = navController,
+                    startDestination = MainScreenDestination
+                ) {
+                    mainScreen(
+                        onClickAddNewTask = {
+                            navController.navigate(
+                                AddOrEditTaskScreenDestination()
+                            )
+                        },
+                        onClickTask = { taskId ->
+                            navController.navigate(
+                                AddOrEditTaskScreenDestination(taskId = taskId)
+                            )
+                        }
+                    )
+                    addOrEditTaskScreen(
+                        onClickBack = {
+                            navController.navigateUp()
+                        }
+                    )
                 }
             }
         }
