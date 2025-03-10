@@ -15,6 +15,7 @@ import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LargeFloatingActionButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -37,7 +38,7 @@ internal fun MainScreen(
     Box(
         modifier = modifier
             .fillMaxSize()
-            .background(Color(0xFFfcf8f5))
+            .background(MaterialTheme.colorScheme.background)
     ) {
         LazyColumn(
             verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -69,6 +70,8 @@ internal fun MainScreen(
                 .padding(16.dp)
                 .align(Alignment.BottomEnd),
             onClick = onClickAddNewTask,
+            expanded = true,
+            containerColor = MaterialTheme.colorScheme.primaryContainer,
             icon = {
                 Icon(
                     imageVector = Icons.Default.Add,

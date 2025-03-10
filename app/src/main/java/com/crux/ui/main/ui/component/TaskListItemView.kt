@@ -9,13 +9,15 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.CheckboxColors
+import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.LocalMinimumInteractiveComponentSize
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.crux.ui.model.TaskUi
 
@@ -33,13 +35,18 @@ internal fun TaskListItemView(
                 onClick = onClick
             )
             .fillMaxWidth()
-            .background(Color(0xFFf3efee))
+            .background(MaterialTheme.colorScheme.surfaceVariant)
             .padding(16.dp)
     ) {
         CompositionLocalProvider(LocalMinimumInteractiveComponentSize provides 0.dp) {
             Checkbox(
                 checked = task.isCompleted,
-                onCheckedChange = onCheckedChange
+                onCheckedChange = onCheckedChange,
+                colors = CheckboxDefaults.colors().copy(
+                    checkedBorderColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                    checkedBoxColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                    uncheckedBoxColor = MaterialTheme.colorScheme.surfaceBright
+                )
             )
         }
         Spacer(Modifier.width(8.dp))
