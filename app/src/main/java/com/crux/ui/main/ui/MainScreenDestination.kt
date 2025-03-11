@@ -1,14 +1,16 @@
 package com.crux.ui.main.ui
 
-import androidx.compose.animation.EnterTransition
-import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.scaleIn
-import androidx.compose.animation.scaleOut
-import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.material3.DrawerValue
+import androidx.compose.material3.ModalNavigationDrawer
+import androidx.compose.material3.rememberDrawerState
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import com.crux.ui.main.ui.drawer.MainScreenDrawer
+import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -29,9 +31,26 @@ fun NavGraphBuilder.mainScreen(
             slideOutHorizontally { -it / 2 }
         }
     ) {
-        MainScreen(
-            onClickAddNewTask = onClickAddNewTask,
-            onClickTask = onClickTask
-        )
+        val drawerState = rememberDrawerState(DrawerValue.Closed)
+        val coroutineScope = rememberCoroutineScope()
+
+        ModalNavigationDrawer(
+            drawerState = drawerState,
+            drawerContent = {
+                MainScreenDrawer(
+                    drawerState = drawerState
+                )
+            }
+        ) {
+            MainScreen(
+                onClickAddNewTask = onClickAddNewTask,
+                onClickTask = onClickTask,
+                onClickMenu = {
+                    coroutineScope.launch {
+                        drawerState.open()
+                    }
+                }
+            )
+        }
     }
 }

@@ -30,6 +30,7 @@ import com.crux.ui.main.ui.component.TaskListItemView
 @Composable
 internal fun MainScreen(
     onClickAddNewTask: () -> Unit,
+    onClickMenu: () -> Unit,
     onClickTask: (taskId: Int) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: MainViewModel = hiltViewModel(),
@@ -50,7 +51,7 @@ internal fun MainScreen(
                 navigationIcon = {
                     IconButton(
                         onClick = {
-
+                            onClickMenu()
                         },
                         content = {
                             Icon(
