@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
@@ -63,6 +64,9 @@ internal fun AddOrEditTaskScreen(
                     focusManager.clearFocus(force = true) // Clear focus first
                     focusRequester.requestFocus()
                 }
+                AddOrEditTaskScreenSideEffect.TaskDeleted -> {
+                    onClickBack()
+                }
             }
         }
     }
@@ -90,6 +94,21 @@ internal fun AddOrEditTaskScreen(
                             )
                         }
                     )
+                },
+                actions = {
+                    uiState.task?.let { task ->
+                        IconButton(
+                            onClick = {
+                                onEvent(AddOrEditTaskScreenEvent.OnClickDelete(task.id))
+                            },
+                            content = {
+                                Icon(
+                                    imageVector = Icons.Default.Delete,
+                                    contentDescription = "delete icon"
+                                )
+                            }
+                        )
+                    }
                 }
             )
         },

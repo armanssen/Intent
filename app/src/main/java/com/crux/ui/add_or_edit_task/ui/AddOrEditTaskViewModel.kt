@@ -51,6 +51,9 @@ internal class AddOrEditTaskViewModel
             AddOrEditTaskScreenEvent.OnClickSave -> {
                 onClickSave()
             }
+            is AddOrEditTaskScreenEvent.OnClickDelete -> {
+                onClickDelete(id = event.id)
+            }
         }
     }
 
@@ -96,6 +99,13 @@ internal class AddOrEditTaskViewModel
             }
 
             _sideEffects.send(AddOrEditTaskScreenSideEffect.TaskSaved)
+        }
+    }
+
+    private fun onClickDelete(id: Int) {
+        viewModelScope.launch {
+            repository.deleteTaskById(id = id)
+            _sideEffects.send(AddOrEditTaskScreenSideEffect.TaskDeleted)
         }
     }
 }

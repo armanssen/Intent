@@ -14,4 +14,8 @@ internal interface AddOrEditTaskRepository {
     suspend fun updateTask(
         task: Task
     )
+
+    suspend fun deleteTaskById(
+        id: Int
+    )
 }

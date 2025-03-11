@@ -22,6 +22,9 @@ interface TaskEntityDao {
     @Delete
     suspend fun deleteTask(task: TaskEntity)
 
+    @Query("DELETE FROM TaskEntity WHERE id = :id")
+    suspend fun deleteTaskById(id: Int)
+
     @Query("UPDATE TaskEntity SET isCompleted = :isCompleted WHERE id = :id")
     suspend fun updateTaskCompletion(
         id: Int,

@@ -5,4 +5,6 @@ internal sealed interface AddOrEditTaskScreenSideEffect {
     data object TextFieldEmpty : AddOrEditTaskScreenSideEffect
 
     data object TaskSaved : AddOrEditTaskScreenSideEffect
+
+    data object TaskDeleted : AddOrEditTaskScreenSideEffect
 }

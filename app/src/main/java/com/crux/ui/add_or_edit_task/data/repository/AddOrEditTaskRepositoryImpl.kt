@@ -40,4 +40,10 @@ class AddOrEditTaskRepositoryImpl
                 task  = task.toEntity()
             )
     }
+
+    override suspend fun deleteTaskById(id: Int) {
+        database
+            .taskEntityDao()
+            .deleteTaskById(id = id)
+    }
 }
