@@ -4,8 +4,11 @@ import android.app.Application
 import android.content.Context
 import androidx.startup.Initializer
 import com.crux.data.database.AppDatabase
+import com.crux.data.datastore.APP_PREFERENCES_NAME
+import com.crux.data.datastore.appPreferences
 import com.pluto.Pluto
 import com.pluto.plugins.datastore.pref.PlutoDatastorePreferencesPlugin
+import com.pluto.plugins.datastore.pref.PlutoDatastoreWatcher
 import com.pluto.plugins.exceptions.PlutoExceptionsPlugin
 import com.pluto.plugins.layoutinspector.PlutoLayoutInspectorPlugin
 import com.pluto.plugins.logger.PlutoLoggerPlugin
@@ -29,10 +32,10 @@ class PlutoInitializer : Initializer<Unit> {
             name = AppDatabase.DATABASE_NAME,
             dbClass = AppDatabase::class.java
         )
-//        PlutoDatastoreWatcher.watch(
-//            APP_PREFERENCES_NAME,
-//            context.appPreferences
-//        )
+        PlutoDatastoreWatcher.watch(
+            APP_PREFERENCES_NAME,
+            context.appPreferences
+        )
     }
 
     override fun dependencies(): List<Class<out Initializer<*>>> {
