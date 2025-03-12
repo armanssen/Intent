@@ -11,14 +11,20 @@ import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.NavigationDrawerItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.crux.ui.main.ui.drawer.component.DrawerItemView
+import kotlinx.coroutines.launch
 
 @Composable
 internal fun MainScreenDrawer(
     drawerState: DrawerState,
+    onClickAppearance: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val coroutineScope = rememberCoroutineScope()
+
     ModalDrawerSheet(
         modifier = modifier,
         drawerShape = RoundedCornerShape(
@@ -31,21 +37,15 @@ internal fun MainScreenDrawer(
         drawerState = drawerState
     ) {
         Column {
-            Text("Hello I'm drawer")
-            NavigationDrawerItem(
-                label = {
-                    Text("Appearance")
-                },
+            DrawerItemView(
+                label = "Appearance",
+                icon = Icons.Default.ColorLens,
                 onClick = {
-
-                },
-                icon = {
-                    Icon(
-                        imageVector = Icons.Default.ColorLens,
-                        contentDescription = "color lens icon"
-                    )
-                },
-                selected = false
+                    coroutineScope.launch {
+                        drawerState.close()
+                    }
+                    onClickAppearance()
+                }
             )
         }
     }

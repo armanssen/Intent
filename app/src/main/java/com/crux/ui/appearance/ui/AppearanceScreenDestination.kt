@@ -1,4 +1,4 @@
-package com.crux.ui.add_or_edit_task.ui
+package com.crux.ui.appearance.ui
 
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.slideInHorizontally
@@ -8,14 +8,12 @@ import androidx.navigation.compose.composable
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class AddOrEditTaskScreenDestination(
-    val taskId: Int? = null
-)
+data object AppearanceScreenDestination
 
-fun NavGraphBuilder.addOrEditTaskScreen(
-    onClickBack: () -> Unit,
+fun NavGraphBuilder.appearanceScreen(
+    onClickBack: () -> Unit
 ) {
-    composable<AddOrEditTaskScreenDestination>(
+    composable<AppearanceScreenDestination>(
         enterTransition = {
             slideInHorizontally { it / 2 }
         },
@@ -26,7 +24,7 @@ fun NavGraphBuilder.addOrEditTaskScreen(
             )
         }
     ) {
-        AddOrEditTaskScreen(
+        AppearanceScreen(
             onClickBack = onClickBack
         )
     }

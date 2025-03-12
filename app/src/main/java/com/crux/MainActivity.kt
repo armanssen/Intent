@@ -13,6 +13,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.crux.ui.add_or_edit_task.ui.AddOrEditTaskScreenDestination
 import com.crux.ui.add_or_edit_task.ui.addOrEditTaskScreen
+import com.crux.ui.appearance.ui.AppearanceScreenDestination
+import com.crux.ui.appearance.ui.appearanceScreen
 import com.crux.ui.main.ui.MainScreenDestination
 import com.crux.ui.main.ui.mainScreen
 import com.crux.ui.theme.CruxTheme
@@ -47,9 +49,19 @@ class MainActivity : ComponentActivity() {
                                 navController.navigate(
                                     AddOrEditTaskScreenDestination(taskId = taskId)
                                 )
+                            },
+                            onClickAppearance = {
+                                navController.navigate(
+                                    AppearanceScreenDestination
+                                )
                             }
                         )
                         addOrEditTaskScreen(
+                            onClickBack = {
+                                navController.navigateUp()
+                            }
+                        )
+                        appearanceScreen(
                             onClickBack = {
                                 navController.navigateUp()
                             }
