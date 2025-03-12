@@ -1,15 +1,27 @@
 package com.crux.ui.theme
 
 import android.os.Build
+import androidx.activity.SystemBarStyle
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import com.crux.data.datastore.PreferenceKeys
+import com.crux.data.datastore.appPreferences
+import com.crux.domain.model.AppTheme
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.map
 
 private val LightColorScheme = lightColorScheme(
     background = GeistLightBackground,
@@ -37,23 +49,32 @@ private val DarkColorScheme = darkColorScheme(
 
 @Composable
 fun CruxTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
-    isDynamicColorEnabled: Boolean = false,
+    appTheme: AppTheme,
+    isDynamicColorEnabled: Boolean,  // Dynamic color is available on Android 12+
     content: @Composable () -> Unit
 ) {
+
+    val isDarkThemeEnabled = when (appTheme) {
+        AppTheme.LIGHT -> false
+        AppTheme.DARK -> true
+        AppTheme.SYSTEM_DEFAULT -> isSystemInDarkTheme()
+    }
+
     val colorScheme = when {
         isDynamicColorEnabled && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
             val context = LocalContext.current
-            if (darkTheme) {
+            if (isDarkThemeEnabled) {
                 dynamicDarkColorScheme(context)
             } else {
                 dynamicLightColorScheme(context)
             }
         }
-
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
+        isDarkThemeEnabled -> {
+            DarkColorScheme
+        }
+        else -> {
+            LightColorScheme
+        }
     }
 
     MaterialTheme(

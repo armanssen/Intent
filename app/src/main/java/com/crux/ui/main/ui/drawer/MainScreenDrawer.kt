@@ -33,7 +33,7 @@ internal fun MainScreenDrawer(
             topEnd = 4.dp,
             bottomEnd = 4.dp
         ),
-        drawerContainerColor = MaterialTheme.colorScheme.surface,
+        drawerContainerColor = MaterialTheme.colorScheme.surfaceContainer,
         drawerState = drawerState
     ) {
         Column {

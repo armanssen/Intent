@@ -1,18 +1,27 @@
 package com.crux
 
+import android.content.res.Configuration
+import android.graphics.Color
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.SystemBarStyle
+import androidx.activity.compose.LocalActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import com.crux.domain.model.AppTheme
 import com.crux.ui.add_or_edit_task.ui.AddOrEditTaskScreenDestination
 import com.crux.ui.add_or_edit_task.ui.addOrEditTaskScreen
 import com.crux.ui.appearance.ui.AppearanceScreenDestination
@@ -21,24 +30,55 @@ import com.crux.ui.main.ui.MainScreenDestination
 import com.crux.ui.main.ui.mainScreen
 import com.crux.ui.theme.CruxTheme
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    private val viewModel by viewModels<MainViewModel>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         val splashscreen = installSplashScreen()
-        var keepSplashScreen = true
         super.onCreate(savedInstanceState)
-        splashscreen.setKeepOnScreenCondition { keepSplashScreen }
-        lifecycleScope.launch {
-            delay(1000)
-            keepSplashScreen = false
+
+        splashscreen.setKeepOnScreenCondition {
+            viewModel.uiState.value.isSplashScreenVisible
         }
-        enableEdgeToEdge()
 
         setContent {
-            CruxTheme {
+            val activity = LocalActivity.current as ComponentActivity
+            val uiState = viewModel.uiState.collectAsState()
+            val uiMode = LocalConfiguration.current.uiMode
+
+            val isDarkThemeEnabled = remember(uiState.value.selectedAppTheme) {
+                uiState.value.selectedAppTheme == AppTheme.DARK || (
+                        uiState.value.selectedAppTheme == AppTheme.SYSTEM_DEFAULT &&
+                                (uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
+                        )
+            }
+
+            LaunchedEffect(isDarkThemeEnabled) {
+                activity.enableEdgeToEdge(
+                    statusBarStyle = SystemBarStyle.auto(
+                        Color.TRANSPARENT,
+                        Color.TRANSPARENT,
+                        detectDarkMode = {
+                            isDarkThemeEnabled
+                        }
+                    ),
+                    navigationBarStyle =  SystemBarStyle.auto(
+                        Color.TRANSPARENT,
+                        Color.TRANSPARENT,
+                        detectDarkMode = {
+                            isDarkThemeEnabled
+                        }
+                    )
+                )
+            }
+
+            CruxTheme(
+                appTheme = uiState.value.selectedAppTheme,
+                isDynamicColorEnabled = uiState.value.isDynamicColorEnabled
+            ) {
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
