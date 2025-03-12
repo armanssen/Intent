@@ -46,6 +46,7 @@ dependencies {
 
     // General
     implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.startup)
     implementation(libs.androidx.activity.compose)
     implementation(libs.kotlinx.serialization.json)
@@ -86,6 +87,8 @@ dependencies {
     implementation(libs.androidx.room.paging)
     testImplementation(libs.androidx.room.testing)
     ksp(libs.androidx.room.compiler)
+
+    implementation(libs.androidx.datastore.preferences)
 
     // Timber
     implementation(libs.timber)

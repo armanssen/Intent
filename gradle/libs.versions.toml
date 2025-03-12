@@ -3,6 +3,7 @@ activityCompose = "1.10.0"
 agp = "8.7.3"
 composeBom = "2025.01.01"
 coreKtx = "1.15.0"
+datastorePreferences = "1.1.3"
 espressoCore = "3.5.1"
 hilt = "2.51.1"
 hiltNavigationCompose = "1.2.0"
@@ -16,6 +17,7 @@ lifecycle = "2.8.7"
 navigationCompose = "2.8.6"
 pluto = "2.2.2"
 room = "2.6.1"
+splashScreen = "1.0.1"
 startup = "1.2.0"
 timber = "5.0.1"
 
@@ -23,6 +25,8 @@ timber = "5.0.1"
 # Kotlin-specific set of extensions for Android's core framework, designed to
 # make common Android operations more concise and Kotlin-friendly.
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
+
+androidx-core-splashscreen = {module = "androidx.core:core-splashscreen", version.ref = "splashScreen"}
 
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
 androidx-startup = { module = "androidx.startup:startup-runtime", version.ref = "startup" }
@@ -40,6 +44,9 @@ androidx-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
 androidx-compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
 androidx-compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest" }
 androidx-compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4" }
+
+# DataStore
+androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
 
 # Lifecycle. Simplifies working with lifecycle-aware components
 androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
