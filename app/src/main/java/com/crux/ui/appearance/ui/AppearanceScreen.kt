@@ -69,10 +69,13 @@ internal fun AppearanceScreen(
                 modifier = Modifier
                     .background(MaterialTheme.colorScheme.surface)
             ) {
+                Spacer(Modifier.height(12.dp))
                 Text(
                     text = "Choose theme",
-                    modifier = Modifier.padding(12.dp)
+                    modifier = Modifier.padding(horizontal = 16.dp),
+                    style = MaterialTheme.typography.labelLarge
                 )
+                Spacer(Modifier.height(4.dp))
                 ThemeItemView(
                     title = "Light",
                     isSelected = uiState.selectedAppTheme == AppTheme.LIGHT,

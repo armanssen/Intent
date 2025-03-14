@@ -3,7 +3,7 @@ package com.crux.ui.main.ui.drawer
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ColorLens
+import androidx.compose.material.icons.outlined.ColorLens
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -39,7 +39,7 @@ internal fun MainScreenDrawer(
         Column {
             DrawerItemView(
                 label = "Appearance",
-                icon = Icons.Default.ColorLens,
+                icon = Icons.Outlined.ColorLens,
                 onClick = {
                     coroutineScope.launch {
                         drawerState.close()
