@@ -28,6 +28,8 @@ import com.crux.screens.appearance.ui.AppearanceScreenDestination
 import com.crux.screens.appearance.ui.appearanceScreen
 import com.crux.screens.main.ui.MainScreenDestination
 import com.crux.screens.main.ui.mainScreen
+import com.crux.screens.task_lists.ui.TaskListsDestination
+import com.crux.screens.task_lists.ui.taskListsScreen
 import com.crux.ui.theme.CruxTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -101,13 +103,19 @@ class MainActivity : ComponentActivity() {
                                     AddOrEditTaskScreenDestination(taskId = taskId)
                                 )
                             },
+                            onClickTaskLists = {
+                                navController.navigate(TaskListsDestination)
+                            },
                             onClickAppearance = {
-                                navController.navigate(
-                                    AppearanceScreenDestination
-                                )
+                                navController.navigate(AppearanceScreenDestination)
                             }
                         )
                         addOrEditTaskScreen(
+                            onClickBack = {
+                                navController.navigateUp()
+                            }
+                        )
+                        taskListsScreen(
                             onClickBack = {
                                 navController.navigateUp()
                             }

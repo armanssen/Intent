@@ -17,6 +17,7 @@ import kotlinx.serialization.Serializable
 object MainScreenDestination
 
 fun NavGraphBuilder.mainScreen(
+    onClickTaskLists: () -> Unit,
     onClickAppearance: () -> Unit,
     onClickAddNewTask: () -> Unit,
     onClickTask: (taskId: Int) -> Unit
@@ -40,7 +41,8 @@ fun NavGraphBuilder.mainScreen(
             drawerContent = {
                 MainScreenDrawer(
                     drawerState = drawerState,
-                    onClickAppearance = onClickAppearance
+                    onClickAppearance = onClickAppearance,
+                    onClickTaskLists = onClickTaskLists
                 )
             }
         ) {
