@@ -32,11 +32,11 @@ import com.crux.screens.appearance.ui.component.AppearanceDynamicColorView
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun AppearanceScreen(
+    onClickBack: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: AppearanceViewModel = hiltViewModel(),
     uiState: AppearanceScreenState = viewModel.uiState.collectAsStateWithLifecycle().value,
-    onEvent: (AppearanceScreenEvent) -> Unit = viewModel::onEvent,
-    onClickBack: () -> Unit
+    onEvent: (AppearanceScreenEvent) -> Unit = viewModel::onEvent
 ) {
     Scaffold(
         modifier = modifier,

@@ -19,11 +19,11 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.crux.screens.main.ui.component.TaskListItemView
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -34,7 +34,7 @@ internal fun MainScreen(
     onClickTask: (taskId: Int) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: MainViewModel = hiltViewModel(),
-    uiState: MainScreenState = viewModel.uiState.collectAsState().value,
+    uiState: MainScreenState = viewModel.uiState.collectAsStateWithLifecycle().value,
     onEvent: (MainScreenEvent) -> Unit = viewModel::onEvent
 ) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()

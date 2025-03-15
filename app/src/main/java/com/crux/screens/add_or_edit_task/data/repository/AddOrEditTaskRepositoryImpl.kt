@@ -25,7 +25,7 @@ class AddOrEditTaskRepositoryImpl
     ) {
         database
             .taskEntityDao()
-            .insertTask(
+            .insert(
                 task = TaskEntity(
                     title = title,
                     createdAt = createdAt
@@ -36,14 +36,14 @@ class AddOrEditTaskRepositoryImpl
     override suspend fun updateTask(task: Task) {
         database
             .taskEntityDao()
-            .updateTask(
-                task  = task.toEntity()
+            .update(
+                task = task.toEntity()
             )
     }
 
     override suspend fun deleteTaskById(id: Int) {
         database
             .taskEntityDao()
-            .deleteTaskById(id = id)
+            .deleteById(id = id)
     }
 }

@@ -1,7 +1,6 @@
 package com.crux.data.database.dao
 
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -14,16 +13,13 @@ interface TaskEntityDao {
 
     // 🔹 Write Queries
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertTask(task: TaskEntity)
+    suspend fun insert(task: TaskEntity)
 
     @Update
-    suspend fun updateTask(task: TaskEntity)
-
-    @Delete
-    suspend fun deleteTask(task: TaskEntity)
+    suspend fun update(task: TaskEntity)
 
     @Query("DELETE FROM TaskEntity WHERE id = :id")
-    suspend fun deleteTaskById(id: Int)
+    suspend fun deleteById(id: Int)
 
     @Query("UPDATE TaskEntity SET isCompleted = :isCompleted WHERE id = :id")
     suspend fun updateTaskCompletion(
