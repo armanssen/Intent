@@ -23,9 +23,11 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.crux.R
 import com.crux.domain.model.AppTheme
 import com.crux.screens.appearance.ui.component.AppearanceDynamicColorView
 
@@ -44,7 +46,7 @@ internal fun AppearanceScreen(
         topBar = {
             TopAppBar(
                 title = {
-                    Text(text = "Appearance")
+                    Text(text = stringResource(R.string.appearance_screen_title))
                 },
                 navigationIcon = {
                     IconButton(
@@ -71,27 +73,27 @@ internal fun AppearanceScreen(
             ) {
                 Spacer(Modifier.height(12.dp))
                 Text(
-                    text = "Choose theme",
+                    text = stringResource(R.string.appearance_screen_choose_title),
                     modifier = Modifier.padding(horizontal = 16.dp),
                     style = MaterialTheme.typography.labelLarge
                 )
                 Spacer(Modifier.height(4.dp))
                 ThemeItemView(
-                    title = "Light",
+                    title = stringResource(R.string.appearance_screen_light_theme_title),
                     isSelected = uiState.selectedAppTheme == AppTheme.LIGHT,
                     onClick = {
                         onEvent(AppearanceScreenEvent.OnSelectAppTheme(AppTheme.LIGHT))
                     }
                 )
                 ThemeItemView(
-                    title = "Dark",
+                    title = stringResource(R.string.appearance_screen_dark_theme_title),
                     isSelected = uiState.selectedAppTheme == AppTheme.DARK,
                     onClick = {
                         onEvent(AppearanceScreenEvent.OnSelectAppTheme(AppTheme.DARK))
                     }
                 )
                 ThemeItemView(
-                    title = "System Default",
+                    title = stringResource(R.string.appearance_screen_system_default_title),
                     isSelected = uiState.selectedAppTheme == AppTheme.SYSTEM_DEFAULT,
                     onClick = {
                         onEvent(AppearanceScreenEvent.OnSelectAppTheme(AppTheme.SYSTEM_DEFAULT))

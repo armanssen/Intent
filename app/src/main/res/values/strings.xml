@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">Crux</string>
+
+    <string name="main_screen_new_task">New task</string>
+
+    <string name="add_or_edit_task_screen_new_task_title">New Task</string>
+    <string name="add_or_edit_task_screen_save_task">Save task</string>
+    <string name="add_or_edit_task_screen_empty_title">Title is Empty</string>
+    <string name="add_or_edit_task_screen_due_date">Due date</string>
+
+    <string name="appearance_screen_title">Appearance</string>
+    <string name="appearance_screen_choose_title">Choose theme</string>
+    <string name="appearance_screen_light_theme_title">Light</string>
+    <string name="appearance_screen_dark_theme_title">Dark</string>
+    <string name="appearance_screen_system_default_title">System Default</string>
 </resources>

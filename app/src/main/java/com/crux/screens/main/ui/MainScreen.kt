@@ -21,9 +21,11 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.crux.R
 import com.crux.screens.main.ui.component.TaskListItemView
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -76,7 +78,7 @@ internal fun MainScreen(
                 },
                 text = {
                     Text(
-                        text = "New task"
+                        text = stringResource(R.string.main_screen_new_task)
                     )
                 }
             )

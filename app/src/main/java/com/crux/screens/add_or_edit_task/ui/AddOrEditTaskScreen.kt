@@ -35,12 +35,14 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.crux.R
 import com.crux.util.LaunchAndRepeatWithLifecycle
 import com.crux.util.requestFocusWithDelay
 import kotlinx.coroutines.flow.collectLatest
@@ -88,7 +90,7 @@ internal fun AddOrEditTaskScreen(
                 title = {
                     if (uiState.task == null) {
                         Text(
-                            text = "New Task"
+                            text = stringResource(R.string.add_or_edit_task_screen_new_task_title)
                         )
                     }
                 },
@@ -135,7 +137,7 @@ internal fun AddOrEditTaskScreen(
                 },
                 text = {
                     Text(
-                        text = "Save task"
+                        text = stringResource(R.string.add_or_edit_task_screen_save_task)
                     )
                 }
             )
@@ -161,7 +163,7 @@ internal fun AddOrEditTaskScreen(
                 ),
                 supportingText = {
                     if (uiState.isTextFieldIncorrect) {
-                        Text("Title is Empty")
+                        Text(stringResource(R.string.add_or_edit_task_screen_empty_title))
                     }
                 },
                 isError = uiState.isTextFieldIncorrect
@@ -182,7 +184,7 @@ internal fun AddOrEditTaskScreen(
                 )
                 Spacer(Modifier.width(8.dp))
                 Text(
-                    text = "Due date"
+                    text = stringResource(R.string.add_or_edit_task_screen_due_date)
                 )
             }
         }
