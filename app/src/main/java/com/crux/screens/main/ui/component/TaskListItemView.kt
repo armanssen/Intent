@@ -19,7 +19,10 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
+import com.crux.ui.model.TaskPreviewParameterProvider
 import com.crux.ui.model.TaskUi
 
 @Composable
@@ -62,4 +65,16 @@ internal fun TaskListItemView(
             )
         )
     }
+}
+
+@Preview
+@Composable
+private fun Preview(
+    @PreviewParameter(TaskPreviewParameterProvider::class) task: TaskUi
+) {
+    TaskListItemView(
+        task = task,
+        onClick = {},
+        onCheckedChange = {}
+    )
 }
