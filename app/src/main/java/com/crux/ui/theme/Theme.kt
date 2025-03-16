@@ -21,7 +21,9 @@ private val LightColorScheme = lightColorScheme(
     surfaceContainerHighest = GeistLightGray3,
 
     primary = GeistLightGray10,
-    onPrimary = Color.White
+    onPrimary = Color.White,
+
+    outlineVariant = GeistLightGray5
 )
 
 private val DarkColorScheme = darkColorScheme(
@@ -33,7 +35,8 @@ private val DarkColorScheme = darkColorScheme(
     surfaceContainerHighest = GeistDarkGray3,
 
     primary = GeistDarkGray10,
-    onPrimary = Color.Black
+    onPrimary = Color.Black,
+    outlineVariant = GeistDarkGray5
 )
 
 @Composable
