@@ -9,7 +9,7 @@ import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.crux.screens.main.ui.drawer.MainScreenDrawer
+import com.crux.screens.drawer.MainScreenDrawer
 import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
 

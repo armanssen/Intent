@@ -1,11 +1,13 @@
-package com.crux.screens.main.ui.drawer
+package com.crux.screens.drawer
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.Notes
+import androidx.compose.material.icons.outlined.BookmarkBorder
 import androidx.compose.material.icons.outlined.ColorLens
+import androidx.compose.material.icons.outlined.Feedback
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
@@ -22,7 +24,7 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
 import com.crux.R
-import com.crux.screens.main.ui.drawer.component.DrawerItemView
+import com.crux.screens.drawer.component.DrawerItemView
 import kotlinx.coroutines.launch
 
 @Composable
@@ -70,6 +72,27 @@ internal fun MainScreenDrawer(
                         drawerState.close()
                     }
                     onClickAppearance()
+                }
+            )
+            HorizontalDivider(
+                modifier = Modifier.padding(vertical = 4.dp)
+            )
+            DrawerItemView(
+                label = "Send Feedback",
+                icon = Icons.Outlined.Feedback,
+                onClick = {
+                    coroutineScope.launch {
+                        drawerState.close()
+                    }
+                }
+            )
+            DrawerItemView(
+                label = "About",
+                icon = Icons.Outlined.BookmarkBorder,
+                onClick = {
+                    coroutineScope.launch {
+                        drawerState.close()
+                    }
                 }
             )
         }
