@@ -15,4 +15,8 @@ interface TaskListsRepository {
     suspend fun addTaskList(
         name: String
     )
+
+    suspend fun deleteTaskListById(
+        id: Int
+    )
 }

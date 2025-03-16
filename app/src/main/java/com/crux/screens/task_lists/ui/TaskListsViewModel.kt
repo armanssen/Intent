@@ -47,6 +47,21 @@ internal class TaskListsViewModel
             TaskListsScreenEvent.OnClickConfirmAddTaskList -> {
                 onClickConfirmAddTaskList()
             }
+            is TaskListsScreenEvent.OnClickDelete -> {
+                _uiState.update {
+                    it.copy(taskListForDeletion = event.taskList)
+                }
+            }
+            is TaskListsScreenEvent.OnConfirmDeleteConfirmation -> {
+                onConfirmDeleteConfirmation(
+                    taskListId = event.taskListId
+                )
+            }
+            TaskListsScreenEvent.OnDismissDeleteConfirmation -> {
+                _uiState.update {
+                    it.copy(taskListForDeletion = null)
+                }
+            }
         }
     }
 
@@ -76,6 +91,15 @@ internal class TaskListsViewModel
                     textFieldValue = "",
                     isAddTaskListDialogVisible = false
                 )
+            }
+        }
+    }
+
+    private fun onConfirmDeleteConfirmation(taskListId: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deleteTaskListById(id = taskListId)
+            _uiState.update {
+                it.copy(taskListForDeletion = null)
             }
         }
     }

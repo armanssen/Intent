@@ -8,5 +8,7 @@ data class TaskListsScreenState(
     val isAddTaskListDialogVisible: Boolean = false,
     val textFieldValue: String = "",
     val taskLists: ImmutableList<TaskListUi> = persistentListOf(),
+    val taskListForDeletion: TaskListUi? = null,
+    val taskListForEdit: TaskListUi? = null
 
 )

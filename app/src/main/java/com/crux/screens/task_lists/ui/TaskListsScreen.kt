@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.crux.screens.task_lists.ui.component.AddTaskListDialogView
+import com.crux.screens.task_lists.ui.component.DeleteTaskListDialogView
 import com.crux.screens.task_lists.ui.component.TaskListsListItemView
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -91,6 +92,12 @@ internal fun TaskListsScreen(
                         taskCount = 12,
                         onClick = {
 
+                        },
+                        onClickEdit = {
+
+                        },
+                        onClickDelete = {
+                            onEvent(TaskListsScreenEvent.OnClickDelete(taskList))
                         }
                     )
                 }
@@ -109,6 +116,18 @@ internal fun TaskListsScreen(
             },
             onConfirmation = {
                 onEvent(TaskListsScreenEvent.OnClickConfirmAddTaskList)
+            }
+        )
+    }
+
+    if (uiState.taskListForDeletion != null) {
+        DeleteTaskListDialogView(
+            taskListUi = uiState.taskListForDeletion,
+            onDismissRequest = {
+                onEvent(TaskListsScreenEvent.OnDismissDeleteConfirmation)
+            },
+            onClickConfirm = { id ->
+                onEvent(TaskListsScreenEvent.OnConfirmDeleteConfirmation(id))
             }
         )
     }

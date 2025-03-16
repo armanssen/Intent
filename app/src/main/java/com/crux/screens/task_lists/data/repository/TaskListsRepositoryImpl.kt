@@ -42,4 +42,12 @@ class TaskListsRepositoryImpl
                 )
             )
     }
+
+    override suspend fun deleteTaskListById(id: Int) {
+        database
+            .taskListEntityDao()
+            .deleteById(
+                id = id
+            )
+    }
 }
