@@ -6,26 +6,22 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.crux.screens.task_lists.ui.component.AddTaskListDialogView
+import com.crux.R
+import com.crux.screens.task_lists.ui.component.AddOrEditTaskListDialogView
 import com.crux.screens.task_lists.ui.component.DeleteTaskListDialogView
 import com.crux.screens.task_lists.ui.component.TaskListsListItemView
+import com.crux.screens.task_lists.ui.component.TaskListsTopAppBarView
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -39,62 +35,30 @@ internal fun TaskListsScreen(
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
 
     Scaffold(
-        modifier = modifier
-            .nestedScroll(scrollBehavior.nestedScrollConnection),
+        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         containerColor = MaterialTheme.colorScheme.surface,
         topBar = {
-            TopAppBar(
+            TaskListsTopAppBarView(
                 scrollBehavior = scrollBehavior,
-                title = {
-                    Text(text = "Task Lists")
-                },
-                navigationIcon = {
-                    IconButton(
-                        onClick = onClickBack,
-                        content = {
-                            Icon(
-                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                                contentDescription = "arrow back"
-                            )
-                        }
-                    )
-                },
-                actions = {
-                    IconButton(
-                        onClick = {
-                            onEvent(TaskListsScreenEvent.OnClickAddTaskList)
-                        },
-                        content = {
-                            Icon(
-                                imageVector = Icons.Default.Add,
-                                contentDescription = "add icon"
-                            )
-                        }
-                    )
+                onClickBack = onClickBack,
+                onClickAddTaskList = {
+                    onEvent(TaskListsScreenEvent.OnClickAddTaskList)
                 }
             )
         }
     ) { padding ->
-        Column(
-            modifier = Modifier
-                .padding(padding)
-        ) {
+        Column(modifier = Modifier.padding(padding)) {
             LazyColumn(
                 verticalArrangement = Arrangement.spacedBy(4.dp),
-                contentPadding = PaddingValues(
-                    vertical = 8.dp,
-                    horizontal = 12.dp
-                )
+                contentPadding = PaddingValues(vertical = 8.dp, horizontal = 12.dp)
             ) {
                 items(uiState.taskLists) { taskList ->
                     TaskListsListItemView(
                         taskList = taskList,
                         taskCount = 12,
-                        onClick = {
-
-                        },
+                        onClick = {},
                         onClickEdit = {
-
+                            onEvent(TaskListsScreenEvent.OnClickEdit(taskList))
                         },
                         onClickDelete = {
                             onEvent(TaskListsScreenEvent.OnClickDelete(taskList))
@@ -106,10 +70,11 @@ internal fun TaskListsScreen(
     }
 
     if (uiState.isAddTaskListDialogVisible) {
-        AddTaskListDialogView(
-            textFieldValue = uiState.textFieldValue,
+        AddOrEditTaskListDialogView(
+            title = stringResource(R.string.task_lists_add_task_list_title),
+            textFieldValue = uiState.addTextFieldValue,
             onValueChange = {
-                onEvent(TaskListsScreenEvent.OnValueChange(it))
+                onEvent(TaskListsScreenEvent.OnAddTextFieldValueChange(it))
             },
             onDismissRequest = {
                 onEvent(TaskListsScreenEvent.OnClickDismissAddTaskListDialog)
@@ -128,6 +93,22 @@ internal fun TaskListsScreen(
             },
             onClickConfirm = { id ->
                 onEvent(TaskListsScreenEvent.OnConfirmDeleteConfirmation(id))
+            }
+        )
+    }
+
+    if (uiState.taskListForEdit != null) {
+        AddOrEditTaskListDialogView(
+            title = stringResource(R.string.task_lists_edit_task_list_title),
+            textFieldValue = uiState.editTextFieldValue,
+            onValueChange = {
+                onEvent(TaskListsScreenEvent.OnEditTextFieldValueChange(it))
+            },
+            onDismissRequest = {
+                onEvent(TaskListsScreenEvent.OnClickDismissEditTaskListDialog)
+            },
+            onConfirmation = {
+                onEvent(TaskListsScreenEvent.OnConfirmEditConfirmation(uiState.taskListForEdit.id))
             }
         )
     }

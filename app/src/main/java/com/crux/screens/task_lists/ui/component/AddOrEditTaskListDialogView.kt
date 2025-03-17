@@ -30,7 +30,8 @@ import androidx.compose.ui.window.Dialog
 import com.crux.util.requestFocusWithDelay
 
 @Composable
-internal fun AddTaskListDialogView(
+internal fun AddOrEditTaskListDialogView(
+    title: String,
     textFieldValue: String,
     onValueChange: (String) -> Unit,
     onDismissRequest: () -> Unit,
@@ -51,7 +52,7 @@ internal fun AddTaskListDialogView(
                 .padding(16.dp)
         ) {
             Text(
-                text = "Add new task list",
+                text = title,
                 style = MaterialTheme.typography.titleLarge
             )
             OutlinedTextField(

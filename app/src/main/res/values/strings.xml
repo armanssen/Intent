@@ -13,4 +13,7 @@
     <string name="appearance_screen_light_theme_title">Light</string>
     <string name="appearance_screen_dark_theme_title">Dark</string>
     <string name="appearance_screen_system_default_title">System Default</string>
+
+    <string name="task_lists_add_task_list_title">Add new task list</string>
+    <string name="task_lists_edit_task_list_title">Edit task list</string>
 </resources>

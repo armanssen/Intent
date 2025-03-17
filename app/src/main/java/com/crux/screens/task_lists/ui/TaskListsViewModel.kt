@@ -39,9 +39,9 @@ internal class TaskListsViewModel
                     it.copy(isAddTaskListDialogVisible = false)
                 }
             }
-            is TaskListsScreenEvent.OnValueChange -> {
+            is TaskListsScreenEvent.OnAddTextFieldValueChange -> {
                 _uiState.update {
-                    it.copy(textFieldValue = event.value)
+                    it.copy(addTextFieldValue = event.value)
                 }
             }
             TaskListsScreenEvent.OnClickConfirmAddTaskList -> {
@@ -60,6 +60,29 @@ internal class TaskListsViewModel
             TaskListsScreenEvent.OnDismissDeleteConfirmation -> {
                 _uiState.update {
                     it.copy(taskListForDeletion = null)
+                }
+            }
+            is TaskListsScreenEvent.OnClickEdit -> {
+                _uiState.update {
+                    it.copy(
+                        taskListForEdit = event.taskList,
+                        editTextFieldValue = event.taskList.name
+                    )
+                }
+            }
+            TaskListsScreenEvent.OnClickDismissEditTaskListDialog -> {
+                _uiState.update {
+                    it.copy(taskListForEdit = null)
+                }
+            }
+            is TaskListsScreenEvent.OnConfirmEditConfirmation -> {
+                onConfirmEditConfirmation(
+                    taskListId = event.taskListId
+                )
+            }
+            is TaskListsScreenEvent.OnEditTextFieldValueChange -> {
+                _uiState.update {
+                    it.copy(editTextFieldValue = event.value)
                 }
             }
         }
@@ -83,12 +106,12 @@ internal class TaskListsViewModel
     private fun onClickConfirmAddTaskList() {
         viewModelScope.launch(Dispatchers.IO) {
             repository.addTaskList(
-                name = _uiState.value.textFieldValue
+                name = _uiState.value.addTextFieldValue
             )
 
             _uiState.update {
                 it.copy(
-                    textFieldValue = "",
+                    addTextFieldValue = "",
                     isAddTaskListDialogVisible = false
                 )
             }
@@ -100,6 +123,18 @@ internal class TaskListsViewModel
             repository.deleteTaskListById(id = taskListId)
             _uiState.update {
                 it.copy(taskListForDeletion = null)
+            }
+        }
+    }
+
+    private fun onConfirmEditConfirmation(taskListId: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.updateTaskListName(
+                id = taskListId,
+                name = _uiState.value.editTextFieldValue
+            )
+            _uiState.update {
+                it.copy(taskListForEdit = null)
             }
         }
     }

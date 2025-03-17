@@ -6,9 +6,9 @@ import kotlinx.collections.immutable.persistentListOf
 
 data class TaskListsScreenState(
     val isAddTaskListDialogVisible: Boolean = false,
-    val textFieldValue: String = "",
+    val addTextFieldValue: String = "",
     val taskLists: ImmutableList<TaskListUi> = persistentListOf(),
     val taskListForDeletion: TaskListUi? = null,
-    val taskListForEdit: TaskListUi? = null
-
+    val taskListForEdit: TaskListUi? = null,
+    val editTextFieldValue: String = ""
 )
