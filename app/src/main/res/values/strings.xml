@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Crux</string>
+    <string name="common_default_table_name">Default</string>
 
     <string name="main_screen_new_task">New task</string>
 

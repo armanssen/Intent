@@ -8,7 +8,8 @@ internal interface AddOrEditTaskRepository {
 
     suspend fun insertTask(
         title: String,
-        createdAt: Long
+        createdAt: Long,
+        listId: Int
     )
 
     suspend fun updateTask(

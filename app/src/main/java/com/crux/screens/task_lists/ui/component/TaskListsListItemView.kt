@@ -33,6 +33,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.crux.R
 import com.crux.ui.model.TaskListUi
+import com.crux.util.DEFAULT_TASK_LIST_ID
 
 @Composable
 fun TaskListsListItemView(
@@ -104,19 +105,21 @@ fun TaskListsListItemView(
                         onClickEdit()
                     }
                 )
-                DropdownMenuItem(
-                    text = { Text("Delete") },
-                    leadingIcon = {
-                        Icon(
-                            imageVector = Icons.Outlined.DeleteOutline,
-                            contentDescription = "delete icon"
-                        )
-                    },
-                    onClick = {
-                        expanded = false
-                        onClickDelete()
-                    }
-                )
+                if (taskList.id != DEFAULT_TASK_LIST_ID) {
+                    DropdownMenuItem(
+                        text = { Text("Delete") },
+                        leadingIcon = {
+                            Icon(
+                                imageVector = Icons.Outlined.DeleteOutline,
+                                contentDescription = "delete icon"
+                            )
+                        },
+                        onClick = {
+                            expanded = false
+                            onClickDelete()
+                        }
+                    )
+                }
             }
         }
     }

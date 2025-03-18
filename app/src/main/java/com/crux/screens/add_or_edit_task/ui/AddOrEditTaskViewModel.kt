@@ -94,7 +94,8 @@ internal class AddOrEditTaskViewModel
             } else {
                 repository.insertTask(
                     title = title,
-                    createdAt = System.currentTimeMillis()
+                    createdAt = System.currentTimeMillis(),
+                    listId = 1, // TODO get from ui
                 )
             }
 

@@ -21,14 +21,16 @@ class AddOrEditTaskRepositoryImpl
 
     override suspend fun insertTask(
         title: String,
-        createdAt: Long
+        createdAt: Long,
+        listId: Int
     ) {
         database
             .taskEntityDao()
             .insert(
                 task = TaskEntity(
                     title = title,
-                    createdAt = createdAt
+                    createdAt = createdAt,
+                    listId = listId
                 )
             )
     }
