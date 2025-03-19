@@ -6,24 +6,19 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.Done
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.outlined.CalendarMonth
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
-import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -43,6 +38,9 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.crux.R
+import com.crux.screens.add_or_edit_task.ui.component.AddOrEditTaskFloatingActionButtonView
+import com.crux.screens.add_or_edit_task.ui.component.AddOrEditTaskTaskListSelectionView
+import com.crux.screens.add_or_edit_task.ui.component.AddOrEditTaskTopAppBarView
 import com.crux.util.LaunchAndRepeatWithLifecycle
 import com.crux.util.requestFocusWithDelay
 import kotlinx.coroutines.flow.collectLatest
@@ -86,59 +84,18 @@ internal fun AddOrEditTaskScreen(
             .nestedScroll(scrollBehavior.nestedScrollConnection),
         containerColor = MaterialTheme.colorScheme.surface,
         topBar = {
-            TopAppBar(
-                title = {
-                    if (uiState.task == null) {
-                        Text(
-                            text = stringResource(R.string.add_or_edit_task_screen_new_task_title)
-                        )
-                    }
-                },
-                navigationIcon = {
-                    IconButton(
-                        onClick = onClickBack,
-                        content = {
-                            Icon(
-                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                                contentDescription = "arrow back"
-                            )
-                        }
-                    )
-                },
-                actions = {
-                    uiState.task?.let { task ->
-                        IconButton(
-                            onClick = {
-                                onEvent(AddOrEditTaskScreenEvent.OnClickDelete(task.id))
-                            },
-                            content = {
-                                Icon(
-                                    imageVector = Icons.Default.Delete,
-                                    contentDescription = "delete icon"
-                                )
-                            }
-                        )
-                    }
+            AddOrEditTaskTopAppBarView(
+                task = uiState.task,
+                onClickBack = onClickBack,
+                onClickDelete = { id ->
+                    onEvent(AddOrEditTaskScreenEvent.OnClickDelete(id))
                 }
             )
         },
         floatingActionButton = {
-            ExtendedFloatingActionButton(
-                modifier = Modifier.imePadding(),
-                onClick = {
+            AddOrEditTaskFloatingActionButtonView(
+                onClickSave = {
                     onEvent(AddOrEditTaskScreenEvent.OnClickSave)
-                },
-                containerColor = MaterialTheme.colorScheme.primary,
-                icon = {
-                    Icon(
-                        imageVector = Icons.Default.Done,
-                        contentDescription = "done icon"
-                    )
-                },
-                text = {
-                    Text(
-                        text = stringResource(R.string.add_or_edit_task_screen_save_task)
-                    )
                 }
             )
         }
@@ -187,6 +144,28 @@ internal fun AddOrEditTaskScreen(
                     text = stringResource(R.string.add_or_edit_task_screen_due_date)
                 )
             }
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ){
+                AddOrEditTaskTaskListSelectionView(
+                    selectedTaskListId = uiState.selectedTaskListId,
+                    taskLists = uiState.taskLists,
+                    onSelectTaskList = {
+                        onEvent(AddOrEditTaskScreenEvent.OnSelectTaskList(it))
+                    },
+                    modifier = Modifier.weight(1f)
+                )
+                IconButton(
+                    onClick = {
+                    }
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Add,
+                        contentDescription = "add icon"
+                    )
+                }
+            }
+
         }
     }
 }

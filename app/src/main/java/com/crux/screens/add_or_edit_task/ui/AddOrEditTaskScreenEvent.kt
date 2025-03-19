@@ -11,4 +11,8 @@ internal sealed interface AddOrEditTaskScreenEvent {
     data class OnClickDelete(
         val id: Int
     ) : AddOrEditTaskScreenEvent
+
+    data class OnSelectTaskList(
+        val id: Int
+    ) : AddOrEditTaskScreenEvent
 }

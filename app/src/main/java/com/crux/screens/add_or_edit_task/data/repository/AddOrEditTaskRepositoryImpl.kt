@@ -4,7 +4,10 @@ import com.crux.data.database.AppDatabase
 import com.crux.data.database.model.TaskEntity
 import com.crux.data.database.model.toEntity
 import com.crux.domain.model.Task
+import com.crux.domain.model.TaskList
 import com.crux.screens.add_or_edit_task.domain.repository.AddOrEditTaskRepository
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class AddOrEditTaskRepositoryImpl
@@ -47,5 +50,13 @@ class AddOrEditTaskRepositoryImpl
         database
             .taskEntityDao()
             .deleteById(id = id)
+    }
+
+    override fun getTaskLists(): Flow<List<TaskList>> {
+        return database
+            .taskListEntityDao()
+            .getAllFlow().map { list ->
+                list.map { it.toDomain() }
+            }
     }
 }

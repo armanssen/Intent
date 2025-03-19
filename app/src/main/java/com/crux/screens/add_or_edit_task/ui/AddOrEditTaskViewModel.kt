@@ -7,6 +7,8 @@ import androidx.navigation.toRoute
 import com.crux.screens.add_or_edit_task.domain.repository.AddOrEditTaskRepository
 import com.crux.ui.model.toUi
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.collections.immutable.toPersistentList
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -36,6 +38,7 @@ internal class AddOrEditTaskViewModel
                 getTask(taskId)
             }
         }
+        collectTaskLists()
     }
 
     fun onEvent(event: AddOrEditTaskScreenEvent) {
@@ -54,6 +57,11 @@ internal class AddOrEditTaskViewModel
             is AddOrEditTaskScreenEvent.OnClickDelete -> {
                 onClickDelete(id = event.id)
             }
+            is AddOrEditTaskScreenEvent.OnSelectTaskList -> {
+                _uiState.update {
+                    it.copy(selectedTaskListId = event.id)
+                }
+            }
         }
     }
 
@@ -64,8 +72,23 @@ internal class AddOrEditTaskViewModel
             _uiState.update {
                 it.copy(
                     task = task,
-                    textFieldValue = task.title
+                    textFieldValue = task.title,
+                    selectedTaskListId = task.listId
                 )
+            }
+        }
+    }
+
+    private fun collectTaskLists() {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.getTaskLists().collect { taskLists ->
+                _uiState.update {
+                    it.copy(
+                        taskLists = taskLists
+                            .map { taskList -> taskList.toUi() }
+                            .toPersistentList()
+                    )
+                }
             }
         }
     }
@@ -88,14 +111,15 @@ internal class AddOrEditTaskViewModel
                 repository.updateTask(
                     task = task
                         .copy(
-                            title = title
+                            title = title,
+                            listId = _uiState.value.selectedTaskListId
                         ).toDomain()
                 )
             } else {
                 repository.insertTask(
                     title = title,
                     createdAt = System.currentTimeMillis(),
-                    listId = 1, // TODO get from ui
+                    listId = _uiState.value.selectedTaskListId,
                 )
             }
 
