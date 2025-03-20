@@ -55,16 +55,16 @@ internal fun TaskListsScreen(
                 verticalArrangement = Arrangement.spacedBy(4.dp),
                 contentPadding = PaddingValues(vertical = 8.dp, horizontal = 12.dp)
             ) {
-                items(uiState.taskLists) { taskList ->
+                items(uiState.taskLists) { item ->
                     TaskListsListItemView(
-                        taskList = taskList,
-                        taskCount = 12,
+                        taskList = item.taskList,
+                        taskCount = item.taskCount,
                         onClick = {},
                         onClickEdit = {
-                            onEvent(TaskListsScreenEvent.OnClickEdit(taskList))
+                            onEvent(TaskListsScreenEvent.OnClickEdit(item.taskList))
                         },
                         onClickDelete = {
-                            onEvent(TaskListsScreenEvent.OnClickDelete(taskList))
+                            onEvent(TaskListsScreenEvent.OnClickDelete(item.taskList))
                         }
                     )
                 }

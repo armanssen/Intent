@@ -1,12 +1,12 @@
 package com.crux.data.database.dao
 
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.crux.data.database.model.TaskListEntity
+import com.crux.data.database.model.TaskListWithCountQueryResult
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -31,4 +31,15 @@ interface TaskListEntityDao {
     // 🔹 Read Queries
     @Query("SELECT * FROM TaskListEntity")
     fun getAllFlow(): Flow<List<TaskListEntity>>
+
+    @Query("""
+        SELECT 
+            TaskListEntity.*,
+            COUNT(TaskEntity.id) AS taskCount 
+        FROM TaskListEntity
+        LEFT JOIN TaskEntity 
+            ON TaskListEntity.id = TaskEntity.listId
+        GROUP BY TaskListEntity.id
+    """)
+    fun getAllFlowWithTaskCount(): Flow<List<TaskListWithCountQueryResult>>
 }

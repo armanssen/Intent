@@ -2,7 +2,7 @@ package com.crux.screens.task_lists.data.repository
 
 import com.crux.data.database.AppDatabase
 import com.crux.data.database.model.TaskListEntity
-import com.crux.domain.model.TaskList
+import com.crux.domain.model.TaskListWithCount
 import com.crux.screens.task_lists.domain.repository.TaskListsRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -13,10 +13,10 @@ class TaskListsRepositoryImpl
     private val database: AppDatabase
 ) : TaskListsRepository {
 
-    override fun getAllTaskListsFlow(): Flow<List<TaskList>> {
+    override fun getAllTaskListsFlow(): Flow<List<TaskListWithCount>> {
         return database
             .taskListEntityDao()
-            .getAllFlow()
+            .getAllFlowWithTaskCount()
             .map { list ->
                 list.map {
                     it.toDomain()

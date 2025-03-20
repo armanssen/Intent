@@ -1,11 +1,11 @@
 package com.crux.screens.task_lists.domain.repository
 
-import com.crux.domain.model.TaskList
+import com.crux.domain.model.TaskListWithCount
 import kotlinx.coroutines.flow.Flow
 
 interface TaskListsRepository {
 
-    fun getAllTaskListsFlow(): Flow<List<TaskList>>
+    fun getAllTaskListsFlow(): Flow<List<TaskListWithCount>>
 
     suspend fun updateTaskListName(
         id: Int,
