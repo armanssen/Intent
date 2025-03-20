@@ -32,6 +32,7 @@ internal fun MainScreenDrawer(
     drawerState: DrawerState,
     onClickAppearance: () -> Unit,
     onClickTaskLists: () -> Unit,
+    onClickAbout: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val coroutineScope = rememberCoroutineScope()
@@ -93,6 +94,7 @@ internal fun MainScreenDrawer(
                     coroutineScope.launch {
                         drawerState.close()
                     }
+                    onClickAbout()
                 }
             )
         }

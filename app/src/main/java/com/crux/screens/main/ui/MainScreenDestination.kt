@@ -20,6 +20,7 @@ fun NavGraphBuilder.mainScreen(
     onClickTaskLists: () -> Unit,
     onClickAppearance: () -> Unit,
     onClickAddNewTask: () -> Unit,
+    onClickAbout: () -> Unit,
     onClickTask: (taskId: Int) -> Unit
 ) {
     composable<MainScreenDestination>(
@@ -42,7 +43,8 @@ fun NavGraphBuilder.mainScreen(
                 MainScreenDrawer(
                     drawerState = drawerState,
                     onClickAppearance = onClickAppearance,
-                    onClickTaskLists = onClickTaskLists
+                    onClickTaskLists = onClickTaskLists,
+                    onClickAbout = onClickAbout
                 )
             }
         ) {
