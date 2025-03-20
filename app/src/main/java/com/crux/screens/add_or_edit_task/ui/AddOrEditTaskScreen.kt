@@ -128,46 +128,34 @@ internal fun AddOrEditTaskScreen(
                 isError = uiState.isTextFieldIncorrect
             )
             Spacer(Modifier.height(36.dp))
-            Row(
-                modifier = Modifier
-                    .clickable {
-
-                    }
-                    .padding(vertical = 16.dp, horizontal = 16.dp)
-                    .fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Icon(
-                    imageVector = Icons.Outlined.CalendarMonth,
-                    contentDescription = "calendar icon"
-                )
-                Spacer(Modifier.width(8.dp))
-                Text(
-                    text = stringResource(R.string.add_or_edit_task_screen_due_date)
-                )
-            }
-            Row(
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                AddOrEditTaskTaskListSelectionView(
-                    selectedTaskListId = uiState.selectedTaskListId,
-                    taskLists = uiState.taskLists,
-                    onSelectTaskList = {
-                        onEvent(AddOrEditTaskScreenEvent.OnSelectTaskList(it))
-                    },
-                    modifier = Modifier.weight(1f)
-                )
-                IconButton(
-                    onClick = {
-                        onEvent(AddOrEditTaskScreenEvent.OnClickAddTaskList)
-                    }
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Add,
-                        contentDescription = "add icon"
-                    )
+//            Row(
+//                modifier = Modifier
+//                    .clickable {
+//
+//                    }
+//                    .padding(vertical = 16.dp, horizontal = 16.dp)
+//                    .fillMaxWidth(),
+//                verticalAlignment = Alignment.CenterVertically
+//            ) {
+//                Icon(
+//                    imageVector = Icons.Outlined.CalendarMonth,
+//                    contentDescription = "calendar icon"
+//                )
+//                Spacer(Modifier.width(8.dp))
+//                Text(
+//                    text = stringResource(R.string.add_or_edit_task_screen_due_date)
+//                )
+//            }
+            AddOrEditTaskTaskListSelectionView(
+                selectedTaskListId = uiState.selectedTaskListId,
+                taskLists = uiState.taskLists,
+                onSelectTaskList = {
+                    onEvent(AddOrEditTaskScreenEvent.OnSelectTaskList(it))
+                },
+                onClickAdd = {
+                    onEvent(AddOrEditTaskScreenEvent.OnClickAddTaskList)
                 }
-            }
+            )
         }
     }
 
