@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.crux.R
-import com.crux.screens.task_lists.ui.component.AddOrEditTaskListDialogView
+import com.crux.ui.component.AddOrEditTaskListDialogView
 import com.crux.screens.task_lists.ui.component.DeleteTaskListDialogView
 import com.crux.screens.task_lists.ui.component.TaskListsListItemView
 import com.crux.screens.task_lists.ui.component.TaskListsTopAppBarView

@@ -2,6 +2,7 @@ package com.crux.screens.add_or_edit_task.data.repository
 
 import com.crux.data.database.AppDatabase
 import com.crux.data.database.model.TaskEntity
+import com.crux.data.database.model.TaskListEntity
 import com.crux.data.database.model.toEntity
 import com.crux.domain.model.Task
 import com.crux.domain.model.TaskList
@@ -58,5 +59,13 @@ class AddOrEditTaskRepositoryImpl
             .getAllFlow().map { list ->
                 list.map { it.toDomain() }
             }
+    }
+
+    override suspend fun addTaskList(name: String): Long {
+        return database
+            .taskListEntityDao()
+            .insert(
+                taskList = TaskListEntity(name = name)
+            )
     }
 }

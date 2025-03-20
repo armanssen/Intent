@@ -15,4 +15,14 @@ internal sealed interface AddOrEditTaskScreenEvent {
     data class OnSelectTaskList(
         val id: Int
     ) : AddOrEditTaskScreenEvent
+
+    data object OnClickAddTaskList : AddOrEditTaskScreenEvent
+
+    data object OnClickDismissAddTaskListDialog : AddOrEditTaskScreenEvent
+
+    data object OnClickConfirmAddTaskList : AddOrEditTaskScreenEvent
+
+    data class OnAddTextFieldValueChange(
+        val value: String
+    ) : AddOrEditTaskScreenEvent
 }

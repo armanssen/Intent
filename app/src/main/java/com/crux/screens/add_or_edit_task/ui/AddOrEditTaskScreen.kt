@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material.icons.outlined.CalendarMonth
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -41,6 +42,7 @@ import com.crux.R
 import com.crux.screens.add_or_edit_task.ui.component.AddOrEditTaskFloatingActionButtonView
 import com.crux.screens.add_or_edit_task.ui.component.AddOrEditTaskTaskListSelectionView
 import com.crux.screens.add_or_edit_task.ui.component.AddOrEditTaskTopAppBarView
+import com.crux.ui.component.AddOrEditTaskListDialogView
 import com.crux.util.LaunchAndRepeatWithLifecycle
 import com.crux.util.requestFocusWithDelay
 import kotlinx.coroutines.flow.collectLatest
@@ -146,7 +148,7 @@ internal fun AddOrEditTaskScreen(
             }
             Row(
                 verticalAlignment = Alignment.CenterVertically
-            ){
+            ) {
                 AddOrEditTaskTaskListSelectionView(
                     selectedTaskListId = uiState.selectedTaskListId,
                     taskLists = uiState.taskLists,
@@ -157,6 +159,7 @@ internal fun AddOrEditTaskScreen(
                 )
                 IconButton(
                     onClick = {
+                        onEvent(AddOrEditTaskScreenEvent.OnClickAddTaskList)
                     }
                 ) {
                     Icon(
@@ -165,7 +168,23 @@ internal fun AddOrEditTaskScreen(
                     )
                 }
             }
-
         }
+    }
+
+    if (uiState.isAddTaskListDialogVisible) {
+        AddOrEditTaskListDialogView(
+            icon = Icons.Outlined.Add,
+            title = stringResource(R.string.task_lists_add_task_list_title),
+            textFieldValue = uiState.addTextFieldValue,
+            onValueChange = {
+                onEvent(AddOrEditTaskScreenEvent.OnAddTextFieldValueChange(it))
+            },
+            onDismissRequest = {
+                onEvent(AddOrEditTaskScreenEvent.OnClickDismissAddTaskListDialog)
+            },
+            onConfirmation = {
+                onEvent(AddOrEditTaskScreenEvent.OnClickConfirmAddTaskList)
+            }
+        )
     }
 }

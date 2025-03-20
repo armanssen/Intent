@@ -62,6 +62,25 @@ internal class AddOrEditTaskViewModel
                     it.copy(selectedTaskListId = event.id)
                 }
             }
+
+            is AddOrEditTaskScreenEvent.OnAddTextFieldValueChange -> {
+                _uiState.update {
+                    it.copy(addTextFieldValue = event.value)
+                }
+            }
+            AddOrEditTaskScreenEvent.OnClickAddTaskList -> {
+                _uiState.update {
+                    it.copy(isAddTaskListDialogVisible = true)
+                }
+            }
+            AddOrEditTaskScreenEvent.OnClickConfirmAddTaskList -> {
+                onClickConfirmAddTaskList()
+            }
+            AddOrEditTaskScreenEvent.OnClickDismissAddTaskListDialog -> {
+                _uiState.update {
+                    it.copy(isAddTaskListDialogVisible = false)
+                }
+            }
         }
     }
 
@@ -131,6 +150,22 @@ internal class AddOrEditTaskViewModel
         viewModelScope.launch {
             repository.deleteTaskById(id = id)
             _sideEffects.send(AddOrEditTaskScreenSideEffect.TaskDeleted)
+        }
+    }
+
+    private fun onClickConfirmAddTaskList() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val newTaskListId = repository.addTaskList(
+                name = _uiState.value.addTextFieldValue
+            )
+
+            _uiState.update {
+                it.copy(
+                    selectedTaskListId = newTaskListId.toInt(),
+                    addTextFieldValue = "",
+                    isAddTaskListDialogVisible = false
+                )
+            }
         }
     }
 }

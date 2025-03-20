@@ -14,7 +14,7 @@ interface TaskListEntityDao {
 
     // 🔹 Write Queries
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(taskList: TaskListEntity)
+    suspend fun insert(taskList: TaskListEntity): Long
 
     @Update
     suspend fun update(taskList: TaskListEntity)

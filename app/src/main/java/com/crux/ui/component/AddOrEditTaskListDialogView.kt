@@ -1,4 +1,4 @@
-package com.crux.screens.task_lists.ui.component
+package com.crux.ui.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -11,9 +11,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.DeleteOutline
-import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -36,7 +33,7 @@ import androidx.compose.ui.window.Dialog
 import com.crux.util.requestFocusWithDelay
 
 @Composable
-internal fun AddOrEditTaskListDialogView(
+fun AddOrEditTaskListDialogView(
     icon: ImageVector,
     title: String,
     textFieldValue: String,
