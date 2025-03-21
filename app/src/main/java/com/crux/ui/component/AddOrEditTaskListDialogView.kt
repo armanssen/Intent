@@ -52,7 +52,7 @@ fun AddOrEditTaskListDialogView(
         Column(
             modifier = Modifier
                 .clip(RoundedCornerShape(4.dp))
-                .background(MaterialTheme.colorScheme.surface)
+                .background(MaterialTheme.colorScheme.surfaceContainer)
                 .padding(16.dp)
         ) {
             Row(
@@ -61,13 +61,15 @@ fun AddOrEditTaskListDialogView(
             ) {
                 Icon(
                     imageVector = icon,
-                    contentDescription = "dialog icon"
+                    contentDescription = "dialog icon",
+                    tint = MaterialTheme.colorScheme.onSurface
                 )
             }
             Spacer(Modifier.height(16.dp))
             Text(
                 text = title,
-                style = MaterialTheme.typography.titleLarge
+                style = MaterialTheme.typography.titleLarge,
+                color = MaterialTheme.colorScheme.onSurface
             )
             OutlinedTextField(
                 modifier = Modifier

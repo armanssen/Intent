@@ -38,7 +38,7 @@ internal fun DeleteTaskListDialogView(
         Column(
             modifier = Modifier
                 .clip(RoundedCornerShape(4.dp))
-                .background(MaterialTheme.colorScheme.surface)
+                .background(MaterialTheme.colorScheme.surfaceContainer)
                 .padding(16.dp)
         ) {
             Row(
@@ -47,17 +47,20 @@ internal fun DeleteTaskListDialogView(
             ) {
                 Icon(
                     imageVector = Icons.Outlined.DeleteOutline,
-                    contentDescription = "delete icon"
+                    contentDescription = "delete icon",
+                    tint = MaterialTheme.colorScheme.onSurface
                 )
             }
             Spacer(Modifier.height(16.dp))
             Text(
                 text = "Are you sure?",
-                style = MaterialTheme.typography.titleLarge
+                style = MaterialTheme.typography.titleLarge,
+                color = MaterialTheme.colorScheme.onSurface
             )
             Spacer(Modifier.height(4.dp))
             Text(
-                text = "All tasks from the list \"${taskListUi.name}\" will also be deleted"
+                text = "All tasks from the list \"${taskListUi.name}\" will also be deleted",
+                color = MaterialTheme.colorScheme.onSurface
             )
             Row(
                 modifier = Modifier.fillMaxWidth(),
