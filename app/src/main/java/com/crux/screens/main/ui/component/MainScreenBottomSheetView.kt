@@ -1,7 +1,14 @@
 package com.crux.screens.main.ui.component
 
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
@@ -19,12 +26,15 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
+import com.crux.ui.model.TaskListWithCountUi
+import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun MainScreenBottomSheetView(
     sheetState: SheetState,
+    taskLists: ImmutableList<TaskListWithCountUi>,
     onDismissRequest: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -74,10 +84,27 @@ internal fun MainScreenBottomSheetView(
                 }
             )
             LazyColumn {
-                items(125) {
-                    Text(
-                        "Item $it"
-                    )
+                items(taskLists) { taskList ->
+                    Row(
+                        modifier = Modifier
+                            .clickable(
+                                onClick = {
+
+                                }
+                            )
+                            .padding(16.dp)
+                    ) {
+                        Column(modifier = Modifier.weight(1f)) {
+                            Text(
+                                text = taskList.taskList.name
+                            )
+                            Spacer(Modifier.height(4.dp))
+                            Text(
+                                text = "Tasks: ${taskList.taskCount}",
+                                style = MaterialTheme.typography.bodyMedium
+                            )
+                        }
+                    }
                 }
             }
         }

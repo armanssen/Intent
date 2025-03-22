@@ -94,6 +94,7 @@ internal fun MainScreen(
     if (isBottomSheetVisible) {
         MainScreenBottomSheetView(
             sheetState = bottomSheetState,
+            taskLists = uiState.taskLists,
             onDismissRequest = {
                 isBottomSheetVisible = false
             }

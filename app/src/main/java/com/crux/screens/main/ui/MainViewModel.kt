@@ -25,6 +25,7 @@ internal class MainViewModel
 
     init {
         collectAllTasks()
+        collectAllTaskLists()
     }
 
     fun onEvent(event: MainScreenEvent) {
@@ -46,6 +47,21 @@ internal class MainViewModel
                         it.copy(
                             tasks = tasks
                                 .map { task -> task.toUi() }
+                                .toPersistentList()
+                        )
+                    }
+                }
+        }
+    }
+
+    private fun collectAllTaskLists() {
+        viewModelScope.launch {
+            repository.getAllTaskListsFlow()
+                .collectLatest { taskLists ->
+                    _uiState.update {
+                        it.copy(
+                            taskLists = taskLists
+                                .map { taskList -> taskList.toUi() }
                                 .toPersistentList()
                         )
                     }
