@@ -88,8 +88,7 @@ private fun ThemeItemView(
         )
         Icon(
             imageVector = icon,
-            contentDescription = "theme icon",
-            tint = LocalContentColor.current
+            contentDescription = "theme icon"
         )
         Spacer(Modifier.width(12.dp))
         Text(
