@@ -1,6 +1,5 @@
 package com.crux.screens.main.ui
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -10,20 +9,15 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
@@ -34,11 +28,11 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.crux.R
+import com.crux.screens.main.ui.component.MainScreenFloatingActionButtonView
+import com.crux.screens.main.ui.component.MainScreenTopAppBarView
 import com.crux.screens.main.ui.component.TaskListItemView
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -63,50 +57,18 @@ internal fun MainScreen(
             .nestedScroll(scrollBehavior.nestedScrollConnection),
         containerColor = MaterialTheme.colorScheme.surface,
         topBar = {
-            TopAppBar(
+            MainScreenTopAppBarView(
                 scrollBehavior = scrollBehavior,
-                title = {
-                    Text(
-                        text = "Default",
-                        modifier = Modifier
-                            .clickable(
-                                onClick = {
-                                    openBottomSheet = !openBottomSheet
-                                }
-                            )
-                    )
-                },
-                navigationIcon = {
-                    IconButton(
-                        onClick = {
-                            onClickMenu()
-                        },
-                        content = {
-                            Icon(
-                                imageVector = Icons.Default.Menu,
-                                contentDescription = "menu icon"
-                            )
-                        }
-                    )
+                onClickMenu = onClickMenu,
+                onClickOpenBottomSheet = {
+                    openBottomSheet = !openBottomSheet
                 }
             )
         },
         floatingActionButton = {
-            ExtendedFloatingActionButton(
-                onClick = onClickAddNewTask,
+            MainScreenFloatingActionButtonView(
                 expanded = true,
-                containerColor = MaterialTheme.colorScheme.primary,
-                icon = {
-                    Icon(
-                        imageVector = Icons.Default.Add,
-                        contentDescription = "add icon"
-                    )
-                },
-                text = {
-                    Text(
-                        text = stringResource(R.string.main_screen_new_task)
-                    )
-                }
+                onClick = onClickAddNewTask
             )
         }
     ) { padding ->
