@@ -8,12 +8,19 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.BrightnessAuto
+import androidx.compose.material.icons.outlined.DarkMode
+import androidx.compose.material.icons.outlined.LightMode
+import androidx.compose.material3.Icon
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.crux.R
@@ -35,6 +42,7 @@ internal fun AppearanceChooseThemeView(
         )
         Spacer(Modifier.height(4.dp))
         ThemeItemView(
+            icon = Icons.Outlined.LightMode,
             title = stringResource(R.string.appearance_screen_light_theme_title),
             isSelected = selectedAppTheme == AppTheme.LIGHT,
             onClick = {
@@ -42,6 +50,7 @@ internal fun AppearanceChooseThemeView(
             }
         )
         ThemeItemView(
+            icon = Icons.Outlined.DarkMode,
             title = stringResource(R.string.appearance_screen_dark_theme_title),
             isSelected = selectedAppTheme == AppTheme.DARK,
             onClick = {
@@ -49,6 +58,7 @@ internal fun AppearanceChooseThemeView(
             }
         )
         ThemeItemView(
+            icon = Icons.Outlined.BrightnessAuto,
             title = stringResource(R.string.appearance_screen_system_default_title),
             isSelected = selectedAppTheme == AppTheme.SYSTEM_DEFAULT,
             onClick = {
@@ -60,6 +70,7 @@ internal fun AppearanceChooseThemeView(
 
 @Composable
 private fun ThemeItemView(
+    icon: ImageVector,
     title: String,
     isSelected: Boolean,
     onClick: () -> Unit,
@@ -75,9 +86,15 @@ private fun ThemeItemView(
             selected = isSelected,
             onClick = onClick
         )
-        Spacer(Modifier.width(4.dp))
+        Icon(
+            imageVector = icon,
+            contentDescription = "theme icon",
+            tint = LocalContentColor.current
+        )
+        Spacer(Modifier.width(12.dp))
         Text(
-            text = title
+            text = title,
+            modifier = Modifier.weight(1f)
         )
     }
 }
