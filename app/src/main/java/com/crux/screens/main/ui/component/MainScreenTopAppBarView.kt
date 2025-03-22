@@ -15,10 +15,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.crux.ui.model.TaskListWithCountUi
+import kotlinx.collections.immutable.ImmutableList
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun MainScreenTopAppBarView(
+    selectedTaskListId: Int,
+    taskLists: ImmutableList<TaskListWithCountUi>,
     scrollBehavior: TopAppBarScrollBehavior,
     onClickMenu: () -> Unit,
     onClickOpenBottomSheet: () -> Unit,
@@ -35,8 +39,9 @@ internal fun MainScreenTopAppBarView(
                 contentAlignment = Alignment.Center,
                 content = {
                     Text(
-                        text = "Default",
-
+                        text = taskLists.find {
+                            it.taskList.id == selectedTaskListId
+                        }?.taskList?.name ?: "No task list selected"
                     )
                 }
             )

@@ -48,6 +48,8 @@ internal fun MainScreen(
         containerColor = MaterialTheme.colorScheme.surface,
         topBar = {
             MainScreenTopAppBarView(
+                selectedTaskListId = uiState.selectedTaskListId,
+                taskLists = uiState.taskLists,
                 scrollBehavior = scrollBehavior,
                 onClickMenu = onClickMenu,
                 onClickOpenBottomSheet = {

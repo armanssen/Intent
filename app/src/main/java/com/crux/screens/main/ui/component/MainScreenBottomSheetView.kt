@@ -70,13 +70,13 @@ internal fun MainScreenBottomSheetView(
                         onClick = {
                             // Note: If you provide logic outside of onDismissRequest to remove the sheet,
                             // you must additionally handle intended state cleanup, if any.
-                            coroutineScope
-                                .launch { sheetState.hide() }
-                                .invokeOnCompletion {
-                                    if (!sheetState.isVisible) {
-                                        onDismissRequest()
-                                    }
+                            coroutineScope.launch {
+                                sheetState.hide()
+                            }.invokeOnCompletion {
+                                if (!sheetState.isVisible) {
+                                    onDismissRequest()
                                 }
+                            }
                         },
                         content = {
                             Icon(
@@ -94,6 +94,13 @@ internal fun MainScreenBottomSheetView(
                             .clickable(
                                 onClick = {
                                     onSelectTaskList(taskList.taskList.id)
+                                    coroutineScope.launch {
+                                        sheetState.hide()
+                                    }.invokeOnCompletion {
+                                        if (!sheetState.isVisible) {
+                                            onDismissRequest()
+                                        }
+                                    }
                                 }
                             )
                             .padding(horizontal = 16.dp, vertical = 12.dp),
