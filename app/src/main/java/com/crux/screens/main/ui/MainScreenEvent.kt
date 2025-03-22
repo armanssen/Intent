@@ -8,4 +8,8 @@ sealed interface MainScreenEvent {
         val task: TaskUi,
         val isChecked: Boolean
     ) : MainScreenEvent
+
+    data class OnSelectTaskList(
+        val taskListId: Int
+    ) : MainScreenEvent
 }

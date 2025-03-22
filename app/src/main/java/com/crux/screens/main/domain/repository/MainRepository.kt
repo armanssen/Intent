@@ -14,4 +14,10 @@ internal interface MainRepository {
         id: Int,
         isCompleted: Boolean
     )
+
+    suspend fun setSelectedTaskListId(
+        taskListId: Int
+    )
+
+    fun getSelectedTaskListIdFlow(): Flow<Int>
 }

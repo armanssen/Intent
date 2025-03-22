@@ -93,10 +93,14 @@ internal fun MainScreen(
 
     if (isBottomSheetVisible) {
         MainScreenBottomSheetView(
+            selectedTaskListId = uiState.selectedTaskListId,
             sheetState = bottomSheetState,
             taskLists = uiState.taskLists,
             onDismissRequest = {
                 isBottomSheetVisible = false
+            },
+            onSelectTaskList = { taskListId ->
+                onEvent(MainScreenEvent.OnSelectTaskList(taskListId))
             }
         )
     }

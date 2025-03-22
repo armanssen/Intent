@@ -11,6 +11,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -23,6 +24,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
@@ -33,9 +35,11 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun MainScreenBottomSheetView(
+    selectedTaskListId: Int,
     sheetState: SheetState,
     taskLists: ImmutableList<TaskListWithCountUi>,
     onDismissRequest: () -> Unit,
+    onSelectTaskList: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val coroutineScope = rememberCoroutineScope()
@@ -89,10 +93,11 @@ internal fun MainScreenBottomSheetView(
                         modifier = Modifier
                             .clickable(
                                 onClick = {
-
+                                    onSelectTaskList(taskList.taskList.id)
                                 }
                             )
-                            .padding(16.dp)
+                            .padding(horizontal = 16.dp, vertical = 12.dp),
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
                         Column(modifier = Modifier.weight(1f)) {
                             Text(
@@ -102,6 +107,12 @@ internal fun MainScreenBottomSheetView(
                             Text(
                                 text = "Tasks: ${taskList.taskCount}",
                                 style = MaterialTheme.typography.bodyMedium
+                            )
+                        }
+                        if (selectedTaskListId == taskList.taskList.id) {
+                            Icon(
+                                imageVector = Icons.Default.Check,
+                                contentDescription = "check icon"
                             )
                         }
                     }

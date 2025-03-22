@@ -1,6 +1,11 @@
 package com.crux.screens.main.data.repository
 
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.edit
 import com.crux.data.database.AppDatabase
+import com.crux.data.datastore.PreferenceDefaultValues
+import com.crux.data.datastore.PreferenceKeys
 import com.crux.domain.model.Task
 import com.crux.domain.model.TaskListWithCount
 import com.crux.screens.main.domain.repository.MainRepository
@@ -10,7 +15,8 @@ import javax.inject.Inject
 
 class MainRepositoryImpl
 @Inject constructor(
-    private val database: AppDatabase
+    private val database: AppDatabase,
+    private val appPreferences: DataStore<Preferences>
 ) : MainRepository {
 
     override fun getAllTasksFlow(): Flow<List<Task>> {
@@ -45,5 +51,18 @@ class MainRepositoryImpl
                 id = id,
                 isCompleted = isCompleted
             )
+    }
+
+    override suspend fun setSelectedTaskListId(taskListId: Int) {
+        appPreferences.edit { preferences ->
+            preferences[PreferenceKeys.SELECTED_TASK_LIST_ID] = taskListId
+        }
+    }
+
+    override fun getSelectedTaskListIdFlow(): Flow<Int> {
+        return appPreferences.data.map {
+            it[PreferenceKeys.SELECTED_TASK_LIST_ID]
+                ?: PreferenceDefaultValues.SELECTED_TASK_LIST_ID
+        }
     }
 }

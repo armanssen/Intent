@@ -26,6 +26,7 @@ internal class MainViewModel
     init {
         collectAllTasks()
         collectAllTaskLists()
+        collectSelectedTaskListId()
     }
 
     fun onEvent(event: MainScreenEvent) {
@@ -34,6 +35,11 @@ internal class MainViewModel
                 onCheckedChange(
                     task = event.task,
                     isChecked = event.isChecked
+                )
+            }
+            is MainScreenEvent.OnSelectTaskList -> {
+                onSelectTaskList(
+                    taskListId = event.taskListId
                 )
             }
         }
@@ -69,6 +75,17 @@ internal class MainViewModel
         }
     }
 
+    private fun collectSelectedTaskListId() {
+        viewModelScope.launch {
+            repository.getSelectedTaskListIdFlow()
+                .collectLatest { taskListId ->
+                    _uiState.update {
+                        it.copy(selectedTaskListId = taskListId)
+                    }
+                }
+        }
+    }
+
     private fun onCheckedChange(
         task: TaskUi,
         isChecked: Boolean
@@ -77,6 +94,14 @@ internal class MainViewModel
             repository.updateTaskCompletion(
                 id = task.id,
                 isCompleted = isChecked
+            )
+        }
+    }
+
+    private fun onSelectTaskList(taskListId: Int) {
+        viewModelScope.launch {
+            repository.setSelectedTaskListId(
+                taskListId = taskListId
             )
         }
     }

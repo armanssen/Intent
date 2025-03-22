@@ -53,7 +53,7 @@ class MainViewModel
     private fun collectIsDynamicColorEnabled() {
         viewModelScope.launch(Dispatchers.IO) {
             context.appPreferences.data.map {
-                it[PreferenceKeys.IS_DYNAMIC_COLOR_ENABLED] ?: false
+                it[PreferenceKeys.IS_DYNAMIC_COLOR_ENABLED] == true
             }.collectLatest { isDynamicColorEnabled ->
                 _uiState.update {
                     it.copy(isDynamicColorEnabled = isDynamicColorEnabled)
