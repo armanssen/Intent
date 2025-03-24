@@ -1,4 +1,4 @@
-package com.crux.screens.main.ui
+package com.crux.screens.home.ui
 
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.scaleIn
@@ -14,16 +14,16 @@ import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
 
 @Serializable
-object MainScreenDestination
+object HomeScreenDestination
 
-fun NavGraphBuilder.mainScreen(
+fun NavGraphBuilder.homeScreen(
     onClickTaskLists: () -> Unit,
     onClickAppearance: () -> Unit,
     onClickAddNewTask: () -> Unit,
     onClickAbout: () -> Unit,
     onClickTask: (taskId: Int) -> Unit
 ) {
-    composable<MainScreenDestination>(
+    composable<HomeScreenDestination>(
         popEnterTransition = {
             scaleIn(
                 animationSpec = tween(300),
@@ -48,7 +48,7 @@ fun NavGraphBuilder.mainScreen(
                 )
             }
         ) {
-            MainScreen(
+            HomeScreen(
                 onClickAddNewTask = onClickAddNewTask,
                 onClickTask = onClickTask,
                 onClickMenu = {

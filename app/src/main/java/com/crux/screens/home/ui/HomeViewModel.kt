@@ -1,8 +1,8 @@
-package com.crux.screens.main.ui
+package com.crux.screens.home.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.crux.screens.main.domain.repository.MainRepository
+import com.crux.screens.home.domain.repository.HomeRepository
 import com.crux.ui.model.TaskUi
 import com.crux.ui.model.toUi
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,12 +15,12 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-internal class MainViewModel
+internal class HomeViewModel
 @Inject constructor(
-    private val repository: MainRepository
+    private val repository: HomeRepository
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow(MainScreenState())
+    private val _uiState = MutableStateFlow(HomeScreenState())
     val uiState = _uiState.asStateFlow()
 
     init {
@@ -29,15 +29,15 @@ internal class MainViewModel
         collectSelectedTaskListId()
     }
 
-    fun onEvent(event: MainScreenEvent) {
+    fun onEvent(event: HomeScreenEvent) {
         when (event) {
-            is MainScreenEvent.OnCheckedChange -> {
+            is HomeScreenEvent.OnCheckedChange -> {
                 onCheckedChange(
                     task = event.task,
                     isChecked = event.isChecked
                 )
             }
-            is MainScreenEvent.OnSelectTaskList -> {
+            is HomeScreenEvent.OnSelectTaskList -> {
                 onSelectTaskList(
                     taskListId = event.taskListId
                 )

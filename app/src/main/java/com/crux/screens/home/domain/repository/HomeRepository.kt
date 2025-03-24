@@ -1,10 +1,10 @@
-package com.crux.screens.main.domain.repository
+package com.crux.screens.home.domain.repository
 
 import com.crux.domain.model.Task
 import com.crux.domain.model.TaskListWithCount
 import kotlinx.coroutines.flow.Flow
 
-internal interface MainRepository {
+internal interface HomeRepository {
 
     fun getAllTasksFlow(): Flow<List<Task>>
 

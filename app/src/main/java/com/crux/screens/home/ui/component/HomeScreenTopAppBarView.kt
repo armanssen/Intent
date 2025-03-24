@@ -1,4 +1,4 @@
-package com.crux.screens.main.ui.component
+package com.crux.screens.home.ui.component
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box

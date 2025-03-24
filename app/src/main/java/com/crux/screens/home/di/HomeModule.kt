@@ -1,7 +1,7 @@
-package com.crux.screens.main.di
+package com.crux.screens.home.di
 
-import com.crux.screens.main.data.repository.MainRepositoryImpl
-import com.crux.screens.main.domain.repository.MainRepository
+import com.crux.screens.home.data.repository.HomeRepositoryImpl
+import com.crux.screens.home.domain.repository.HomeRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -10,15 +10,15 @@ import dagger.hilt.android.scopes.ViewModelScoped
 
 @Module
 @InstallIn(ViewModelComponent::class)
-internal object MainModule {
+internal object HomeModule {
 
     @Module
     @InstallIn(ViewModelComponent::class)
     internal abstract class RepositoryModule {
         @Binds
         @ViewModelScoped
-        abstract fun bindMainRepository(
-            impl: MainRepositoryImpl
-        ): MainRepository
+        abstract fun bindHomeRepository(
+            impl: HomeRepositoryImpl
+        ): HomeRepository
     }
 }

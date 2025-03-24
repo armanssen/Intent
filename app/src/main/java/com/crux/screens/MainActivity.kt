@@ -28,8 +28,8 @@ import com.crux.screens.appearance.ui.AppearanceScreenDestination
 import com.crux.screens.appearance.ui.appearanceScreen
 import com.crux.screens.about.AboutScreenDestination
 import com.crux.screens.about.aboutScreen
-import com.crux.screens.main.ui.MainScreenDestination
-import com.crux.screens.main.ui.mainScreen
+import com.crux.screens.home.ui.HomeScreenDestination
+import com.crux.screens.home.ui.homeScreen
 import com.crux.screens.task_lists.ui.TaskListsDestination
 import com.crux.screens.task_lists.ui.taskListsScreen
 import com.crux.ui.theme.CruxTheme
@@ -92,9 +92,9 @@ class MainActivity : ComponentActivity() {
 
                     NavHost(
                         navController = navController,
-                        startDestination = MainScreenDestination
+                        startDestination = HomeScreenDestination
                     ) {
-                        mainScreen(
+                        homeScreen(
                             onClickAddNewTask = {
                                 navController.navigate(
                                     AddOrEditTaskScreenDestination()

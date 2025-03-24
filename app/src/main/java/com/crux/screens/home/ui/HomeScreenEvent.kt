@@ -1,15 +1,15 @@
-package com.crux.screens.main.ui
+package com.crux.screens.home.ui
 
 import com.crux.ui.model.TaskUi
 
-sealed interface MainScreenEvent {
+sealed interface HomeScreenEvent {
 
     data class OnCheckedChange(
         val task: TaskUi,
         val isChecked: Boolean
-    ) : MainScreenEvent
+    ) : HomeScreenEvent
 
     data class OnSelectTaskList(
         val taskListId: Int
-    ) : MainScreenEvent
+    ) : HomeScreenEvent
 }

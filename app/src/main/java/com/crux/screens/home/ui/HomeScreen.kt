@@ -1,4 +1,4 @@
-package com.crux.screens.main.ui
+package com.crux.screens.home.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -21,21 +21,21 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.crux.screens.main.ui.component.MainScreenBottomSheetView
-import com.crux.screens.main.ui.component.MainScreenFloatingActionButtonView
-import com.crux.screens.main.ui.component.MainScreenTopAppBarView
-import com.crux.screens.main.ui.component.TaskListItemView
+import com.crux.screens.home.ui.component.HomeScreenBottomSheetView
+import com.crux.screens.home.ui.component.MainScreenFloatingActionButtonView
+import com.crux.screens.home.ui.component.MainScreenTopAppBarView
+import com.crux.screens.home.ui.component.TaskListItemView
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun MainScreen(
+internal fun HomeScreen(
     onClickAddNewTask: () -> Unit,
     onClickMenu: () -> Unit,
     onClickTask: (taskId: Int) -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: MainViewModel = hiltViewModel(),
-    uiState: MainScreenState = viewModel.uiState.collectAsStateWithLifecycle().value,
-    onEvent: (MainScreenEvent) -> Unit = viewModel::onEvent
+    viewModel: HomeViewModel = hiltViewModel(),
+    uiState: HomeScreenState = viewModel.uiState.collectAsStateWithLifecycle().value,
+    onEvent: (HomeScreenEvent) -> Unit = viewModel::onEvent
 ) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
 
@@ -80,7 +80,7 @@ internal fun MainScreen(
                             },
                             onCheckedChange = { isChecked ->
                                 onEvent(
-                                    MainScreenEvent.OnCheckedChange(
+                                    HomeScreenEvent.OnCheckedChange(
                                         task = task,
                                         isChecked = isChecked
                                     )
@@ -94,7 +94,7 @@ internal fun MainScreen(
     }
 
     if (isBottomSheetVisible) {
-        MainScreenBottomSheetView(
+        HomeScreenBottomSheetView(
             selectedTaskListId = uiState.selectedTaskListId,
             sheetState = bottomSheetState,
             taskLists = uiState.taskLists,
@@ -102,7 +102,7 @@ internal fun MainScreen(
                 isBottomSheetVisible = false
             },
             onSelectTaskList = { taskListId ->
-                onEvent(MainScreenEvent.OnSelectTaskList(taskListId))
+                onEvent(HomeScreenEvent.OnSelectTaskList(taskListId))
             }
         )
     }

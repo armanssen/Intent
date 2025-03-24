@@ -1,4 +1,4 @@
-package com.crux.screens.main.data.repository
+package com.crux.screens.home.data.repository
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
@@ -8,16 +8,16 @@ import com.crux.data.datastore.PreferenceDefaultValues
 import com.crux.data.datastore.PreferenceKeys
 import com.crux.domain.model.Task
 import com.crux.domain.model.TaskListWithCount
-import com.crux.screens.main.domain.repository.MainRepository
+import com.crux.screens.home.domain.repository.HomeRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-class MainRepositoryImpl
+class HomeRepositoryImpl
 @Inject constructor(
     private val database: AppDatabase,
     private val appPreferences: DataStore<Preferences>
-) : MainRepository {
+) : HomeRepository {
 
     override fun getAllTasksFlow(): Flow<List<Task>> {
         return database

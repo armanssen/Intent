@@ -1,4 +1,4 @@
-package com.crux.screens.main.ui.component
+package com.crux.screens.home.ui.component
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -34,7 +34,7 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun MainScreenBottomSheetView(
+internal fun HomeScreenBottomSheetView(
     selectedTaskListId: Int,
     sheetState: SheetState,
     taskLists: ImmutableList<TaskListWithCountUi>,

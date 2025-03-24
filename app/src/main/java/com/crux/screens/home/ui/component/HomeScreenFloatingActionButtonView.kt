@@ -1,4 +1,4 @@
-package com.crux.screens.main.ui.component
+package com.crux.screens.home.ui.component
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
