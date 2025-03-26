@@ -72,7 +72,10 @@ internal fun HomeScreen(
                     horizontal = 12.dp
                 ),
                 content = {
-                    items(uiState.tasks) { task ->
+                    items(
+                        items = uiState.tasks,
+                        key = { it.id }
+                    ) { task ->
                         TaskListItemView(
                             task = task,
                             onClick = {

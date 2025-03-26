@@ -1,7 +1,11 @@
 package com.crux.screens.task_lists.data.repository
 
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.edit
 import com.crux.data.database.AppDatabase
 import com.crux.data.database.model.TaskListEntity
+import com.crux.data.datastore.PreferenceKeys
 import com.crux.domain.model.TaskListWithCount
 import com.crux.screens.task_lists.domain.repository.TaskListsRepository
 import kotlinx.coroutines.flow.Flow
@@ -10,7 +14,8 @@ import javax.inject.Inject
 
 class TaskListsRepositoryImpl
 @Inject constructor(
-    private val database: AppDatabase
+    private val database: AppDatabase,
+    private val appPreferences: DataStore<Preferences>
 ) : TaskListsRepository {
 
     override fun getAllTaskListsFlow(): Flow<List<TaskListWithCount>> {
@@ -49,5 +54,11 @@ class TaskListsRepositoryImpl
             .deleteById(
                 id = id
             )
+    }
+
+    override suspend fun setSelectedTaskListId(taskListId: Int) {
+        appPreferences.edit { preferences ->
+            preferences[PreferenceKeys.SELECTED_TASK_LIST_ID] = taskListId
+        }
     }
 }

@@ -19,4 +19,8 @@ interface TaskListsRepository {
     suspend fun deleteTaskListById(
         id: Int
     )
+
+    suspend fun setSelectedTaskListId(
+        taskListId: Int
+    )
 }

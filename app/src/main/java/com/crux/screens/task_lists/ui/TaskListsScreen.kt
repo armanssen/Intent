@@ -25,6 +25,7 @@ import com.crux.ui.component.AddOrEditTaskListDialogView
 import com.crux.screens.task_lists.ui.component.DeleteTaskListDialogView
 import com.crux.screens.task_lists.ui.component.TaskListsListItemView
 import com.crux.screens.task_lists.ui.component.TaskListsTopAppBarView
+import com.crux.util.LaunchAndRepeatWithLifecycle
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -35,6 +36,16 @@ internal fun TaskListsScreen(
     uiState: TaskListsScreenState = viewModel.uiState.collectAsStateWithLifecycle().value,
     onEvent: (TaskListsScreenEvent) -> Unit = viewModel::onEvent
 ) {
+    LaunchAndRepeatWithLifecycle {
+        viewModel.sideEffects.collect { sideEffect ->
+            when (sideEffect) {
+                is TaskListsScreenSideEffect.NavigateBack -> {
+                    onClickBack()
+                }
+            }
+        }
+    }
+
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
 
     Scaffold(
@@ -55,11 +66,18 @@ internal fun TaskListsScreen(
                 verticalArrangement = Arrangement.spacedBy(4.dp),
                 contentPadding = PaddingValues(vertical = 8.dp, horizontal = 12.dp)
             ) {
-                items(uiState.taskLists) { item ->
+                items(
+                    items = uiState.taskLists,
+                    key = {
+                        it.taskList.id
+                    }
+                ) { item ->
                     TaskListsListItemView(
                         taskList = item.taskList,
                         taskCount = item.taskCount,
-                        onClick = {},
+                        onClick = {
+                            onEvent(TaskListsScreenEvent.OnClickTaskList(item.taskList))
+                        },
                         onClickEdit = {
                             onEvent(TaskListsScreenEvent.OnClickEdit(item.taskList))
                         },

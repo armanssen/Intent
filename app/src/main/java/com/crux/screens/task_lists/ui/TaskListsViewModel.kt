@@ -7,9 +7,11 @@ import com.crux.ui.model.toUi
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -22,6 +24,9 @@ internal class TaskListsViewModel
 
     private val _uiState = MutableStateFlow(TaskListsScreenState())
     val uiState = _uiState.asStateFlow()
+
+    private val _sideEffects = Channel<TaskListsScreenSideEffect>()
+    val sideEffects = _sideEffects.receiveAsFlow()
 
     init {
         collectTaskLists()
@@ -85,6 +90,9 @@ internal class TaskListsViewModel
                     it.copy(editTextFieldValue = event.value)
                 }
             }
+            is TaskListsScreenEvent.OnClickTaskList -> {
+                onClickTaskList(taskListId = event.taskList.id)
+            }
         }
     }
 
@@ -136,6 +144,13 @@ internal class TaskListsViewModel
             _uiState.update {
                 it.copy(taskListForEdit = null)
             }
+        }
+    }
+
+    private fun onClickTaskList(taskListId: Int) {
+        viewModelScope.launch {
+            repository.setSelectedTaskListId(taskListId = taskListId)
+            _sideEffects.send(TaskListsScreenSideEffect.NavigateBack)
         }
     }
 }

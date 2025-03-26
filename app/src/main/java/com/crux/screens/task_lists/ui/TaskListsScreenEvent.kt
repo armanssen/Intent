@@ -4,6 +4,10 @@ import com.crux.ui.model.TaskListUi
 
 sealed interface TaskListsScreenEvent {
 
+    data class OnClickTaskList(
+        val taskList: TaskListUi
+    ) : TaskListsScreenEvent
+
     // Add new
     data object OnClickAddTaskList : TaskListsScreenEvent
     data object OnClickDismissAddTaskListDialog : TaskListsScreenEvent
