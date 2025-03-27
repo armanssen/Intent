@@ -16,6 +16,7 @@ import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.outlined.Layers
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -29,6 +30,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.crux.ui.model.TaskListWithCountUi
 import kotlinx.collections.immutable.ImmutableList
@@ -60,10 +62,13 @@ internal fun HomeScreenBottomSheetView(
         dragHandle = null,
         onDismissRequest = onDismissRequest,
         sheetState = sheetState,
-        containerColor = MaterialTheme.colorScheme.surface,
+        containerColor = MaterialTheme.colorScheme.surfaceContainer,
         content = {
             TopAppBar(
                 scrollBehavior = scrollBehavior,
+                colors = TopAppBarDefaults.topAppBarColors().copy(
+                    containerColor = MaterialTheme.colorScheme.surfaceContainer
+                ),
                 title = {
                     Text(
                         text = "Select task list",
@@ -86,7 +91,8 @@ internal fun HomeScreenBottomSheetView(
                         content = {
                             Icon(
                                 imageVector = Icons.Default.Close,
-                                contentDescription = "close icon"
+                                contentDescription = "close icon",
+                                tint = MaterialTheme.colorScheme.onSurfaceVariant
                             )
                         }
                     )
@@ -113,13 +119,17 @@ internal fun HomeScreenBottomSheetView(
                         Icon(
                             imageVector = Icons.Outlined.Layers,
                             contentDescription = "task list icon",
-                            modifier = Modifier.padding(top = 4.dp)
+                            modifier = Modifier.padding(top = 4.dp),
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                         Spacer(Modifier.width(8.dp))
                         Column(modifier = Modifier.weight(1f)) {
                             Text(
                                 text = taskList.taskList.name,
-                                textAlign = TextAlign.Justify
+                                textAlign = TextAlign.Justify,
+                                maxLines = 2,
+                                overflow = TextOverflow.Ellipsis,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
                             Spacer(Modifier.height(4.dp))
                             Text(
@@ -128,17 +138,24 @@ internal fun HomeScreenBottomSheetView(
                                 } else {
                                     "Tasks: ${taskList.taskCount}"
                                 },
-                                style = MaterialTheme.typography.bodyMedium
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
                         }
                         if (selectedTaskListId == taskList.taskList.id) {
                             Icon(
                                 imageVector = Icons.Default.Check,
                                 contentDescription = "check icon",
-                                modifier = Modifier.padding(top = 4.dp)
+                                modifier = Modifier.padding(top = 4.dp),
+                                tint = MaterialTheme.colorScheme.onSurfaceVariant
                             )
                         }
                     }
+                    HorizontalDivider(
+                        color = MaterialTheme.colorScheme
+                            .onSurfaceVariant.copy(alpha = 0.2f),
+                        thickness = 0.5.dp
+                    )
                 }
             }
         }

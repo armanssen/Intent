@@ -29,10 +29,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.crux.R
 import com.crux.ui.model.TaskListUi
 import com.crux.util.DEFAULT_TASK_LIST_ID
 
@@ -58,7 +56,9 @@ fun TaskListsListItemView(
     ) {
         Icon(
             imageVector = Icons.Outlined.Layers,
-            contentDescription = "task list icon"
+            contentDescription = "task list icon",
+            modifier = Modifier.padding(top = 4.dp),
+            tint = MaterialTheme.colorScheme.onSurfaceVariant
         )
         Spacer(Modifier.width(8.dp))
         Column(
@@ -66,13 +66,14 @@ fun TaskListsListItemView(
         ) {
             Text(
                 text = taskList.name,
-                maxLines = 2,
-                overflow = TextOverflow.Ellipsis
+                textAlign = TextAlign.Justify,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
             )
             Spacer(Modifier.height(4.dp))
             Text(
                 text = "Tasks: $taskCount",
-                style = MaterialTheme.typography.bodyMedium
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
             )
         }
         Spacer(Modifier.width(8.dp))
@@ -80,6 +81,7 @@ fun TaskListsListItemView(
             Icon(
                 imageVector = Icons.Default.MoreVert,
                 contentDescription = "more vert icon",
+                tint = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier
                     .clickable(
                         indication = null, // Disables ripple effect

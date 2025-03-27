@@ -70,6 +70,9 @@ internal fun MainScreenDrawer(
                 }
             )
             HorizontalDivider(
+                color = MaterialTheme.colorScheme
+                    .onSurfaceVariant.copy(alpha = 0.2f),
+                thickness = 0.5.dp,
                 modifier = Modifier.padding(vertical = 4.dp)
             )
             DrawerItemView(
