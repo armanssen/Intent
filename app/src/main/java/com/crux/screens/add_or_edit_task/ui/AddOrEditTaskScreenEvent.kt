@@ -12,6 +12,10 @@ internal sealed interface AddOrEditTaskScreenEvent {
         val id: Int
     ) : AddOrEditTaskScreenEvent
 
+    data object OnDismissDeleteConfirmation : AddOrEditTaskScreenEvent
+
+    data object OnConfirmDeleteConfirmation : AddOrEditTaskScreenEvent
+
     data class OnSelectTaskList(
         val id: Int
     ) : AddOrEditTaskScreenEvent

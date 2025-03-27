@@ -55,7 +55,9 @@ internal class AddOrEditTaskViewModel
                 onClickSave()
             }
             is AddOrEditTaskScreenEvent.OnClickDelete -> {
-                onClickDelete(id = event.id)
+                _uiState.update {
+                    it.copy(isDeleteTaskDialogVisible = true)
+                }
             }
             is AddOrEditTaskScreenEvent.OnSelectTaskList -> {
                 _uiState.update {
@@ -89,6 +91,20 @@ internal class AddOrEditTaskViewModel
             AddOrEditTaskScreenEvent.OnDismissDatePicker -> {
                 _uiState.update {
                     it.copy(isDatePickerDialogVisible = false)
+                }
+            }
+            AddOrEditTaskScreenEvent.OnDismissDeleteConfirmation -> {
+                _uiState.update {
+                    it.copy(isDeleteTaskDialogVisible = false)
+                }
+            }
+            is AddOrEditTaskScreenEvent.OnConfirmDeleteConfirmation -> {
+                _uiState.value.task?.id?.let { taskId ->
+                    deleteTaskById(id = taskId)
+                }
+
+                _uiState.update {
+                    it.copy(isDeleteTaskDialogVisible = false)
                 }
             }
         }
@@ -156,7 +172,7 @@ internal class AddOrEditTaskViewModel
         }
     }
 
-    private fun onClickDelete(id: Int) {
+    private fun deleteTaskById(id: Int) {
         viewModelScope.launch {
             repository.deleteTaskById(id = id)
             _sideEffects.send(AddOrEditTaskScreenSideEffect.TaskDeleted)
