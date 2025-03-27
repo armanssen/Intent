@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.outlined.Layers
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
@@ -26,8 +25,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.crux.R
 import com.crux.ui.model.TaskListUi
 import kotlinx.collections.immutable.ImmutableList
 
@@ -92,7 +93,7 @@ private fun SelectionMenu(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
-                imageVector = Icons.Outlined.Layers,
+                painter = painterResource(R.drawable.ic_note_stack),
                 contentDescription = "task lists icon"
             )
             Spacer(Modifier.width(8.dp))
@@ -120,12 +121,7 @@ private fun SelectionMenu(
             taskLists.forEach { taskList ->
                 DropdownMenuItem(
                     text = {
-                        Text(
-                            text = taskList.name,
-                            maxLines = 2,
-                            overflow = TextOverflow.Ellipsis,
-                            style = MaterialTheme.typography.bodyMedium
-                        )
+                        Text(text = taskList.name)
                     },
                     onClick = {
                         onSelectTaskList(taskList.id)
@@ -133,7 +129,7 @@ private fun SelectionMenu(
                     },
                     leadingIcon = {
                         Icon(
-                            imageVector = Icons.Outlined.Layers,
+                            painter = painterResource(R.drawable.ic_note_stack),
                             contentDescription = "task lists icon"
                         )
                     },
