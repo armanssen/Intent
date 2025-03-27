@@ -29,6 +29,7 @@ import com.crux.screens.add_or_edit_task.ui.component.AddOrEditTaskFloatingActio
 import com.crux.screens.add_or_edit_task.ui.component.AddOrEditTaskTaskListSelectionView
 import com.crux.screens.add_or_edit_task.ui.component.AddOrEditTaskTextFieldView
 import com.crux.screens.add_or_edit_task.ui.component.AddOrEditTaskTopAppBarView
+import com.crux.screens.add_or_edit_task.ui.component.AddOrEditTaskDeleteTaskDialogView
 import com.crux.ui.component.AddOrEditTaskListDialogView
 import com.crux.util.LaunchAndRepeatWithLifecycle
 import com.crux.util.requestFocusWithDelay
@@ -144,6 +145,17 @@ internal fun AddOrEditTaskScreen(
             },
             onDateSelected = {
 
+            }
+        )
+    }
+
+    if (uiState.isDeleteTaskDialogVisible) {
+        AddOrEditTaskDeleteTaskDialogView(
+            onDismissRequest = {
+                onEvent(AddOrEditTaskScreenEvent.OnDismissDeleteConfirmation)
+            },
+            onClickConfirm = {
+                onEvent(AddOrEditTaskScreenEvent.OnConfirmDeleteConfirmation)
             }
         )
     }
