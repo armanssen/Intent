@@ -16,6 +16,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.outlined.DeleteOutline
 import androidx.compose.material.icons.outlined.Edit
+import androidx.compose.material.icons.outlined.Layers
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
@@ -56,7 +57,7 @@ fun TaskListsListItemView(
             .padding(vertical = 16.dp)
     ) {
         Icon(
-            painter = painterResource(R.drawable.ic_note_stack),
+            imageVector = Icons.Outlined.Layers,
             contentDescription = "task list icon"
         )
         Spacer(Modifier.width(8.dp))
