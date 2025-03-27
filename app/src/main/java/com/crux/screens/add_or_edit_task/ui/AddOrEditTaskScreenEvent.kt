@@ -25,4 +25,8 @@ internal sealed interface AddOrEditTaskScreenEvent {
     data class OnAddTextFieldValueChange(
         val value: String
     ) : AddOrEditTaskScreenEvent
+
+    data object OnClickDueDate : AddOrEditTaskScreenEvent
+
+    data object OnDismissDatePicker : AddOrEditTaskScreenEvent
 }

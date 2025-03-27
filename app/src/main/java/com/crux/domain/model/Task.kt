@@ -5,5 +5,6 @@ data class Task(
     val title: String,
     val createdAt: Long,
     val isCompleted: Boolean,
+    val dueDateTime: Long?,
     val listId: Int
 )

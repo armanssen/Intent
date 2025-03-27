@@ -81,6 +81,16 @@ internal class AddOrEditTaskViewModel
                     it.copy(isAddTaskListDialogVisible = false)
                 }
             }
+            AddOrEditTaskScreenEvent.OnClickDueDate -> {
+                _uiState.update {
+                    it.copy(isDatePickerDialogVisible = true)
+                }
+            }
+            AddOrEditTaskScreenEvent.OnDismissDatePicker -> {
+                _uiState.update {
+                    it.copy(isDatePickerDialogVisible = false)
+                }
+            }
         }
     }
 

@@ -13,5 +13,6 @@ data class AddOrEditTaskScreenState(
     val taskLists: ImmutableList<TaskListUi> = persistentListOf(),
     val selectedTaskListId: Int = DEFAULT_TASK_LIST_ID,
     val isAddTaskListDialogVisible: Boolean = false,
-    val addTextFieldValue: String = ""
+    val addTextFieldValue: String = "",
+    val isDatePickerDialogVisible: Boolean = false
 )

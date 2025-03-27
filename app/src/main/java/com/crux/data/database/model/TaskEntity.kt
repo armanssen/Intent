@@ -22,6 +22,7 @@ data class TaskEntity(
     val title: String,
     val createdAt: Long,
     val isCompleted: Boolean = false,
+    val dueDateTime: Long? = null,
     val listId: Int
 ) {
 
@@ -30,6 +31,7 @@ data class TaskEntity(
         title = title,
         createdAt = createdAt,
         isCompleted = isCompleted,
+        dueDateTime = dueDateTime,
         listId = listId
     )
 }

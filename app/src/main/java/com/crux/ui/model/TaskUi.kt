@@ -10,6 +10,7 @@ data class TaskUi(
     val title: String,
     val createdAt: Long,
     val isCompleted: Boolean,
+    val dueDateTime: Long?,
     val listId: Int
 ) {
 
@@ -18,6 +19,7 @@ data class TaskUi(
         title = title,
         createdAt = createdAt,
         isCompleted = isCompleted,
+        dueDateTime = dueDateTime,
         listId = listId
     )
 }
@@ -27,6 +29,7 @@ fun Task.toUi() = TaskUi(
     title = title,
     createdAt = createdAt,
     isCompleted = isCompleted,
+    dueDateTime = dueDateTime,
     listId = listId
 )
 
@@ -37,6 +40,7 @@ class TaskPreviewParameterProvider : PreviewParameterProvider<TaskUi> {
             title = "Task title 1",
             createdAt = System.currentTimeMillis(),
             isCompleted = true,
+            dueDateTime = null,
             listId = 1
         ),
         TaskUi(
@@ -44,6 +48,7 @@ class TaskPreviewParameterProvider : PreviewParameterProvider<TaskUi> {
             title = "Task title 2",
             createdAt = System.currentTimeMillis(),
             isCompleted = false,
+            dueDateTime = null,
             listId = 1
         ),
         TaskUi(
@@ -51,6 +56,7 @@ class TaskPreviewParameterProvider : PreviewParameterProvider<TaskUi> {
             title = "Task title 3",
             createdAt = System.currentTimeMillis(),
             isCompleted = false,
+            dueDateTime = null,
             listId = 2
         )
     )
