@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.crux.BuildConfig
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -58,7 +59,7 @@ internal fun AboutScreen(
                 modifier = Modifier.padding(bottom = 8.dp)
             )
             Text(
-                text = "Version 1.0.0",
+                text = "version " + BuildConfig.VERSION_NAME,
                 style = MaterialTheme.typography.bodyLarge,
                 modifier = Modifier.padding(bottom = 16.dp)
             )

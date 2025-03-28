@@ -18,6 +18,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.crux.BuildConfig
 import com.crux.screens.drawer.component.DrawerItemView
 import kotlinx.coroutines.launch
 
@@ -43,12 +44,20 @@ internal fun MainScreenDrawer(
         drawerState = drawerState
     ) {
         Column {
-            Text(
-                text = "Crux",
-                style = MaterialTheme.typography.titleLarge,
-                modifier = Modifier.padding(16.dp),
-                fontWeight = FontWeight.Black,
-            )
+            Column(
+                modifier = Modifier.padding(16.dp)
+            ) {
+                Text(
+                    text = "Crux",
+                    style = MaterialTheme.typography.titleLarge,
+                    fontWeight = FontWeight.Black,
+                )
+                Text(
+                    text = "v${BuildConfig.VERSION_NAME}",
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)
+                )
+            }
             DrawerItemView(
                 label = "Task Lists",
                 icon = Icons.Outlined.Layers,
