@@ -1,7 +1,9 @@
 package com.crux.screens.drawer
 
 import android.content.Intent
+import android.net.Uri
 import android.provider.Settings
+import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -29,7 +31,7 @@ import com.crux.screens.drawer.component.DrawerItemView
 import kotlinx.coroutines.launch
 
 @Composable
-internal fun MainScreenDrawer(
+internal fun HomeScreenDrawer(
     drawerState: DrawerState,
     onClickAppearance: () -> Unit,
     onClickTaskLists: () -> Unit,
@@ -61,7 +63,7 @@ internal fun MainScreenDrawer(
                     fontWeight = FontWeight.Black,
                 )
                 Text(
-                    text = "v${BuildConfig.VERSION_NAME}",
+                    text = "• ${BuildConfig.VERSION_NAME}",
                     style = MaterialTheme.typography.labelSmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)
                 )
@@ -111,6 +113,24 @@ internal fun MainScreenDrawer(
                 onClick = {
                     coroutineScope.launch {
                         drawerState.close()
+                    }
+                    val email = "your-email@example.com" // Replace with your email
+                    val subject = "Feedback for Task App"
+                    val body = "Hello, I would like to share my feedback...\n"
+
+                    val mIntent = Intent(Intent.ACTION_SENDTO)
+                    mIntent.data = Uri.parse("mailto:")
+
+                    val emailIntent = Intent(Intent.ACTION_SEND)
+                    emailIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf(email))
+                    emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject)
+                    emailIntent.putExtra(Intent.EXTRA_TEXT, body)
+                    emailIntent.selector = mIntent
+
+                    try {
+                        context.startActivity(Intent.createChooser(emailIntent, "Choose Email Client..."))
+                    } catch (e: Exception) {
+                        Toast.makeText(context, e.message, Toast.LENGTH_LONG).show()
                     }
                 }
             )
