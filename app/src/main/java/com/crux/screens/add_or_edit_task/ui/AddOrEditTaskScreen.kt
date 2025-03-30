@@ -38,6 +38,7 @@ import kotlinx.coroutines.flow.collectLatest
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun AddOrEditTaskScreen(
+    args: AddOrEditTaskScreenDestination,
     modifier: Modifier = Modifier,
     onClickBack: () -> Unit,
     viewModel: AddOrEditTaskViewModel = hiltViewModel(),
@@ -50,7 +51,9 @@ internal fun AddOrEditTaskScreen(
     val datePickerState = rememberDatePickerState()
 
     LaunchedEffect(Unit) {
-        focusRequester.requestFocusWithDelay()
+        if (args.taskId == null) {
+            focusRequester.requestFocusWithDelay()
+        }
     }
 
     LaunchAndRepeatWithLifecycle {

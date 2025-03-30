@@ -5,6 +5,7 @@ import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import androidx.navigation.toRoute
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -26,7 +27,10 @@ fun NavGraphBuilder.addOrEditTaskScreen(
             )
         }
     ) {
+        val args = it.toRoute<AddOrEditTaskScreenDestination>()
+
         AddOrEditTaskScreen(
+            args = args,
             onClickBack = onClickBack
         )
     }
