@@ -15,5 +15,6 @@ data class AddOrEditTaskScreenState(
     val isAddTaskListDialogVisible: Boolean = false,
     val addTextFieldValue: String = "",
     val isDatePickerDialogVisible: Boolean = false,
-    val isDeleteTaskDialogVisible: Boolean = false
+    val isDeleteTaskDialogVisible: Boolean = false,
+    val dueDate: Long? = null
 )

@@ -9,7 +9,9 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.CalendarMonth
 import androidx.compose.material.icons.outlined.CalendarToday
+import androidx.compose.material.icons.outlined.Close
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -21,6 +23,7 @@ import com.crux.R
 
 @Composable
 internal fun AddOrEditTaskDueDateView(
+    dueDate: Long?,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -29,7 +32,7 @@ internal fun AddOrEditTaskDueDateView(
             .clickable {
                 onClick()
             }
-            .padding(vertical = 16.dp, horizontal = 16.dp)
+            .padding(horizontal = 16.dp)
             .fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -40,7 +43,25 @@ internal fun AddOrEditTaskDueDateView(
         )
         Spacer(Modifier.width(8.dp))
         Text(
-            text = stringResource(R.string.add_or_edit_task_screen_due_date)
+            text = if (dueDate != null) {
+                "$dueDate"
+            } else {
+                stringResource(R.string.add_or_edit_task_screen_due_date)
+            },
+            modifier = Modifier.weight(1f)
         )
+        if (dueDate != null) {
+            Spacer(Modifier.width(8.dp))
+            IconButton(
+                onClick = {
+                },
+                content = {
+                    Icon(
+                        imageVector = Icons.Outlined.Close,
+                        contentDescription = "close icon"
+                    )
+                }
+            )
+        }
     }
 }

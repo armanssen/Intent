@@ -107,6 +107,13 @@ internal class AddOrEditTaskViewModel
                     it.copy(isDeleteTaskDialogVisible = false)
                 }
             }
+            is AddOrEditTaskScreenEvent.OnSelectDueDate -> {
+                _uiState.update {
+                    it.copy(
+                        dueDate = event.date
+                    )
+                }
+            }
         }
     }
 
@@ -118,7 +125,8 @@ internal class AddOrEditTaskViewModel
                 it.copy(
                     task = task,
                     textFieldValue = task.title,
-                    selectedTaskListId = task.listId
+                    selectedTaskListId = task.listId,
+                    dueDate = task.dueDateTime
                 )
             }
         }

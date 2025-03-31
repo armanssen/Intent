@@ -48,7 +48,9 @@ internal fun AddOrEditTaskScreen(
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     val focusRequester = remember { FocusRequester() }
     val focusManager = LocalFocusManager.current
-    val datePickerState = rememberDatePickerState()
+    val datePickerState = rememberDatePickerState(
+        initialSelectedDateMillis = uiState.dueDate ?: System.currentTimeMillis()
+    )
 
     LaunchedEffect(Unit) {
         if (args.taskId == null) {
@@ -106,6 +108,7 @@ internal fun AddOrEditTaskScreen(
             )
             Spacer(Modifier.height(36.dp))
             AddOrEditTaskDueDateView(
+                dueDate = uiState.dueDate,
                 onClick = {
                     onEvent(AddOrEditTaskScreenEvent.OnClickDueDate)
                 }
@@ -146,8 +149,10 @@ internal fun AddOrEditTaskScreen(
             onDismiss = {
                 onEvent(AddOrEditTaskScreenEvent.OnDismissDatePicker)
             },
-            onDateSelected = {
-
+            onDateSelected = { selectedDate ->
+                selectedDate?.let {
+                    onEvent(AddOrEditTaskScreenEvent.OnSelectDueDate(it))
+                }
             }
         )
     }

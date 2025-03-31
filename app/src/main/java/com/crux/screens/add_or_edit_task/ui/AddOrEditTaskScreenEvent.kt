@@ -33,4 +33,8 @@ internal sealed interface AddOrEditTaskScreenEvent {
     data object OnClickDueDate : AddOrEditTaskScreenEvent
 
     data object OnDismissDatePicker : AddOrEditTaskScreenEvent
+
+    data class OnSelectDueDate(
+        val date: Long
+    ) : AddOrEditTaskScreenEvent
 }
