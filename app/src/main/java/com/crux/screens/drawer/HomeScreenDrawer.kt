@@ -24,9 +24,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.crux.BuildConfig
+import com.crux.R
 import com.crux.screens.drawer.component.DrawerItemView
 import kotlinx.coroutines.launch
 
@@ -58,7 +60,7 @@ internal fun HomeScreenDrawer(
         ) {
             Column(modifier = Modifier.padding(16.dp)) {
                 Text(
-                    text = "Crux",
+                    text = stringResource(R.string.app_name),
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.Black,
                 )
@@ -69,7 +71,7 @@ internal fun HomeScreenDrawer(
                 )
             }
             DrawerItemView(
-                label = "Task Lists",
+                label = stringResource(R.string.drawer_task_lists),
                 icon = Icons.Outlined.Layers,
                 onClick = {
                     coroutineScope.launch {
@@ -79,7 +81,7 @@ internal fun HomeScreenDrawer(
                 }
             )
             DrawerItemView(
-                label = "Appearance",
+                label = stringResource(R.string.drawer_appearance),
                 icon = Icons.Outlined.ColorLens,
                 onClick = {
                     coroutineScope.launch {
@@ -95,7 +97,7 @@ internal fun HomeScreenDrawer(
                 modifier = Modifier.padding(vertical = 4.dp)
             )
             DrawerItemView(
-                label = "Notifications",
+                label = stringResource(R.string.drawer_notifications),
                 icon = Icons.Outlined.Notifications,
                 onClick = {
                     coroutineScope.launch {
@@ -108,7 +110,7 @@ internal fun HomeScreenDrawer(
                 }
             )
             DrawerItemView(
-                label = "Send Feedback",
+                label = stringResource(R.string.drawer_send_feedback),
                 icon = Icons.Outlined.Feedback,
                 onClick = {
                     coroutineScope.launch {
@@ -135,7 +137,7 @@ internal fun HomeScreenDrawer(
                 }
             )
             DrawerItemView(
-                label = "About",
+                label = stringResource(R.string.drawer_about),
                 icon = Icons.Outlined.BookmarkBorder,
                 onClick = {
                     coroutineScope.launch {

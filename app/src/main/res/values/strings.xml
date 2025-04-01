@@ -2,7 +2,16 @@
     <string name="app_name">Crux</string>
     <string name="common_default_table_name">Default</string>
 
-    <string name="main_screen_new_task">New task</string>
+    <string name="drawer_task_lists">Task Lists</string>
+    <string name="drawer_appearance">Appearance</string>
+    <string name="drawer_notifications">Notifications</string>
+    <string name="drawer_send_feedback">Send Feedback</string>
+    <string name="drawer_about">About</string>
+
+    <string name="home_screen_new_task">New task</string>
+    <string name="home_screen_bottom_sheet_title">Select task list</string>
+    <string name="home_screen_bottom_sheet_no_tasks">No tasks</string>
+    <string name="home_screen_bottom_sheet_tasks_count">Tasks: %s</string>
 
     <string name="add_or_edit_task_screen_new_task_title">New Task</string>
     <string name="add_or_edit_task_screen_save_task">Save task</string>
@@ -15,6 +24,11 @@
     <string name="appearance_screen_dark_theme_title">Dark</string>
     <string name="appearance_screen_system_default_title">System Default</string>
 
+    <string name="task_lists_screen_title">Task Lists</string>
     <string name="task_lists_add_task_list_title">Add new task list</string>
     <string name="task_lists_edit_task_list_title">Edit task list</string>
+    <string name="task_lists_delete_confirmation_title">Are you sure?</string>
+    <string name="task_lists_delete_confirmation_message">All tasks from the list \"%s\" will also be deleted</string>
+    <string name="task_lists_delete_confirmation_negative">Cancel</string>
+    <string name="task_lists_delete_confirmation_positive">Delete</string>
 </resources>

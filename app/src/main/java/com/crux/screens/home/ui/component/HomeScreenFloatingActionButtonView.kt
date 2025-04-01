@@ -30,7 +30,7 @@ internal fun MainScreenFloatingActionButtonView(
         },
         text = {
             Text(
-                text = stringResource(R.string.main_screen_new_task)
+                text = stringResource(R.string.home_screen_new_task)
             )
         }
     )

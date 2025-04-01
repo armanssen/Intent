@@ -11,6 +11,8 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import com.crux.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -24,7 +26,9 @@ internal fun TaskListsTopAppBarView(
         modifier = modifier,
         scrollBehavior = scrollBehavior,
         title = {
-            Text(text = "Task Lists")
+            Text(
+                text = stringResource(R.string.task_lists_screen_title)
+            )
         },
         navigationIcon = {
             IconButton(

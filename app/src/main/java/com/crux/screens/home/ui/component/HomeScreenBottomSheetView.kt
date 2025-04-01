@@ -29,9 +29,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.crux.R
 import com.crux.ui.model.TaskListWithCountUi
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.launch
@@ -71,7 +73,7 @@ internal fun HomeScreenBottomSheetView(
                 ),
                 title = {
                     Text(
-                        text = "Select task list",
+                        text = stringResource(R.string.home_screen_bottom_sheet_title),
                         style = MaterialTheme.typography.bodyLarge
                     )
                 },
@@ -80,13 +82,13 @@ internal fun HomeScreenBottomSheetView(
                         onClick = {
                             // Note: If you provide logic outside of onDismissRequest to remove the sheet,
                             // you must additionally handle intended state cleanup, if any.
-                            coroutineScope.launch {
-                                sheetState.hide()
-                            }.invokeOnCompletion {
-                                if (!sheetState.isVisible) {
-                                    onDismissRequest()
+                            coroutineScope
+                                .launch { sheetState.hide() }
+                                .invokeOnCompletion {
+                                    if (!sheetState.isVisible) {
+                                        onDismissRequest()
+                                    }
                                 }
-                            }
                         },
                         content = {
                             Icon(
@@ -105,13 +107,13 @@ internal fun HomeScreenBottomSheetView(
                             .clickable(
                                 onClick = {
                                     onSelectTaskList(taskList.taskList.id)
-                                    coroutineScope.launch {
-                                        sheetState.hide()
-                                    }.invokeOnCompletion {
-                                        if (!sheetState.isVisible) {
-                                            onDismissRequest()
+                                    coroutineScope
+                                        .launch { sheetState.hide() }
+                                        .invokeOnCompletion {
+                                            if (!sheetState.isVisible) {
+                                                onDismissRequest()
+                                            }
                                         }
-                                    }
                                 }
                             )
                             .padding(horizontal = 16.dp, vertical = 12.dp)
@@ -134,9 +136,12 @@ internal fun HomeScreenBottomSheetView(
                             Spacer(Modifier.height(4.dp))
                             Text(
                                 text = if (taskList.taskCount == 0) {
-                                    "No tasks"
+                                    stringResource(R.string.home_screen_bottom_sheet_no_tasks)
                                 } else {
-                                    "Tasks: ${taskList.taskCount}"
+                                    stringResource(
+                                        R.string.home_screen_bottom_sheet_tasks_count,
+                                        taskList.taskCount.toString()
+                                    )
                                 },
                                 style = MaterialTheme.typography.bodyMedium,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant

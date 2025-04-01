@@ -22,8 +22,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import com.crux.R
 import com.crux.ui.model.TaskListUi
 
 @Composable
@@ -53,13 +55,16 @@ internal fun DeleteTaskListDialogView(
             }
             Spacer(Modifier.height(16.dp))
             Text(
-                text = "Are you sure?",
+                text = stringResource(R.string.task_lists_delete_confirmation_title),
                 style = MaterialTheme.typography.titleLarge,
                 color = MaterialTheme.colorScheme.onSurface
             )
             Spacer(Modifier.height(4.dp))
             Text(
-                text = "All tasks from the list \"${taskListUi.name}\" will also be deleted",
+                text = stringResource(
+                    R.string.task_lists_delete_confirmation_message,
+                    taskListUi.name
+                ),
                 color = MaterialTheme.colorScheme.onSurface
             )
             Row(
@@ -70,7 +75,9 @@ internal fun DeleteTaskListDialogView(
                     shape = RoundedCornerShape(4.dp),
                     onClick = onDismissRequest,
                     content = {
-                        Text("Cancel")
+                        Text(
+                            text = stringResource(R.string.task_lists_delete_confirmation_negative)
+                        )
                     }
                 )
                 Spacer(Modifier.width(4.dp))
@@ -80,7 +87,9 @@ internal fun DeleteTaskListDialogView(
                         onClickConfirm(taskListUi.id)
                     },
                     content = {
-                        Text("Delete")
+                        Text(
+                            text = stringResource(R.string.task_lists_delete_confirmation_positive)
+                        )
                     }
                 )
             }
