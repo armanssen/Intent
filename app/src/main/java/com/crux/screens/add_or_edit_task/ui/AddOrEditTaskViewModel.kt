@@ -174,13 +174,13 @@ internal class AddOrEditTaskViewModel
                 repository.updateTask(
                     task = task
                         .copy(
-                            title = title,
+                            title = title.trim(),
                             listId = _uiState.value.selectedTaskListId
                         ).toDomain()
                 )
             } else {
                 repository.insertTask(
-                    title = title,
+                    title = title.trim(),
                     createdAt = System.currentTimeMillis(),
                     listId = _uiState.value.selectedTaskListId,
                 )
