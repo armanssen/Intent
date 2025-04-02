@@ -32,7 +32,7 @@ internal fun AddOrEditTaskDeleteTaskDialogView(
     ) {
         Column(
             modifier = Modifier
-                .clip(RoundedCornerShape(4.dp))
+                .clip(MaterialTheme.shapes.medium)
                 .background(MaterialTheme.colorScheme.surfaceContainer)
                 .padding(16.dp)
         ) {
@@ -62,7 +62,7 @@ internal fun AddOrEditTaskDeleteTaskDialogView(
                 horizontalArrangement = Arrangement.End
             ) {
                 TextButton(
-                    shape = RoundedCornerShape(4.dp),
+                    shape = MaterialTheme.shapes.medium,
                     onClick = onDismissRequest,
                     content = {
                         Text("Cancel")
@@ -70,7 +70,7 @@ internal fun AddOrEditTaskDeleteTaskDialogView(
                 )
                 Spacer(Modifier.width(4.dp))
                 TextButton(
-                    shape = RoundedCornerShape(4.dp),
+                    shape = MaterialTheme.shapes.medium,
                     onClick = onClickConfirm,
                     content = {
                         Text("Delete")

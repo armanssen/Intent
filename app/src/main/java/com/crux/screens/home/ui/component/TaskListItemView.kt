@@ -34,7 +34,7 @@ internal fun TaskListItemView(
 ) {
     Row(
         modifier = modifier
-            .clip(RoundedCornerShape(4.dp))
+            .clip(MaterialTheme.shapes.medium)
             .clickable(
                 onClick = onClick
             )

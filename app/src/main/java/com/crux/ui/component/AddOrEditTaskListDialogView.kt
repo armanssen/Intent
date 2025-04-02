@@ -51,7 +51,7 @@ fun AddOrEditTaskListDialogView(
     ) {
         Column(
             modifier = Modifier
-                .clip(RoundedCornerShape(4.dp))
+                .clip(MaterialTheme.shapes.medium)
                 .background(MaterialTheme.colorScheme.surfaceContainer)
                 .padding(16.dp)
         ) {
@@ -96,7 +96,7 @@ fun AddOrEditTaskListDialogView(
                 horizontalArrangement = Arrangement.End
             ) {
                 TextButton(
-                    shape = RoundedCornerShape(4.dp),
+                    shape = MaterialTheme.shapes.medium,
                     onClick = onDismissRequest,
                     content = {
                         Text("Cancel")
@@ -105,7 +105,7 @@ fun AddOrEditTaskListDialogView(
                 Spacer(Modifier.width(4.dp))
                 TextButton(
                     enabled = textFieldValue.isNotBlank(),
-                    shape = RoundedCornerShape(4.dp),
+                    shape = MaterialTheme.shapes.medium,
                     onClick = onConfirmation,
                     content = {
                         Text("Add")

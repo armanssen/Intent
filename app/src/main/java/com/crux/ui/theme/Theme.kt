@@ -2,7 +2,9 @@ package com.crux.ui.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Shapes
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
@@ -10,6 +12,7 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.dp
 import com.crux.domain.model.AppTheme
 
 private val LightColorScheme = lightColorScheme(
@@ -18,7 +21,8 @@ private val LightColorScheme = lightColorScheme(
     surface = GeistLightBackgroundSecondary,
     surfaceContainer = GeistLightGray1,
     surfaceVariant = GeistLightGray2,
-    surfaceContainerHighest = GeistLightGray3,
+    surfaceContainerHigh = GeistLightGray3,
+    surfaceContainerHighest = GeistLightGray4,
 
     primary = GeistLightGray10,
     onPrimary = Color.White,
@@ -32,12 +36,26 @@ private val DarkColorScheme = darkColorScheme(
     surface = GeistDarkBackgroundSecondary,
     surfaceContainer = GeistDarkGray1,
     surfaceVariant = GeistDarkGray2,
-    surfaceContainerHighest = GeistDarkGray3,
+    surfaceContainerHigh = GeistDarkGray3,
+    surfaceContainerHighest = GeistDarkGray4,
 
     primary = GeistDarkGray10,
     onPrimary = Color.Black,
     outlineVariant = GeistDarkGray5
 )
+
+private val AppShapes = Shapes(
+    extraSmall = RoundedCornerShape(4.dp),
+    small = RoundedCornerShape(4.dp),
+    medium = RoundedCornerShape(4.dp)
+)
+
+private val RoundedAppShapes = Shapes(
+    extraSmall = RoundedCornerShape(32.dp),
+    small = RoundedCornerShape(32.dp),
+    medium = RoundedCornerShape(32.dp)
+)
+
 
 @Composable
 fun CruxTheme(
@@ -72,6 +90,7 @@ fun CruxTheme(
 
     MaterialTheme(
         colorScheme = colorScheme,
+        shapes = AppShapes,
         content = content
     )
 }

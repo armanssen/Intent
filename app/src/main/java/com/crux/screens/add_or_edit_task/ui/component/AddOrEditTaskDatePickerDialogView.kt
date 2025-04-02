@@ -4,6 +4,7 @@ import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.DatePickerState
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -20,6 +21,7 @@ internal fun AddOrEditTaskDatePickerDialogView(
     DatePickerDialog(
         modifier = modifier,
         onDismissRequest = onDismiss,
+        shape = MaterialTheme.shapes.medium,
         confirmButton = {
             TextButton(
                 onClick = {

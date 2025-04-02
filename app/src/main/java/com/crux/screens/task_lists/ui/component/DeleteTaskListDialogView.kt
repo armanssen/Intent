@@ -39,7 +39,7 @@ internal fun DeleteTaskListDialogView(
     ) {
         Column(
             modifier = Modifier
-                .clip(RoundedCornerShape(4.dp))
+                .clip(MaterialTheme.shapes.medium)
                 .background(MaterialTheme.colorScheme.surfaceContainer)
                 .padding(16.dp)
         ) {
@@ -72,7 +72,7 @@ internal fun DeleteTaskListDialogView(
                 horizontalArrangement = Arrangement.End
             ) {
                 TextButton(
-                    shape = RoundedCornerShape(4.dp),
+                    shape = MaterialTheme.shapes.medium,
                     onClick = onDismissRequest,
                     content = {
                         Text(
@@ -82,7 +82,7 @@ internal fun DeleteTaskListDialogView(
                 )
                 Spacer(Modifier.width(4.dp))
                 TextButton(
-                    shape = RoundedCornerShape(4.dp),
+                    shape = MaterialTheme.shapes.medium,
                     onClick = {
                         onClickConfirm(taskListUi.id)
                     },

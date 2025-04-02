@@ -1,13 +1,16 @@
 package com.crux.screens.add_or_edit_task.ui.component
 
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TimePicker
 import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import java.util.Calendar
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -26,6 +29,7 @@ internal fun AddOrEditTaskTimePickerDialogView(
     )
 
     AlertDialog(
+        shape = MaterialTheme.shapes.medium,
         onDismissRequest = { },
         title = { },
         text = {
@@ -34,12 +38,15 @@ internal fun AddOrEditTaskTimePickerDialogView(
             )
         },
         dismissButton = {
-            TextButton(onClick = { onDismiss() }) {
+            TextButton(
+                shape = MaterialTheme.shapes.medium,
+                onClick = { onDismiss() }) {
                 Text("Dismiss")
             }
         },
         confirmButton = {
             TextButton(
+                shape = MaterialTheme.shapes.medium,
                 onClick = {
                     onConfirm()
                 }
