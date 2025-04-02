@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Crux</string>
+    <string name="app_name_debug">Crux Debug</string>
     <string name="common_default_table_name">Default</string>
 
     <string name="drawer_task_lists">Task Lists</string>
