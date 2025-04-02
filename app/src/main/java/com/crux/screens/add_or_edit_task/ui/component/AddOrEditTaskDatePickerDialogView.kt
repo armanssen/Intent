@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 internal fun AddOrEditTaskDatePickerDialogView(
     datePickerState: DatePickerState,
     onDismiss: () -> Unit,
-    onDateSelected: (Long?) -> Unit,
+    onDateSelected: (Long) -> Unit,
     modifier: Modifier = Modifier
 ) {
     DatePickerDialog(
@@ -23,7 +23,9 @@ internal fun AddOrEditTaskDatePickerDialogView(
         confirmButton = {
             TextButton(
                 onClick = {
-                    onDateSelected(datePickerState.selectedDateMillis)
+                    datePickerState.selectedDateMillis?.let {
+                        onDateSelected(it)
+                    }
                     onDismiss()
                 },
                 content = {

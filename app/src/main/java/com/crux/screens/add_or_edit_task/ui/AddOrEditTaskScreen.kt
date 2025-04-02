@@ -30,6 +30,8 @@ import com.crux.screens.add_or_edit_task.ui.component.AddOrEditTaskTaskListSelec
 import com.crux.screens.add_or_edit_task.ui.component.AddOrEditTaskTextFieldView
 import com.crux.screens.add_or_edit_task.ui.component.AddOrEditTaskTopAppBarView
 import com.crux.screens.add_or_edit_task.ui.component.AddOrEditTaskDeleteTaskDialogView
+import com.crux.screens.add_or_edit_task.ui.component.AddOrEditTaskTimePickerDialogView
+import com.crux.screens.add_or_edit_task.ui.component.AddOrEditTaskTimeView
 import com.crux.ui.component.AddOrEditTaskListDialogView
 import com.crux.util.LaunchAndRepeatWithLifecycle
 import com.crux.util.requestFocusWithDelay
@@ -113,6 +115,13 @@ internal fun AddOrEditTaskScreen(
                     onEvent(AddOrEditTaskScreenEvent.OnClickDueDate)
                 }
             )
+            if (uiState.dueDate != null) {
+                AddOrEditTaskTimeView(
+                    onClick = {
+                        onEvent(AddOrEditTaskScreenEvent.OnClickTime)
+                    }
+                )
+            }
             AddOrEditTaskTaskListSelectionView(
                 selectedTaskListId = uiState.selectedTaskListId,
                 taskLists = uiState.taskLists,
@@ -150,9 +159,16 @@ internal fun AddOrEditTaskScreen(
                 onEvent(AddOrEditTaskScreenEvent.OnDismissDatePicker)
             },
             onDateSelected = { selectedDate ->
-                selectedDate?.let {
-                    onEvent(AddOrEditTaskScreenEvent.OnSelectDueDate(it))
-                }
+                onEvent(AddOrEditTaskScreenEvent.OnSelectDueDate(selectedDate))
+            }
+        )
+    }
+
+    if (uiState.isTimePickerDialogVisible) {
+        AddOrEditTaskTimePickerDialogView(
+            onConfirm = {},
+            onDismiss = {
+                onEvent(AddOrEditTaskScreenEvent.OnDismissTimePicker)
             }
         )
     }

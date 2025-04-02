@@ -114,6 +114,16 @@ internal class AddOrEditTaskViewModel
                     )
                 }
             }
+            AddOrEditTaskScreenEvent.OnClickTime -> {
+                _uiState.update {
+                    it.copy(isTimePickerDialogVisible = true)
+                }
+            }
+            AddOrEditTaskScreenEvent.OnDismissTimePicker -> {
+                _uiState.update {
+                    it.copy(isTimePickerDialogVisible = false)
+                }
+            }
         }
     }
 
