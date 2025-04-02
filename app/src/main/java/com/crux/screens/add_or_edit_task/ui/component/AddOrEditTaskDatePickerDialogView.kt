@@ -24,6 +24,7 @@ internal fun AddOrEditTaskDatePickerDialogView(
         shape = MaterialTheme.shapes.medium,
         confirmButton = {
             TextButton(
+                shape = MaterialTheme.shapes.medium,
                 onClick = {
                     datePickerState.selectedDateMillis?.let {
                         onDateSelected(it)
@@ -37,6 +38,7 @@ internal fun AddOrEditTaskDatePickerDialogView(
         },
         dismissButton = {
             TextButton(
+                shape = MaterialTheme.shapes.medium,
                 onClick = {
                     onDismiss()
                 },

@@ -7,7 +7,7 @@ import androidx.compose.ui.graphics.Color
 val GeistLightBackground = Color(0xFFFAFAFA)
 val GeistLightBackgroundSecondary = Color(0xFFFFFFFF)
 val GeistLightGray1 = Color(0xFFF2F2F2)
-val GeistLightGray2 = Color(0xFFEBEBEB)
+val GeistLightGray2 = Color(0xFFf3f3f3)
 val GeistLightGray3 = Color(0xFFE6E6E6)
 val GeistLightGray4 = Color(0xFFEBEBEB)
 val GeistLightGray5 = Color(0xFFC9C9C9)
