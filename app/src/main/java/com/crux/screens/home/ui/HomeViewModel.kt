@@ -11,6 +11,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -25,10 +26,9 @@ internal class HomeViewModel
     val uiState = _uiState.asStateFlow()
 
     init {
-        collectAllTasks()
         collectAllTaskLists()
         collectSelectedTaskListId()
-        collectIsHideCompletedTasksEnabled()
+        collectTasksAndFilter()
     }
 
     fun onEvent(event: HomeScreenEvent) {
@@ -47,24 +47,6 @@ internal class HomeViewModel
             HomeScreenEvent.OnClickHideCompletedTasks -> {
                 onClickHideCompletedTasks()
             }
-        }
-    }
-
-    private fun collectAllTasks() {
-        viewModelScope.launch {
-            repository.getAllTasksFlow()
-                .collectLatest { tasks ->
-                    _uiState.update {
-                        it.copy(
-                            tasks = tasks
-                                .filter {
-                                    !it.isCompleted
-                                }
-                                .map { task -> task.toUi() }
-                                .toPersistentList()
-                        )
-                    }
-                }
         }
     }
 
@@ -94,16 +76,24 @@ internal class HomeViewModel
         }
     }
 
-    private fun collectIsHideCompletedTasksEnabled() {
+
+
+    private fun collectTasksAndFilter() {
         viewModelScope.launch {
-            repository.getIsHideCompletedTasksEnabled()
-                .collectLatest { isHideCompletedTasksEnabled ->
-                    _uiState.update {
-                        it.copy(
-                            isHideCompletedTasksEnabled = isHideCompletedTasksEnabled
-                        )
-                    }
-                }
+            combine(
+                repository.getAllTasksFlow(),
+                repository.getIsHideCompletedTasksEnabled()
+            ) { tasks, isHideCompletedTasksEnabled ->
+                _uiState.value.copy(
+                    isHideCompletedTasksEnabled = isHideCompletedTasksEnabled,
+                    tasks = tasks
+                        .filter { task -> !isHideCompletedTasksEnabled || !task.isCompleted }
+                        .map { it.toUi() }
+                        .toPersistentList()
+                )
+            }.collectLatest { newState ->
+                _uiState.update { newState }
+            }
         }
     }
 
@@ -120,7 +110,9 @@ internal class HomeViewModel
         isChecked: Boolean
     ) {
         viewModelScope.launch {
-            delay(UPDATE_TASK_COMPLETION_DELAY)
+            if (_uiState.value.isHideCompletedTasksEnabled) {
+                delay(UPDATE_TASK_COMPLETION_DELAY)
+            }
             repository.updateTaskCompletion(
                 id = task.id,
                 isCompleted = isChecked
