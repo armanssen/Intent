@@ -27,14 +27,19 @@ android {
     signingConfigs {
         create("release") {
             val keystorePropertiesFile = file("${project.rootDir}/secure_files/keystore.properties")
-            val keystoreProperties = Properties().apply {
-                load(FileInputStream(keystorePropertiesFile))
-            }
 
-            storeFile = file("${project.rootDir}/${keystoreProperties.getProperty("RELEASE_STORE_FILE")}")
-            storePassword = keystoreProperties.getProperty("RELEASE_STORE_PASSWORD")
-            keyAlias = keystoreProperties.getProperty("RELEASE_KEY_ALIAS")
-            keyPassword = keystoreProperties.getProperty("RELEASE_KEY_PASSWORD")
+            if (keystorePropertiesFile.exists()) {
+                val keystoreProperties = Properties().apply {
+                    load(FileInputStream(keystorePropertiesFile))
+                }
+
+                storeFile = file("${project.rootDir}/${keystoreProperties.getProperty("RELEASE_STORE_FILE")}")
+                storePassword = keystoreProperties.getProperty("RELEASE_STORE_PASSWORD")
+                keyAlias = keystoreProperties.getProperty("RELEASE_KEY_ALIAS")
+                keyPassword = keystoreProperties.getProperty("RELEASE_KEY_PASSWORD")
+            } else {
+                println("Warning: Keystore properties file not found. Release signing will fail.")
+            }
         }
     }
 
@@ -44,6 +49,7 @@ android {
             applicationIdSuffix = ".debug"
             versionNameSuffix = "-debug"
             manifestPlaceholders["appName"] = "@string/app_name_debug"
+            signingConfig = signingConfigs.getByName("debug")
         }
         release {
             isDebuggable = false
