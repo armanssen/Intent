@@ -29,8 +29,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.crux.R
 import com.crux.ui.model.TaskListUi
 import com.crux.util.DEFAULT_TASK_LIST_ID
 
@@ -71,7 +73,11 @@ fun TaskListsListItemView(
             )
             Spacer(Modifier.height(4.dp))
             Text(
-                text = "Tasks: $taskCount",
+                text = if (taskCount == 0) {
+                    stringResource(R.string.task_list_no_tasks)
+                } else {
+                    stringResource(R.string.task_list_tasks_count, taskCount.toString())
+                },
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )

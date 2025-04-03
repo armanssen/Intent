@@ -29,8 +29,11 @@
     <string name="task_lists_screen_title">Task Lists</string>
     <string name="task_lists_add_task_list_title">Add new task list</string>
     <string name="task_lists_edit_task_list_title">Edit task list</string>
+    <string name="task_list_no_tasks">No tasks</string>
+    <string name="task_list_tasks_count">Tasks: %s</string>
     <string name="task_lists_delete_confirmation_title">Are you sure?</string>
     <string name="task_lists_delete_confirmation_message">All tasks from the list \"%s\" will also be deleted</string>
     <string name="task_lists_delete_confirmation_negative">Cancel</string>
     <string name="task_lists_delete_confirmation_positive">Delete</string>
+
 </resources>

@@ -114,7 +114,7 @@ internal class TaskListsViewModel
     private fun onClickConfirmAddTaskList() {
         viewModelScope.launch(Dispatchers.IO) {
             repository.addTaskList(
-                name = _uiState.value.addTextFieldValue
+                name = _uiState.value.addTextFieldValue.trim()
             )
 
             _uiState.update {
@@ -139,7 +139,7 @@ internal class TaskListsViewModel
         viewModelScope.launch(Dispatchers.IO) {
             repository.updateTaskListName(
                 id = taskListId,
-                name = _uiState.value.editTextFieldValue
+                name = _uiState.value.editTextFieldValue.trim()
             )
             _uiState.update {
                 it.copy(taskListForEdit = null)

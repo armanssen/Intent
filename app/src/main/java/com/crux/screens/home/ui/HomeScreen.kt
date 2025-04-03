@@ -98,7 +98,8 @@ internal fun HomeScreen(
                                         isChecked = isChecked
                                     )
                                 )
-                            }
+                            },
+                            modifier = Modifier.animateItem()
                         )
                     }
                     item {

@@ -200,7 +200,7 @@ internal class AddOrEditTaskViewModel
     private fun onClickConfirmAddTaskList() {
         viewModelScope.launch(Dispatchers.IO) {
             val newTaskListId = repository.addTaskList(
-                name = _uiState.value.addTextFieldValue
+                name = _uiState.value.addTextFieldValue.trim()
             )
 
             _uiState.update {
