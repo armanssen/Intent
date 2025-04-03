@@ -27,6 +27,7 @@ object PreferenceKeys {
     val IS_DYNAMIC_COLOR_ENABLED = booleanPreferencesKey("is_dynamic_color_enabled")
     val APP_THEME = stringPreferencesKey("app_theme")
     val SELECTED_TASK_LIST_ID = intPreferencesKey("selected_task_list_id")
+    val IS_HIDE_COMPLETED_TASKS_ENABLED = booleanPreferencesKey("is_hide_completed_tasks_enabled")
 }
 
 object PreferenceDefaultValues {

@@ -65,4 +65,16 @@ class HomeRepositoryImpl
                 ?: PreferenceDefaultValues.SELECTED_TASK_LIST_ID
         }
     }
+
+    override fun getIsHideCompletedTasksEnabled(): Flow<Boolean> {
+        return appPreferences.data.map {
+            it[PreferenceKeys.IS_HIDE_COMPLETED_TASKS_ENABLED] == true
+        }
+    }
+
+    override suspend fun updateIsHideCompletedTasksEnabled(value: Boolean) {
+        appPreferences.edit { preferences ->
+            preferences[PreferenceKeys.IS_HIDE_COMPLETED_TASKS_ENABLED] = value
+        }
+    }
 }

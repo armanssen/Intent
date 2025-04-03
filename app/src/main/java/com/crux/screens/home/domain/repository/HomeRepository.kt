@@ -20,4 +20,8 @@ internal interface HomeRepository {
     )
 
     fun getSelectedTaskListIdFlow(): Flow<Int>
+
+    fun getIsHideCompletedTasksEnabled(): Flow<Boolean>
+
+    suspend fun updateIsHideCompletedTasksEnabled(value: Boolean)
 }

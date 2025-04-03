@@ -57,10 +57,14 @@ internal fun HomeScreen(
             MainScreenTopAppBarView(
                 selectedTaskListId = uiState.selectedTaskListId,
                 taskLists = uiState.taskLists,
+                isHideCompletedTasksEnabled = uiState.isHideCompletedTasksEnabled,
                 scrollBehavior = scrollBehavior,
                 onClickMenu = onClickMenu,
                 onClickOpenBottomSheet = {
                     isBottomSheetVisible = !isBottomSheetVisible
+                },
+                onClickHideCompletedTasks = {
+                    onEvent(HomeScreenEvent.OnClickHideCompletedTasks)
                 }
             )
         },

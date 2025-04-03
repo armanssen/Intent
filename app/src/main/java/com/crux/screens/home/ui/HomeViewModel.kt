@@ -28,6 +28,7 @@ internal class HomeViewModel
         collectAllTasks()
         collectAllTaskLists()
         collectSelectedTaskListId()
+        collectIsHideCompletedTasksEnabled()
     }
 
     fun onEvent(event: HomeScreenEvent) {
@@ -42,6 +43,9 @@ internal class HomeViewModel
                 onSelectTaskList(
                     taskListId = event.taskListId
                 )
+            }
+            HomeScreenEvent.OnClickHideCompletedTasks -> {
+                onClickHideCompletedTasks()
             }
         }
     }
@@ -87,6 +91,27 @@ internal class HomeViewModel
                         it.copy(selectedTaskListId = taskListId)
                     }
                 }
+        }
+    }
+
+    private fun collectIsHideCompletedTasksEnabled() {
+        viewModelScope.launch {
+            repository.getIsHideCompletedTasksEnabled()
+                .collectLatest { isHideCompletedTasksEnabled ->
+                    _uiState.update {
+                        it.copy(
+                            isHideCompletedTasksEnabled = isHideCompletedTasksEnabled
+                        )
+                    }
+                }
+        }
+    }
+
+    private fun onClickHideCompletedTasks() {
+        viewModelScope.launch {
+            repository.updateIsHideCompletedTasksEnabled(
+                value = !_uiState.value.isHideCompletedTasksEnabled
+            )
         }
     }
 

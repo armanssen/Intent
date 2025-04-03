@@ -8,6 +8,7 @@ import kotlinx.collections.immutable.persistentListOf
 
 data class HomeScreenState(
     val selectedTaskListId: Int = PreferenceDefaultValues.SELECTED_TASK_LIST_ID,
+    val isHideCompletedTasksEnabled: Boolean = false,
     val tasks: ImmutableList<TaskUi> = persistentListOf(),
     val taskLists: ImmutableList<TaskListWithCountUi> = persistentListOf()
 )

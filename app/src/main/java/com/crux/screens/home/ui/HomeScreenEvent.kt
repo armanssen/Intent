@@ -12,4 +12,6 @@ sealed interface HomeScreenEvent {
     data class OnSelectTaskList(
         val taskListId: Int
     ) : HomeScreenEvent
+
+    data object OnClickHideCompletedTasks : HomeScreenEvent
 }
