@@ -19,6 +19,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.navigation.NavOptions
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.crux.domain.model.AppTheme
@@ -102,7 +103,10 @@ class MainActivity : ComponentActivity() {
                             },
                             onClickTask = { taskId ->
                                 navController.navigate(
-                                    AddOrEditTaskScreenDestination(taskId = taskId)
+                                    route = AddOrEditTaskScreenDestination(taskId = taskId),
+                                    navOptions = NavOptions.Builder()
+                                        .setLaunchSingleTop(true)
+                                        .build()
                                 )
                             },
                             onClickTaskLists = {

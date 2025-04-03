@@ -7,6 +7,7 @@ import com.crux.ui.model.TaskUi
 import com.crux.ui.model.toUi
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.toPersistentList
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
@@ -52,6 +53,9 @@ internal class HomeViewModel
                     _uiState.update {
                         it.copy(
                             tasks = tasks
+                                .filter {
+                                    !it.isCompleted
+                                }
                                 .map { task -> task.toUi() }
                                 .toPersistentList()
                         )
@@ -91,6 +95,7 @@ internal class HomeViewModel
         isChecked: Boolean
     ) {
         viewModelScope.launch {
+            delay(UPDATE_TASK_COMPLETION_DELAY)
             repository.updateTaskCompletion(
                 id = task.id,
                 isCompleted = isChecked
@@ -104,5 +109,9 @@ internal class HomeViewModel
                 taskListId = taskListId
             )
         }
+    }
+
+    companion object {
+        private const val UPDATE_TASK_COMPLETION_DELAY = 500L
     }
 }

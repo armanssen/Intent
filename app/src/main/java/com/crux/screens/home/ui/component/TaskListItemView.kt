@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.LocalMinimumInteractiveComponentSize
@@ -16,6 +15,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextDecoration
@@ -32,6 +35,10 @@ internal fun TaskListItemView(
     onCheckedChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    var isChecked by rememberSaveable(task.isCompleted) {
+        mutableStateOf(task.isCompleted)
+    }
+
     Row(
         modifier = modifier
             .clip(MaterialTheme.shapes.medium)
@@ -44,8 +51,11 @@ internal fun TaskListItemView(
     ) {
         CompositionLocalProvider(LocalMinimumInteractiveComponentSize provides 0.dp) {
             Checkbox(
-                checked = task.isCompleted,
-                onCheckedChange = onCheckedChange,
+                checked = isChecked,
+                onCheckedChange = {
+                    isChecked = it
+                    onCheckedChange(isChecked)
+                },
                 colors = CheckboxDefaults.colors().copy(
                     checkedBorderColor = MaterialTheme.colorScheme.onSurfaceVariant,
                     checkedBoxColor = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -57,7 +67,7 @@ internal fun TaskListItemView(
         Text(
             text = task.title,
             style = LocalTextStyle.current.copy(
-                textDecoration = if (task.isCompleted) {
+                textDecoration = if (isChecked) {
                     TextDecoration.LineThrough
                 } else {
                     TextDecoration.None
