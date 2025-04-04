@@ -9,6 +9,8 @@
     <string name="drawer_send_feedback">Send Feedback</string>
     <string name="drawer_about">About</string>
 
+    <string name="home_screen_all_lists">All lists</string>
+    <string name="home_screen_no_task_list_selected">No task list selected</string>
     <string name="home_screen_new_task">New task</string>
     <string name="home_screen_bottom_sheet_title">Select task list</string>
     <string name="home_screen_bottom_sheet_no_tasks">No tasks</string>

@@ -25,13 +25,16 @@ import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.crux.R
 import com.crux.ui.model.TaskListWithCountUi
+import com.crux.util.ALL_TASK_LISTS_ID
 import kotlinx.collections.immutable.ImmutableList
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -46,7 +49,18 @@ internal fun MainScreenTopAppBarView(
     onClickHideCompletedTasks: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    var isDropdownMenuExpanded by remember { mutableStateOf(false) }
+    val context = LocalContext.current
+    var isDropdownMenuExpanded by rememberSaveable { mutableStateOf(false) }
+
+    val title = rememberSaveable(selectedTaskListId) {
+        if (selectedTaskListId == ALL_TASK_LISTS_ID) {
+            context.getString(R.string.home_screen_all_lists)
+        } else {
+            taskLists.find {
+                it.taskList.id == selectedTaskListId
+            }?.taskList?.name ?: context.getString(R.string.home_screen_no_task_list_selected)
+        }
+    }
 
     TopAppBar(
         modifier = modifier,
@@ -60,9 +74,7 @@ internal fun MainScreenTopAppBarView(
                 horizontalArrangement = Arrangement.Start
             ) {
                 Text(
-                    text = taskLists.find {
-                        it.taskList.id == selectedTaskListId
-                    }?.taskList?.name ?: "No task list selected",
+                    text = title,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                     style = MaterialTheme.typography.bodyLarge,

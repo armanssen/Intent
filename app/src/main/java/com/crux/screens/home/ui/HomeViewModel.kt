@@ -5,8 +5,10 @@ import androidx.lifecycle.viewModelScope
 import com.crux.screens.home.domain.repository.HomeRepository
 import com.crux.ui.model.TaskUi
 import com.crux.ui.model.toUi
+import com.crux.util.ALL_TASK_LISTS_ID
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.toPersistentList
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -27,7 +29,7 @@ internal class HomeViewModel
 
     init {
         collectAllTaskLists()
-        collectSelectedTaskListId()
+//        collectSelectedTaskListId()
         collectTasksAndFilter()
     }
 
@@ -79,15 +81,22 @@ internal class HomeViewModel
 
 
     private fun collectTasksAndFilter() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             combine(
                 repository.getAllTasksFlow(),
-                repository.getIsHideCompletedTasksEnabled()
-            ) { tasks, isHideCompletedTasksEnabled ->
+                repository.getIsHideCompletedTasksEnabled(),
+                repository.getSelectedTaskListIdFlow()
+            ) { tasks, isHideCompletedTasksEnabled, selectedTaskListId ->
                 _uiState.value.copy(
                     isHideCompletedTasksEnabled = isHideCompletedTasksEnabled,
+                    selectedTaskListId = selectedTaskListId,
                     tasks = tasks
-                        .filter { task -> !isHideCompletedTasksEnabled || !task.isCompleted }
+                        .filter { task ->
+                            selectedTaskListId == ALL_TASK_LISTS_ID || task.listId == selectedTaskListId
+                        }
+                        .filter { task ->
+                            !isHideCompletedTasksEnabled || !task.isCompleted
+                        }
                         .map { it.toUi() }
                         .toPersistentList()
                 )
