@@ -15,6 +15,7 @@ import androidx.compose.material.icons.outlined.ColorLens
 import androidx.compose.material.icons.outlined.Feedback
 import androidx.compose.material.icons.outlined.Layers
 import androidx.compose.material.icons.outlined.Notifications
+import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
@@ -108,6 +109,19 @@ internal fun HomeScreenDrawer(
 
                     context.startActivity(intent)
                 }
+            )
+            DrawerItemView(
+                label = "Settings",
+                icon = Icons.Outlined.Settings,
+                onClick = {
+
+                }
+            )
+            HorizontalDivider(
+                color = MaterialTheme.colorScheme
+                    .onSurfaceVariant.copy(alpha = 0.2f),
+                thickness = 0.5.dp,
+                modifier = Modifier.padding(vertical = 4.dp)
             )
             DrawerItemView(
                 label = stringResource(R.string.drawer_send_feedback),
