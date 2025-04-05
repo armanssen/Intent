@@ -16,6 +16,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -28,7 +29,8 @@ internal fun HomeScreenBottomSheetListItemView(
     taskCount: Int,
     isSelected: Boolean,
     onClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    icon: ImageVector = Icons.Outlined.Layers
 ) {
     Column(
         modifier = modifier
@@ -39,7 +41,7 @@ internal fun HomeScreenBottomSheetListItemView(
                 .padding(horizontal = 16.dp, vertical = 12.dp)
         ) {
             Icon(
-                imageVector = Icons.Outlined.Layers,
+                imageVector = icon,
                 contentDescription = "task list icon",
                 modifier = Modifier.padding(top = 4.dp),
                 tint = MaterialTheme.colorScheme.onSurfaceVariant

@@ -57,8 +57,8 @@ internal fun TaskListItemView(
                     onCheckedChange(isChecked)
                 },
                 colors = CheckboxDefaults.colors().copy(
-                    checkedBorderColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                    checkedBoxColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                    checkedBorderColor = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f),
+                    checkedBoxColor = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f),
                     uncheckedBoxColor = MaterialTheme.colorScheme.surfaceContainer
                 )
             )
@@ -66,13 +66,16 @@ internal fun TaskListItemView(
         Spacer(Modifier.width(8.dp))
         Text(
             text = task.title,
-            style = LocalTextStyle.current.copy(
-                textDecoration = if (isChecked) {
-                    TextDecoration.LineThrough
+            style = LocalTextStyle.current.let { style ->
+                if (isChecked) {
+                    style.copy(
+                        textDecoration = TextDecoration.LineThrough,
+                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
+                    )
                 } else {
-                    TextDecoration.None
+                    style
                 }
-            )
+            }
         )
     }
 }
