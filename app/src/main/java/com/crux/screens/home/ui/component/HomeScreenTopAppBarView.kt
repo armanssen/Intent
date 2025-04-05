@@ -52,7 +52,7 @@ internal fun MainScreenTopAppBarView(
     val context = LocalContext.current
     var isDropdownMenuExpanded by rememberSaveable { mutableStateOf(false) }
 
-    val title = rememberSaveable(selectedTaskListId) {
+    val title = rememberSaveable(selectedTaskListId, taskLists) {
         if (selectedTaskListId == ALL_TASK_LISTS_ID) {
             context.getString(R.string.home_screen_all_lists)
         } else {

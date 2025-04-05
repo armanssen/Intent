@@ -29,7 +29,6 @@ internal class HomeViewModel
 
     init {
         collectAllTaskLists()
-//        collectSelectedTaskListId()
         collectTasksAndFilter()
     }
 
@@ -66,19 +65,6 @@ internal class HomeViewModel
                 }
         }
     }
-
-    private fun collectSelectedTaskListId() {
-        viewModelScope.launch {
-            repository.getSelectedTaskListIdFlow()
-                .collectLatest { taskListId ->
-                    _uiState.update {
-                        it.copy(selectedTaskListId = taskListId)
-                    }
-                }
-        }
-    }
-
-
 
     private fun collectTasksAndFilter() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -118,7 +104,7 @@ internal class HomeViewModel
         task: TaskUi,
         isChecked: Boolean
     ) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             if (_uiState.value.isHideCompletedTasksEnabled) {
                 delay(UPDATE_TASK_COMPLETION_DELAY)
             }
