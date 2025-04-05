@@ -35,7 +35,7 @@ interface TaskListEntityDao {
     @Query("""
         SELECT 
             TaskListEntity.*,
-            COUNT(TaskEntity.id) AS taskCount 
+            COUNT(CASE WHEN TaskEntity.isCompleted = 0 THEN 0 END) AS taskCount 
         FROM TaskListEntity
         LEFT JOIN TaskEntity 
             ON TaskListEntity.id = TaskEntity.listId
