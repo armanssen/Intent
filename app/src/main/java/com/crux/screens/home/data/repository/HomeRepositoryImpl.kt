@@ -5,6 +5,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import com.crux.data.database.AppDatabase
 import com.crux.data.datastore.PreferenceDefaultValues
+import com.crux.data.datastore.PreferenceDefaultValues.HIDE_COMPLETED_TASK_DEFAULT_VALUE
 import com.crux.data.datastore.PreferenceKeys
 import com.crux.domain.model.Task
 import com.crux.domain.model.TaskListWithCount
@@ -68,7 +69,8 @@ class HomeRepositoryImpl
 
     override fun getIsHideCompletedTasksEnabled(): Flow<Boolean> {
         return appPreferences.data.map {
-            it[PreferenceKeys.IS_HIDE_COMPLETED_TASKS_ENABLED] == true
+            it[PreferenceKeys.IS_HIDE_COMPLETED_TASKS_ENABLED]
+                ?: HIDE_COMPLETED_TASK_DEFAULT_VALUE
         }
     }
 

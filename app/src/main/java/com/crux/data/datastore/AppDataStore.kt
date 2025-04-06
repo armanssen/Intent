@@ -32,4 +32,5 @@ object PreferenceKeys {
 
 object PreferenceDefaultValues {
     const val SELECTED_TASK_LIST_ID = DEFAULT_TASK_LIST_ID
+    const val HIDE_COMPLETED_TASK_DEFAULT_VALUE = true
 }
