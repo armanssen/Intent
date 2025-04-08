@@ -6,6 +6,8 @@ import kotlinx.coroutines.flow.Flow
 
 internal interface AddOrEditTaskRepository {
 
+    fun getSelectedTaskListIdFlow(): Flow<Int>
+
     suspend fun getTaskById(id: Int): Task?
 
     suspend fun insertTask(

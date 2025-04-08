@@ -25,6 +25,7 @@ import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -52,7 +53,7 @@ internal fun MainScreenTopAppBarView(
     val context = LocalContext.current
     var isDropdownMenuExpanded by rememberSaveable { mutableStateOf(false) }
 
-    val title = rememberSaveable(selectedTaskListId, taskLists) {
+    val title = remember(selectedTaskListId, taskLists) {
         if (selectedTaskListId == ALL_TASK_LISTS_ID) {
             context.getString(R.string.home_screen_all_lists)
         } else {
