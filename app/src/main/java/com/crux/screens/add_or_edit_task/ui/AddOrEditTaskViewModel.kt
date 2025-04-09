@@ -6,6 +6,8 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
 import com.crux.screens.add_or_edit_task.domain.repository.AddOrEditTaskRepository
 import com.crux.ui.model.toUi
+import com.crux.util.ALL_TASK_LISTS_ID
+import com.crux.util.DEFAULT_TASK_LIST_ID
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.Dispatchers
@@ -38,9 +40,14 @@ internal class AddOrEditTaskViewModel
             args.taskId?.let { taskId ->
                 getTask(taskId)
             } ?: let {
+                val selectedTaskListId = repository.getSelectedTaskListIdFlow().first()
                 _uiState.update {
                     it.copy(
-                        selectedTaskListId = repository.getSelectedTaskListIdFlow().first()
+                        selectedTaskListId = if (selectedTaskListId == ALL_TASK_LISTS_ID) {
+                            DEFAULT_TASK_LIST_ID
+                        } else {
+                            selectedTaskListId
+                        }
                     )
                 }
             }

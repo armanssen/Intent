@@ -109,13 +109,16 @@ internal fun HomeScreenBottomSheetView(
                         }
                     )
                 }
-                items(taskLists) { taskList ->
+                items(
+                    items = taskLists,
+                    key = { it.taskList.id }
+                ) { item ->
                     HomeScreenBottomSheetListItemView(
-                        title = taskList.taskList.name,
-                        taskCount = taskList.taskCount,
-                        isSelected = selectedTaskListId == taskList.taskList.id,
+                        title = item.taskList.name,
+                        taskCount = item.taskCount,
+                        isSelected = selectedTaskListId == item.taskList.id,
                         onClick = {
-                            onSelectTaskList(taskList.taskList.id)
+                            onSelectTaskList(item.taskList.id)
                             coroutineScope
                                 .launch { sheetState.hide() }
                                 .invokeOnCompletion {
