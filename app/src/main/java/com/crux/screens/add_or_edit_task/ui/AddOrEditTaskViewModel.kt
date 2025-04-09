@@ -4,6 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
+import com.crux.domain.model.Task
 import com.crux.screens.add_or_edit_task.domain.repository.AddOrEditTaskRepository
 import com.crux.ui.model.toUi
 import com.crux.util.ALL_TASK_LISTS_ID
@@ -37,9 +38,9 @@ internal class AddOrEditTaskViewModel
 
     init {
         viewModelScope.launch {
-            args.taskId?.let { taskId ->
-                getTask(taskId)
-            } ?: let {
+            if (args.taskId != null) {
+                getTask(args.taskId)
+            } else {
                 val selectedTaskListId = repository.getSelectedTaskListIdFlow().first()
                 _uiState.update {
                     it.copy(
@@ -113,7 +114,7 @@ internal class AddOrEditTaskViewModel
                 }
             }
             is AddOrEditTaskScreenEvent.OnConfirmDeleteConfirmation -> {
-                _uiState.value.task?.id?.let { taskId ->
+                args.taskId?.let { taskId ->
                     deleteTaskById(id = taskId)
                 }
 
@@ -189,14 +190,20 @@ internal class AddOrEditTaskViewModel
                     task = task
                         .copy(
                             title = title.trim(),
-                            listId = _uiState.value.selectedTaskListId
+                            listId = _uiState.value.selectedTaskListId,
+                            dueDateTime = _uiState.value.dueDate
                         ).toDomain()
                 )
             } else {
                 repository.insertTask(
-                    title = title.trim(),
-                    createdAt = System.currentTimeMillis(),
-                    listId = _uiState.value.selectedTaskListId,
+                    Task(
+                        id = 0, // treated as not set
+                        isCompleted = false,
+                        title = title.trim(),
+                        createdAt = System.currentTimeMillis(),
+                        listId = _uiState.value.selectedTaskListId,
+                        dueDateTime = _uiState.value.dueDate
+                    )
                 )
             }
 

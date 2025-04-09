@@ -11,9 +11,7 @@ internal interface AddOrEditTaskRepository {
     suspend fun getTaskById(id: Int): Task?
 
     suspend fun insertTask(
-        title: String,
-        createdAt: Long,
-        listId: Int
+        task: Task
     )
 
     suspend fun updateTask(

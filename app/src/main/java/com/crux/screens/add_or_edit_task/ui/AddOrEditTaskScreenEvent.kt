@@ -8,9 +8,7 @@ internal sealed interface AddOrEditTaskScreenEvent {
 
     data object OnClickSave : AddOrEditTaskScreenEvent
 
-    data class OnClickDelete(
-        val id: Int
-    ) : AddOrEditTaskScreenEvent
+    data object OnClickDelete : AddOrEditTaskScreenEvent
 
     data object OnDismissDeleteConfirmation : AddOrEditTaskScreenEvent
 

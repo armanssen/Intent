@@ -83,10 +83,10 @@ internal fun AddOrEditTaskScreen(
         containerColor = MaterialTheme.colorScheme.surface,
         topBar = {
             AddOrEditTaskTopAppBarView(
-                task = uiState.task,
+                isEditTask = args.taskId != null,
                 onClickBack = onClickBack,
-                onClickDelete = { id ->
-                    onEvent(AddOrEditTaskScreenEvent.OnClickDelete(id))
+                onClickDelete = {
+                    onEvent(AddOrEditTaskScreenEvent.OnClickDelete)
                 }
             )
         },

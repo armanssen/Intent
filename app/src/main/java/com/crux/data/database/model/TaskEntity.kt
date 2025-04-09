@@ -41,5 +41,6 @@ fun Task.toEntity() = TaskEntity(
     title = title,
     createdAt = createdAt,
     isCompleted = isCompleted,
+    dueDateTime = dueDateTime,
     listId = listId
 )

@@ -35,19 +35,11 @@ class AddOrEditTaskRepositoryImpl
             ?.toDomain()
     }
 
-    override suspend fun insertTask(
-        title: String,
-        createdAt: Long,
-        listId: Int
-    ) {
+    override suspend fun insertTask(task: Task) {
         database
             .taskEntityDao()
             .insert(
-                task = TaskEntity(
-                    title = title,
-                    createdAt = createdAt,
-                    listId = listId
-                )
+                task = task.toEntity()
             )
     }
 

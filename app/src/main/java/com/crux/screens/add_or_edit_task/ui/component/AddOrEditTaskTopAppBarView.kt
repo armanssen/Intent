@@ -12,20 +12,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.crux.R
-import com.crux.ui.model.TaskUi
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun AddOrEditTaskTopAppBarView(
-    task: TaskUi?,
+    isEditTask: Boolean,
     onClickBack: () -> Unit,
-    onClickDelete: (Int) -> Unit,
+    onClickDelete: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     TopAppBar(
         modifier = modifier,
         title = {
-            if (task == null) {
+            if (!isEditTask) {
                 Text(
                     text = stringResource(R.string.add_or_edit_task_screen_new_task_title)
                 )
@@ -43,10 +42,10 @@ internal fun AddOrEditTaskTopAppBarView(
             )
         },
         actions = {
-            task?.let { task ->
+            if (isEditTask) {
                 IconButton(
                     onClick = {
-                        onClickDelete(task.id)
+                        onClickDelete()
                     },
                     content = {
                         Icon(
