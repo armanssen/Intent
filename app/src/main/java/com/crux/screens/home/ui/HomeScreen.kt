@@ -3,15 +3,22 @@ package com.crux.screens.home.ui
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.WbSunny
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
@@ -23,13 +30,19 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.crux.R
 import com.crux.screens.home.ui.component.HomeScreenBottomSheetView
 import com.crux.screens.home.ui.component.MainScreenFloatingActionButtonView
 import com.crux.screens.home.ui.component.MainScreenTopAppBarView
 import com.crux.screens.home.ui.component.TaskListItemView
+import com.crux.ui.model.TaskGroup
+import com.crux.ui.model.groupTasksByDueDateTime
+import java.time.format.TextStyle
+import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -78,6 +91,11 @@ internal fun HomeScreen(
         }
     ) { padding ->
         Column(modifier = Modifier.padding(padding)) {
+
+            val groupedTasks = remember(uiState.tasks) {
+                groupTasksByDueDateTime(uiState.tasks)
+            }
+
             LazyColumn(
                 state = lazyListState,
                 verticalArrangement = Arrangement.spacedBy(4.dp),
@@ -86,25 +104,48 @@ internal fun HomeScreen(
                     horizontal = 12.dp
                 ),
                 content = {
-                    items(
-                        items = uiState.tasks,
-                        key = { it.id }
-                    ) { task ->
-                        TaskListItemView(
-                            task = task,
-                            onClick = {
-                                onClickTask(task.id)
-                            },
-                            onCheckedChange = { isChecked ->
-                                onEvent(
-                                    HomeScreenEvent.OnCheckedChange(
-                                        task = task,
-                                        isChecked = isChecked
-                                    )
+                    groupedTasks.forEach { (group, tasksInGroup) ->
+                        item {
+                            Row(
+                                modifier = Modifier
+                                    .padding(vertical = 8.dp)
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Outlined.WbSunny,
+                                    contentDescription = null,
+                                    tint = MaterialTheme.colorScheme.onSurfaceVariant
                                 )
-                            },
-                            modifier = Modifier.animateItem()
-                        )
+                                Spacer(Modifier.width(8.dp))
+                                Text(
+                                    text = getTaskGroupLabel(group),
+                                    style = MaterialTheme.typography.bodyLarge,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+
+                                )
+                            }
+                        }
+                        items(
+                            items = tasksInGroup,
+                            key = { it.id }
+                        ) { task ->
+                            TaskListItemView(
+                                task = task,
+                                onClick = {
+                                    onClickTask(task.id)
+                                },
+                                onCheckedChange = { isChecked ->
+                                    onEvent(
+                                        HomeScreenEvent.OnCheckedChange(
+                                            task = task,
+                                            isChecked = isChecked
+                                        )
+                                    )
+                                },
+                                modifier = Modifier.animateItem()
+                            )
+                        }
                     }
                     item {
                         Spacer(Modifier.height(96.dp))
@@ -126,5 +167,24 @@ internal fun HomeScreen(
                 onEvent(HomeScreenEvent.OnSelectTaskList(taskListId))
             }
         )
+    }
+}
+
+fun groupKey(group: TaskGroup): String {
+    return when (group) {
+        is TaskGroup.Today -> "today_${group.timeOfDay.name}"
+        is TaskGroup.WeekDay -> "weekday_${group.day.name}"
+        else -> group::class.simpleName ?: group.toString()
+    }
+}
+
+@Composable
+fun getTaskGroupLabel(group: TaskGroup): String {
+    return when (group) {
+        is TaskGroup.WeekDay -> {
+            val dayName = group.day.getDisplayName(TextStyle.FULL, Locale.getDefault())
+            stringResource(id = R.string.task_group_weekday, dayName)
+        }
+        else -> stringResource(id = group.labelResId)
     }
 }

@@ -124,6 +124,6 @@ internal class HomeViewModel
     }
 
     companion object {
-        private const val UPDATE_TASK_COMPLETION_DELAY = 500L
+        private const val UPDATE_TASK_COMPLETION_DELAY = 300L
     }
 }

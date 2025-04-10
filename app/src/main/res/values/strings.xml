@@ -38,4 +38,16 @@
     <string name="task_lists_delete_confirmation_negative">Cancel</string>
     <string name="task_lists_delete_confirmation_positive">Delete</string>
 
+    <string name="task_group_overdue">Overdue</string>
+    <string name="task_group_morning">Morning</string>
+    <string name="task_group_noon">Noon</string>
+    <string name="task_group_evening">Evening</string>
+    <string name="task_group_tomorrow">Tomorrow</string>
+    <string name="task_group_next_week">Next week</string>
+    <string name="task_group_this_month">This Month</string>
+    <string name="task_group_next_month">Next month</string>
+    <string name="task_group_later">Later</string>
+    <string name="task_group_some_day">Some day</string>
+    <string name="task_group_weekday">%1$s</string> <!-- Placeholder for weekday name -->
+
 </resources>

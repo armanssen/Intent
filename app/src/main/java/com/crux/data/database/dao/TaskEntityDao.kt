@@ -31,7 +31,15 @@ interface TaskEntityDao {
     @Query("SELECT * FROM TaskEntity ORDER BY createdAt DESC")
     suspend fun getAllTasks(): List<TaskEntity>
 
-    @Query("SELECT * FROM TaskEntity ORDER BY createdAt DESC")
+    @Query("""
+        SELECT * FROM TaskEntity 
+        ORDER BY 
+            CASE 
+                WHEN dueDateTime IS NULL THEN 1 
+                ELSE 0 
+            END,
+            dueDateTime ASC
+    """)
     fun getAllTasksFlow(): Flow<List<TaskEntity>>
 
     @Query("SELECT * FROM TaskEntity WHERE id = :taskId")
