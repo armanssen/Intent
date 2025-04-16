@@ -30,6 +30,8 @@ internal sealed interface AddOrEditTaskScreenEvent {
 
     data object OnClickDueDate : AddOrEditTaskScreenEvent
 
+    data object OnClickRemoveDueDate : AddOrEditTaskScreenEvent
+
     data object OnDismissDatePicker : AddOrEditTaskScreenEvent
 
     data class OnSelectDueDate(

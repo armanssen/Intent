@@ -21,6 +21,7 @@ import com.crux.screens.add_or_edit_task.ui.formatDate
 internal fun AddOrEditTaskDueDateView(
     dueDate: Long?,
     onClick: () -> Unit,
+    onClickRemove: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Row(
@@ -49,8 +50,7 @@ internal fun AddOrEditTaskDueDateView(
         )
         if (dueDate != null) {
             IconButton(
-                onClick = {
-                },
+                onClick = onClickRemove,
                 content = {
                     Icon(
                         imageVector = Icons.Outlined.Close,

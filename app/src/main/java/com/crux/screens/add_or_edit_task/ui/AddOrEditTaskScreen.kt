@@ -113,6 +113,9 @@ internal fun AddOrEditTaskScreen(
                 dueDate = uiState.dueDate,
                 onClick = {
                     onEvent(AddOrEditTaskScreenEvent.OnClickDueDate)
+                },
+                onClickRemove = {
+                    onEvent(AddOrEditTaskScreenEvent.OnClickRemoveDueDate)
                 }
             )
             if (uiState.dueDate != null) {

@@ -79,7 +79,6 @@ internal class AddOrEditTaskViewModel
                     it.copy(selectedTaskListId = event.id)
                 }
             }
-
             is AddOrEditTaskScreenEvent.OnAddTextFieldValueChange -> {
                 _uiState.update {
                     it.copy(addTextFieldValue = event.value)
@@ -101,6 +100,11 @@ internal class AddOrEditTaskViewModel
             AddOrEditTaskScreenEvent.OnClickDueDate -> {
                 _uiState.update {
                     it.copy(isDatePickerDialogVisible = true)
+                }
+            }
+            AddOrEditTaskScreenEvent.OnClickRemoveDueDate -> {
+                _uiState.update {
+                    it.copy(dueDate = null)
                 }
             }
             AddOrEditTaskScreenEvent.OnDismissDatePicker -> {
