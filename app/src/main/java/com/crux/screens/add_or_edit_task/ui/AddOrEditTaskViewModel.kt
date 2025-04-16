@@ -74,44 +74,6 @@ internal class AddOrEditTaskViewModel
                     it.copy(isDeleteTaskDialogVisible = true)
                 }
             }
-            is AddOrEditTaskScreenEvent.OnSelectTaskList -> {
-                _uiState.update {
-                    it.copy(selectedTaskListId = event.id)
-                }
-            }
-            is AddOrEditTaskScreenEvent.OnAddTextFieldValueChange -> {
-                _uiState.update {
-                    it.copy(addTextFieldValue = event.value)
-                }
-            }
-            AddOrEditTaskScreenEvent.OnClickAddTaskList -> {
-                _uiState.update {
-                    it.copy(isAddTaskListDialogVisible = true)
-                }
-            }
-            AddOrEditTaskScreenEvent.OnClickConfirmAddTaskList -> {
-                onClickConfirmAddTaskList()
-            }
-            AddOrEditTaskScreenEvent.OnClickDismissAddTaskListDialog -> {
-                _uiState.update {
-                    it.copy(isAddTaskListDialogVisible = false)
-                }
-            }
-            AddOrEditTaskScreenEvent.OnClickDueDate -> {
-                _uiState.update {
-                    it.copy(isDatePickerDialogVisible = true)
-                }
-            }
-            AddOrEditTaskScreenEvent.OnClickRemoveDueDate -> {
-                _uiState.update {
-                    it.copy(dueDate = null)
-                }
-            }
-            AddOrEditTaskScreenEvent.OnDismissDatePicker -> {
-                _uiState.update {
-                    it.copy(isDatePickerDialogVisible = false)
-                }
-            }
             AddOrEditTaskScreenEvent.OnDismissDeleteConfirmation -> {
                 _uiState.update {
                     it.copy(isDeleteTaskDialogVisible = false)
@@ -121,26 +83,74 @@ internal class AddOrEditTaskViewModel
                 args.taskId?.let { taskId ->
                     deleteTaskById(id = taskId)
                 }
+            }
+            is DueDateEvent -> {
+                handleDueDateEvent(event = event)
+            }
+            is TaskListEvent -> {
+                handleTaskListEvent(event = event)
+            }
+        }
+    }
 
+    private fun handleDueDateEvent(event: DueDateEvent) {
+        when (event) {
+            DueDateEvent.OnClickDueDate -> {
                 _uiState.update {
-                    it.copy(isDeleteTaskDialogVisible = false)
+                    it.copy(isDatePickerDialogVisible = true)
                 }
             }
-            is AddOrEditTaskScreenEvent.OnSelectDueDate -> {
+            DueDateEvent.OnDismissDatePicker -> {
                 _uiState.update {
-                    it.copy(
-                        dueDate = event.date
-                    )
+                    it.copy(isDatePickerDialogVisible = false)
                 }
             }
-            AddOrEditTaskScreenEvent.OnClickTime -> {
+            DueDateEvent.OnClickRemoveDueDate -> {
+                _uiState.update {
+                    it.copy(dueDate = null)
+                }
+            }
+            is DueDateEvent.OnSelectDueDate -> {
+                _uiState.update {
+                    it.copy(dueDate = event.date)
+                }
+            }
+            DueDateEvent.OnClickTime -> {
                 _uiState.update {
                     it.copy(isTimePickerDialogVisible = true)
                 }
             }
-            AddOrEditTaskScreenEvent.OnDismissTimePicker -> {
+            DueDateEvent.OnDismissTimePicker -> {
                 _uiState.update {
                     it.copy(isTimePickerDialogVisible = false)
+                }
+            }
+        }
+    }
+
+    private fun handleTaskListEvent(event: TaskListEvent) {
+        when (event) {
+            is TaskListEvent.OnAddTextFieldValueChange -> {
+                _uiState.update {
+                    it.copy(addTextFieldValue = event.value)
+                }
+            }
+            TaskListEvent.OnClickAddTaskList -> {
+                _uiState.update {
+                    it.copy(isAddTaskListDialogVisible = true)
+                }
+            }
+            TaskListEvent.OnClickConfirmAddTaskList -> {
+                onClickConfirmAddTaskList()
+            }
+            TaskListEvent.OnClickDismissAddTaskListDialog -> {
+                _uiState.update {
+                    it.copy(isAddTaskListDialogVisible = false)
+                }
+            }
+            is TaskListEvent.OnSelectTaskList -> {
+                _uiState.update {
+                    it.copy(selectedTaskListId = event.id)
                 }
             }
         }
@@ -218,6 +228,11 @@ internal class AddOrEditTaskViewModel
     private fun deleteTaskById(id: Int) {
         viewModelScope.launch {
             repository.deleteTaskById(id = id)
+
+            _uiState.update {
+                it.copy(isDeleteTaskDialogVisible = false)
+            }
+
             _sideEffects.send(AddOrEditTaskScreenSideEffect.TaskDeleted)
         }
     }

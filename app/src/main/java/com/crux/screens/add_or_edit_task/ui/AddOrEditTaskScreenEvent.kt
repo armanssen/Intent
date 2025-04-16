@@ -13,32 +13,32 @@ internal sealed interface AddOrEditTaskScreenEvent {
     data object OnDismissDeleteConfirmation : AddOrEditTaskScreenEvent
 
     data object OnConfirmDeleteConfirmation : AddOrEditTaskScreenEvent
+}
 
-    data class OnSelectTaskList(
-        val id: Int
-    ) : AddOrEditTaskScreenEvent
+internal sealed interface DueDateEvent : AddOrEditTaskScreenEvent {
 
-    data object OnClickAddTaskList : AddOrEditTaskScreenEvent
+    data object OnClickDueDate : DueDateEvent
 
-    data object OnClickDismissAddTaskListDialog : AddOrEditTaskScreenEvent
+    data object OnDismissDatePicker : DueDateEvent
 
-    data object OnClickConfirmAddTaskList : AddOrEditTaskScreenEvent
+    data object OnClickRemoveDueDate : DueDateEvent
 
-    data class OnAddTextFieldValueChange(
-        val value: String
-    ) : AddOrEditTaskScreenEvent
+    data class OnSelectDueDate(val date: Long) : DueDateEvent
 
-    data object OnClickDueDate : AddOrEditTaskScreenEvent
+    data object OnClickTime : DueDateEvent
 
-    data object OnClickRemoveDueDate : AddOrEditTaskScreenEvent
+    data object OnDismissTimePicker : DueDateEvent
+}
 
-    data object OnDismissDatePicker : AddOrEditTaskScreenEvent
+internal sealed interface TaskListEvent : AddOrEditTaskScreenEvent {
 
-    data class OnSelectDueDate(
-        val date: Long
-    ) : AddOrEditTaskScreenEvent
+    data class OnSelectTaskList(val id: Int) : TaskListEvent
 
-    data object OnClickTime : AddOrEditTaskScreenEvent
+    data object OnClickAddTaskList : TaskListEvent
 
-    data object OnDismissTimePicker : AddOrEditTaskScreenEvent
+    data object OnClickDismissAddTaskListDialog : TaskListEvent
+
+    data object OnClickConfirmAddTaskList : TaskListEvent
+
+    data class OnAddTextFieldValueChange(val value: String) : TaskListEvent
 }

@@ -10,7 +10,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -50,9 +49,6 @@ internal fun AddOrEditTaskScreen(
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     val focusRequester = remember { FocusRequester() }
     val focusManager = LocalFocusManager.current
-    val datePickerState = rememberDatePickerState(
-        initialSelectedDateMillis = uiState.dueDate ?: System.currentTimeMillis()
-    )
 
     LaunchedEffect(Unit) {
         if (args.taskId == null) {
@@ -112,16 +108,16 @@ internal fun AddOrEditTaskScreen(
             AddOrEditTaskDueDateView(
                 dueDate = uiState.dueDate,
                 onClick = {
-                    onEvent(AddOrEditTaskScreenEvent.OnClickDueDate)
+                    onEvent(DueDateEvent.OnClickDueDate)
                 },
                 onClickRemove = {
-                    onEvent(AddOrEditTaskScreenEvent.OnClickRemoveDueDate)
+                    onEvent(DueDateEvent.OnClickRemoveDueDate)
                 }
             )
             if (uiState.dueDate != null) {
                 AddOrEditTaskTimeView(
                     onClick = {
-                        onEvent(AddOrEditTaskScreenEvent.OnClickTime)
+                        onEvent(DueDateEvent.OnClickTime)
                     }
                 )
             }
@@ -129,10 +125,10 @@ internal fun AddOrEditTaskScreen(
                 selectedTaskListId = uiState.selectedTaskListId,
                 taskLists = uiState.taskLists,
                 onSelectTaskList = {
-                    onEvent(AddOrEditTaskScreenEvent.OnSelectTaskList(it))
+                    onEvent(TaskListEvent.OnSelectTaskList(it))
                 },
                 onClickAdd = {
-                    onEvent(AddOrEditTaskScreenEvent.OnClickAddTaskList)
+                    onEvent(TaskListEvent.OnClickAddTaskList)
                 }
             )
         }
@@ -144,25 +140,25 @@ internal fun AddOrEditTaskScreen(
             title = stringResource(R.string.task_lists_add_task_list_title),
             textFieldValue = uiState.addTextFieldValue,
             onValueChange = {
-                onEvent(AddOrEditTaskScreenEvent.OnAddTextFieldValueChange(it))
+                onEvent(TaskListEvent.OnAddTextFieldValueChange(it))
             },
             onDismissRequest = {
-                onEvent(AddOrEditTaskScreenEvent.OnClickDismissAddTaskListDialog)
+                onEvent(TaskListEvent.OnClickDismissAddTaskListDialog)
             },
             onConfirmation = {
-                onEvent(AddOrEditTaskScreenEvent.OnClickConfirmAddTaskList)
+                onEvent(TaskListEvent.OnClickConfirmAddTaskList)
             }
         )
     }
 
     if (uiState.isDatePickerDialogVisible) {
         AddOrEditTaskDatePickerDialogView(
-            datePickerState = datePickerState,
+            dueDate = uiState.dueDate,
             onDismiss = {
-                onEvent(AddOrEditTaskScreenEvent.OnDismissDatePicker)
+                onEvent(DueDateEvent.OnDismissDatePicker)
             },
             onDateSelected = { selectedDate ->
-                onEvent(AddOrEditTaskScreenEvent.OnSelectDueDate(selectedDate))
+                onEvent(DueDateEvent.OnSelectDueDate(selectedDate))
             }
         )
     }
@@ -171,7 +167,7 @@ internal fun AddOrEditTaskScreen(
         AddOrEditTaskTimePickerDialogView(
             onConfirm = {},
             onDismiss = {
-                onEvent(AddOrEditTaskScreenEvent.OnDismissTimePicker)
+                onEvent(DueDateEvent.OnDismissTimePicker)
             }
         )
     }
