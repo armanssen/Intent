@@ -8,13 +8,19 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Circle
+import androidx.compose.material.icons.outlined.Bedtime
+import androidx.compose.material.icons.outlined.CalendarToday
 import androidx.compose.material.icons.outlined.WbSunny
+import androidx.compose.material.icons.outlined.WbTwilight
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -28,7 +34,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -40,6 +48,7 @@ import com.crux.screens.home.ui.component.MainScreenFloatingActionButtonView
 import com.crux.screens.home.ui.component.MainScreenTopAppBarView
 import com.crux.screens.home.ui.component.TaskListItemView
 import com.crux.ui.model.TaskGroup
+import com.crux.ui.model.TimeOfDay
 import com.crux.ui.model.groupTasksByDueDateTime
 import java.time.format.TextStyle
 import java.util.Locale
@@ -104,22 +113,29 @@ internal fun HomeScreen(
                     horizontal = 12.dp
                 ),
                 content = {
-                    groupedTasks.forEach { (group, tasksInGroup) ->
+                    groupedTasks.onEachIndexed { index, (group, tasksInGroup) ->
                         item {
+                            if (index != 0) {
+                                Spacer(Modifier.height(16.dp))
+                            }
                             Row(
-                                modifier = Modifier
-                                    .padding(vertical = 8.dp)
+                                modifier = Modifier.padding(bottom = 8.dp),
+                                verticalAlignment = Alignment.CenterVertically
                             ) {
                                 Icon(
-                                    imageVector = Icons.Outlined.WbSunny,
+                                    imageVector = Icons.Filled.Circle,
+//                                    imageVector = getTaskGroupIcon(group),
                                     contentDescription = null,
-                                    tint = MaterialTheme.colorScheme.onSurfaceVariant
+                                    tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.8f),
+                                    modifier = Modifier.size(12.dp)
                                 )
+                                Spacer(Modifier.width(8.dp))
+                                HorizontalDivider(modifier = Modifier.weight(1f))
                                 Spacer(Modifier.width(8.dp))
                                 Text(
                                     text = getTaskGroupLabel(group),
-                                    style = MaterialTheme.typography.bodyLarge,
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                    style = MaterialTheme.typography.bodyMedium,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.8f),
                                     modifier = Modifier
                                         .fillMaxWidth()
 
@@ -170,11 +186,39 @@ internal fun HomeScreen(
     }
 }
 
-fun groupKey(group: TaskGroup): String {
+fun getTaskGroupIcon(group: TaskGroup): ImageVector {
     return when (group) {
-        is TaskGroup.Today -> "today_${group.timeOfDay.name}"
-        is TaskGroup.WeekDay -> "weekday_${group.day.name}"
-        else -> group::class.simpleName ?: group.toString()
+        TaskGroup.Overdue -> {
+            Icons.Outlined.CalendarToday
+        }
+        is TaskGroup.Today -> {
+            when (group.timeOfDay) {
+                TimeOfDay.MORNING -> {
+                    Icons.Outlined.WbTwilight
+                }
+                TimeOfDay.NOON -> {
+                    Icons.Outlined.WbSunny
+                }
+                TimeOfDay.EVENING -> {
+                    Icons.Outlined.Bedtime
+                }
+            }
+        }
+        else -> {
+            Icons.Outlined.CalendarToday
+        }
+//        is TaskGroup.WeekDay -> TODO()
+//        TaskGroup.NextWeek -> TODO()
+//
+//        TaskGroup.NextMonth -> TODO()
+//        TaskGroup.SomeDay -> TODO()
+//        TaskGroup.ThisMonth -> TODO()
+//
+//        TaskGroup.Tomorrow -> TODO()
+//
+//        TaskGroup.Later -> {
+//
+//        }
     }
 }
 

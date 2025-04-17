@@ -55,7 +55,7 @@ fun groupTasksByDueDateTime(
     val nextMonthStart = today.plusMonths(1).withDayOfMonth(1)
     val nextMonthEnd = nextMonthStart.plusMonths(1).minusDays(1)
 
-    return tasks.groupBy { task ->
+    val grouped = tasks.groupBy { task ->
         val due = task.dueDateTime?.let {
             Instant.ofEpochMilli(it)
                 .atZone(ZoneId.systemDefault())
@@ -91,4 +91,17 @@ fun groupTasksByDueDateTime(
             else -> TaskGroup.Later
         }
     }
+
+    // Filter out completed tasks in the Overdue group
+    return grouped
+        .mapValues { (group, list) ->
+            if (group == TaskGroup.Overdue) {
+                list.filterNot { it.isCompleted }
+            } else {
+                list
+            }
+        }
+        .filterValues {
+            it.isNotEmpty()
+        }
 }

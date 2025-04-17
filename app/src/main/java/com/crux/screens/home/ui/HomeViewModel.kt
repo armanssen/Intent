@@ -28,7 +28,6 @@ internal class HomeViewModel
     val uiState = _uiState.asStateFlow()
 
     init {
-        collectAllTaskLists()
         collectTasksAndFilter()
     }
 
@@ -51,28 +50,14 @@ internal class HomeViewModel
         }
     }
 
-    private fun collectAllTaskLists() {
-        viewModelScope.launch {
-            repository.getAllTaskListsFlow()
-                .collectLatest { taskLists ->
-                    _uiState.update {
-                        it.copy(
-                            taskLists = taskLists
-                                .map { taskList -> taskList.toUi() }
-                                .toPersistentList()
-                        )
-                    }
-                }
-        }
-    }
-
     private fun collectTasksAndFilter() {
         viewModelScope.launch(Dispatchers.IO) {
             combine(
                 repository.getAllTasksFlow(),
                 repository.getIsHideCompletedTasksEnabled(),
-                repository.getSelectedTaskListIdFlow()
-            ) { tasks, isHideCompletedTasksEnabled, selectedTaskListId ->
+                repository.getSelectedTaskListIdFlow(),
+                repository.getAllTaskListsFlow()
+            ) { tasks, isHideCompletedTasksEnabled, selectedTaskListId, taskLists ->
                 _uiState.value.copy(
                     isHideCompletedTasksEnabled = isHideCompletedTasksEnabled,
                     selectedTaskListId = selectedTaskListId,
@@ -84,6 +69,9 @@ internal class HomeViewModel
                             !isHideCompletedTasksEnabled || !task.isCompleted
                         }
                         .map { it.toUi() }
+                        .toPersistentList(),
+                    taskLists = taskLists
+                        .map { taskList -> taskList.toUi() }
                         .toPersistentList()
                 )
             }.collectLatest { newState ->
