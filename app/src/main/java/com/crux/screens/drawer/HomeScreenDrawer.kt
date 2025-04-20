@@ -11,6 +11,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.BookmarkBorder
+import androidx.compose.material.icons.outlined.CheckBox
 import androidx.compose.material.icons.outlined.ColorLens
 import androidx.compose.material.icons.outlined.Feedback
 import androidx.compose.material.icons.outlined.Layers
@@ -38,6 +39,7 @@ internal fun HomeScreenDrawer(
     drawerState: DrawerState,
     onClickAppearance: () -> Unit,
     onClickTaskLists: () -> Unit,
+    onClickCompletedTasks: () -> Unit,
     onClickAbout: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -79,6 +81,16 @@ internal fun HomeScreenDrawer(
                         drawerState.close()
                     }
                     onClickTaskLists()
+                }
+            )
+            DrawerItemView(
+                label = stringResource(R.string.drawer_completed_tasks),
+                icon = Icons.Outlined.CheckBox,
+                onClick = {
+                    coroutineScope.launch {
+                        drawerState.close()
+                    }
+                    onClickCompletedTasks()
                 }
             )
             DrawerItemView(

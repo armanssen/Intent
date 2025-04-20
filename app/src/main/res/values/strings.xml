@@ -5,6 +5,7 @@
 
     <string name="drawer_task_lists">Task Lists</string>
     <string name="drawer_appearance">Appearance</string>
+    <string name="drawer_completed_tasks">Completed tasks</string>
     <string name="drawer_notifications">Notifications</string>
     <string name="drawer_send_feedback">Send Feedback</string>
     <string name="drawer_about">About</string>
@@ -37,6 +38,8 @@
     <string name="task_lists_delete_confirmation_message">All tasks from the list \"%s\" will also be deleted</string>
     <string name="task_lists_delete_confirmation_negative">Cancel</string>
     <string name="task_lists_delete_confirmation_positive">Delete</string>
+
+    <string name="completed_tasks_screen_title">Completed Tasks</string>
 
     <string name="task_group_overdue">Overdue</string>
     <string name="task_group_morning">Morning</string>

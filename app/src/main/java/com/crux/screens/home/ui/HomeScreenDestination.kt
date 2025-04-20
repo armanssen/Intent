@@ -21,6 +21,7 @@ fun NavGraphBuilder.homeScreen(
     onClickAppearance: () -> Unit,
     onClickAddNewTask: () -> Unit,
     onClickAbout: () -> Unit,
+    onClickCompletedTasks: () -> Unit,
     onClickTask: (taskId: Int) -> Unit
 ) {
     composable<HomeScreenDestination>(
@@ -44,7 +45,8 @@ fun NavGraphBuilder.homeScreen(
                     drawerState = drawerState,
                     onClickAppearance = onClickAppearance,
                     onClickTaskLists = onClickTaskLists,
-                    onClickAbout = onClickAbout
+                    onClickAbout = onClickAbout,
+                    onClickCompletedTasks = onClickCompletedTasks
                 )
             }
         ) {
