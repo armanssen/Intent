@@ -12,7 +12,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
@@ -21,6 +20,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.crux.R
 import com.crux.screens.add_or_edit_task.ui.component.AddOrEditTaskDatePickerDialogView
 import com.crux.screens.add_or_edit_task.ui.component.AddOrEditTaskDueDateView
@@ -43,7 +43,7 @@ internal fun AddOrEditTaskScreen(
     modifier: Modifier = Modifier,
     onClickBack: () -> Unit,
     viewModel: AddOrEditTaskViewModel = hiltViewModel(),
-    uiState: AddOrEditTaskScreenState = viewModel.uiState.collectAsState().value,
+    uiState: AddOrEditTaskScreenState = viewModel.uiState.collectAsStateWithLifecycle().value,
     onEvent: (AddOrEditTaskScreenEvent) -> Unit = viewModel::onEvent
 ) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()

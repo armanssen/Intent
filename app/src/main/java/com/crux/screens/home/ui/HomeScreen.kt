@@ -108,10 +108,7 @@ internal fun HomeScreen(
             LazyColumn(
                 state = lazyListState,
                 verticalArrangement = Arrangement.spacedBy(4.dp),
-                contentPadding = PaddingValues(
-                    vertical = 8.dp,
-                    horizontal = 12.dp
-                ),
+                contentPadding = PaddingValues(vertical = 8.dp, horizontal = 12.dp),
                 content = {
                     groupedTasks.onEachIndexed { index, (group, tasksInGroup) ->
                         item {

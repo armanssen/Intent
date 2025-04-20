@@ -28,9 +28,6 @@ interface TaskEntityDao {
     )
 
     // 🔹 Read Queries
-    @Query("SELECT * FROM TaskEntity ORDER BY createdAt DESC")
-    suspend fun getAllTasks(): List<TaskEntity>
-
     @Query("""
         SELECT * FROM TaskEntity 
         ORDER BY 
@@ -46,8 +43,5 @@ interface TaskEntityDao {
     suspend fun getTaskById(taskId: Int): TaskEntity?
 
     @Query("SELECT * FROM TaskEntity WHERE isCompleted = 1 ORDER BY createdAt DESC")
-    suspend fun getCompletedTasks(): List<TaskEntity>
-
-    @Query("SELECT * FROM TaskEntity WHERE isCompleted = 0 ORDER BY createdAt DESC")
-    suspend fun getIncompleteTasks(): List<TaskEntity>
+    fun getCompletedTasksFlow(): Flow<List<TaskEntity>>
 }

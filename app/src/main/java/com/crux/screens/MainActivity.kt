@@ -14,11 +14,11 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
@@ -53,7 +53,7 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             val activity = LocalActivity.current as ComponentActivity
-            val uiState = viewModel.uiState.collectAsState()
+            val uiState = viewModel.uiState.collectAsStateWithLifecycle()
             val uiMode = LocalConfiguration.current.uiMode
 
             val isDarkThemeEnabled = remember(uiState.value.selectedAppTheme) {

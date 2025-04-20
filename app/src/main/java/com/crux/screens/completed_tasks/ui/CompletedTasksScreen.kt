@@ -1,7 +1,11 @@
 package com.crux.screens.completed_tasks.ui
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -16,13 +20,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.crux.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun CompletedTasksScreen(
     onClickBack: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: CompletedTasksViewModel = hiltViewModel(),
+    uiState: CompletedTasksScreenState = viewModel.uiState.collectAsStateWithLifecycle().value,
+    onEvent: (CompletedTasksScreenEvent) -> Unit = viewModel::onEvent
 ) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
 
@@ -52,7 +62,19 @@ internal fun CompletedTasksScreen(
         }
     ) { padding ->
         Column(modifier = Modifier.padding(padding)) {
-
+            LazyColumn(
+                verticalArrangement = Arrangement.spacedBy(4.dp),
+                contentPadding = PaddingValues(vertical = 8.dp, horizontal = 12.dp)
+            ) {
+                items(
+                    items = uiState.tasks,
+                    key = {
+                        it.id
+                    }
+                ) { task ->
+                    Text(text = task.toString())
+                }
+            }
         }
     }
 }
