@@ -1,7 +1,7 @@
 package com.crux.screens.home.ui.component
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -24,7 +24,7 @@ internal fun MainScreenFloatingActionButtonView(
         containerColor = MaterialTheme.colorScheme.primary,
         icon = {
             Icon(
-                imageVector = Icons.Default.Add,
+                imageVector = Icons.Rounded.Add,
                 contentDescription = "add icon"
             )
         },

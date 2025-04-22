@@ -8,8 +8,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.outlined.Layers
+import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
@@ -32,7 +32,7 @@ import com.crux.ui.model.TaskListUi
 import kotlinx.collections.immutable.ImmutableList
 
 @Composable
-internal fun AddOrEditTaskTaskListSelectionView(
+internal fun MenuItemSelectTaskList(
     selectedTaskListId: Int,
     taskLists: ImmutableList<TaskListUi>,
     onSelectTaskList: (Int) -> Unit,
@@ -56,7 +56,7 @@ internal fun AddOrEditTaskTaskListSelectionView(
                 onClick = onClickAdd,
                 content = {
                     Icon(
-                        imageVector = Icons.Default.Add,
+                        imageVector = Icons.Rounded.Add,
                         contentDescription = "add icon",
                         tint = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -87,16 +87,21 @@ private fun SelectionMenu(
             modifier = Modifier
                 .menuAnchor(MenuAnchorType.PrimaryNotEditable)
                 .clickable {}
-                .padding(vertical = 16.dp)
-                .padding(start = 16.dp, end = 8.dp)
+                .padding(end = 8.dp)
                 .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Icon(
-                imageVector = Icons.Outlined.Layers,
-                contentDescription = "task lists icon"
+            IconButton(
+                onClick = {
+                },
+                content = {
+                    Icon(
+                        imageVector = Icons.Outlined.Layers,
+                        contentDescription = "task lists icon",
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
             )
-            Spacer(Modifier.width(8.dp))
             Text(
                 text = remember(selectedTaskListId, taskLists) {
                     taskLists.find {

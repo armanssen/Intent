@@ -5,7 +5,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Add
+import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -25,7 +25,7 @@ import com.crux.R
 import com.crux.screens.add_or_edit_task.ui.component.AddOrEditTaskDatePickerDialogView
 import com.crux.screens.add_or_edit_task.ui.component.AddOrEditTaskDueDateView
 import com.crux.screens.add_or_edit_task.ui.component.AddOrEditTaskFloatingActionButtonView
-import com.crux.screens.add_or_edit_task.ui.component.AddOrEditTaskTaskListSelectionView
+import com.crux.screens.add_or_edit_task.ui.component.MenuItemSelectTaskList
 import com.crux.screens.add_or_edit_task.ui.component.AddOrEditTaskTextFieldView
 import com.crux.screens.add_or_edit_task.ui.component.AddOrEditTaskTopAppBarView
 import com.crux.screens.add_or_edit_task.ui.component.AddOrEditTaskDeleteTaskDialogView
@@ -131,7 +131,7 @@ internal fun AddOrEditTaskScreen(
                     }
                 )
             }
-            AddOrEditTaskTaskListSelectionView(
+            MenuItemSelectTaskList(
                 selectedTaskListId = uiState.selectedTaskListId,
                 taskLists = uiState.taskLists,
                 onSelectTaskList = {
@@ -146,7 +146,7 @@ internal fun AddOrEditTaskScreen(
 
     if (uiState.isAddTaskListDialogVisible) {
         AddOrEditTaskListDialogView(
-            icon = Icons.Outlined.Add,
+            icon = Icons.Rounded.Add,
             title = stringResource(R.string.task_lists_add_task_list_title),
             textFieldValue = uiState.addTextFieldValue,
             onValueChange = {
