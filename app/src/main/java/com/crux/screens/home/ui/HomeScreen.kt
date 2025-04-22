@@ -116,26 +116,15 @@ internal fun HomeScreen(
                                 Spacer(Modifier.height(16.dp))
                             }
                             Row(
-                                modifier = Modifier.padding(bottom = 8.dp),
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(bottom = 8.dp),
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
-                                Icon(
-                                    imageVector = Icons.Filled.Circle,
-//                                    imageVector = getTaskGroupIcon(group),
-                                    contentDescription = null,
-                                    tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.8f),
-                                    modifier = Modifier.size(12.dp)
-                                )
-                                Spacer(Modifier.width(8.dp))
-                                HorizontalDivider(modifier = Modifier.weight(1f))
-                                Spacer(Modifier.width(8.dp))
                                 Text(
                                     text = getTaskGroupLabel(group),
                                     style = MaterialTheme.typography.bodyMedium,
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.8f),
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.8f)
                                 )
                             }
                         }
