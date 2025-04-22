@@ -31,6 +31,7 @@ import com.crux.screens.add_or_edit_task.ui.component.AddOrEditTaskTopAppBarView
 import com.crux.screens.add_or_edit_task.ui.component.AddOrEditTaskDeleteTaskDialogView
 import com.crux.screens.add_or_edit_task.ui.component.AddOrEditTaskTimePickerDialogView
 import com.crux.screens.add_or_edit_task.ui.component.AddOrEditTaskTimeView
+import com.crux.screens.add_or_edit_task.ui.component.MenuItemMarkAsCompleted
 import com.crux.ui.component.AddOrEditTaskListDialogView
 import com.crux.util.LaunchAndRepeatWithLifecycle
 import com.crux.util.requestFocusWithDelay
@@ -104,7 +105,16 @@ internal fun AddOrEditTaskScreen(
                 isTextFieldIncorrect = uiState.isTextFieldIncorrect,
                 focusRequester = focusRequester
             )
-            Spacer(Modifier.height(36.dp))
+            if (uiState.task != null) {
+                MenuItemMarkAsCompleted(
+                    isChecked = uiState.isCompleted,
+                    onCheckedChange = {
+                        onEvent(AddOrEditTaskScreenEvent.OnCheckedChange(it))
+                    }
+                )
+            } else {
+                Spacer(Modifier.height(36.dp))
+            }
             AddOrEditTaskDueDateView(
                 dueDate = uiState.dueDate,
                 onClick = {

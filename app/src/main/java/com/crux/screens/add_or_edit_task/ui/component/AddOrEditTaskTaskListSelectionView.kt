@@ -57,7 +57,8 @@ internal fun AddOrEditTaskTaskListSelectionView(
                 content = {
                     Icon(
                         imageVector = Icons.Default.Add,
-                        contentDescription = "add icon"
+                        contentDescription = "add icon",
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
             )

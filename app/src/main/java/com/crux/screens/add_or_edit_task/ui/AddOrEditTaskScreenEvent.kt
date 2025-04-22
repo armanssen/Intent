@@ -13,6 +13,10 @@ internal sealed interface AddOrEditTaskScreenEvent {
     data object OnDismissDeleteConfirmation : AddOrEditTaskScreenEvent
 
     data object OnConfirmDeleteConfirmation : AddOrEditTaskScreenEvent
+
+    data class OnCheckedChange(
+        val value: Boolean
+    ) : AddOrEditTaskScreenEvent
 }
 
 internal sealed interface DueDateEvent : AddOrEditTaskScreenEvent {

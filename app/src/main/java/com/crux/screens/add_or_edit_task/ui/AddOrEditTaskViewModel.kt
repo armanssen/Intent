@@ -84,6 +84,11 @@ internal class AddOrEditTaskViewModel
                     deleteTaskById(id = taskId)
                 }
             }
+            is AddOrEditTaskScreenEvent.OnCheckedChange -> {
+                _uiState.update {
+                    it.copy(isCompleted = event.value)
+                }
+            }
             is DueDateEvent -> {
                 handleDueDateEvent(event = event)
             }
@@ -164,6 +169,7 @@ internal class AddOrEditTaskViewModel
                 it.copy(
                     task = task,
                     textFieldValue = task.title,
+                    isCompleted = task.isCompleted,
                     selectedTaskListId = task.listId,
                     dueDate = task.dueDateTime
                 )
@@ -204,6 +210,7 @@ internal class AddOrEditTaskViewModel
                     task = task
                         .copy(
                             title = title.trim(),
+                            isCompleted = _uiState.value.isCompleted,
                             listId = _uiState.value.selectedTaskListId,
                             dueDateTime = _uiState.value.dueDate
                         ).toDomain()
@@ -212,11 +219,11 @@ internal class AddOrEditTaskViewModel
                 repository.insertTask(
                     Task(
                         id = 0, // treated as not set
-                        isCompleted = false,
                         title = title.trim(),
-                        createdAt = System.currentTimeMillis(),
+                        isCompleted = false,
                         listId = _uiState.value.selectedTaskListId,
-                        dueDateTime = _uiState.value.dueDate
+                        dueDateTime = _uiState.value.dueDate,
+                        createdAt = System.currentTimeMillis()
                     )
                 )
             }
