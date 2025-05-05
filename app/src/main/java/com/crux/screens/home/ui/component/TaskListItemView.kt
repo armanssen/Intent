@@ -127,7 +127,9 @@ fun formatDueDateTime(
             when (dueDateOnly) {
                 today -> context.getString(R.string.overdue_today)
                 yesterday -> context.getString(R.string.overdue_yesterday)
-                else -> zonedDateTime.format(DateTimeFormatter.ofPattern("dd MMM, yyyy"))
+                else -> zonedDateTime.format(
+                    DateTimeFormatter.ofPattern("d MMM, yyyy")
+                )
             }
         }
         TaskGroup.Today,
@@ -135,14 +137,14 @@ fun formatDueDateTime(
         is TaskGroup.WeekDay -> null
         else -> {
             zonedDateTime.format(
-                DateTimeFormatter.ofPattern("dd MMM, yyyy")
+                DateTimeFormatter.ofPattern("d MMM, yyyy")
             )
         }
     }
 
     val timePart = if (!isAllDay(dueDate)) {
          zonedDateTime.format(
-            DateTimeFormatter.ofPattern("HH:mm")
+            DateTimeFormatter.ofPattern("H:mm")
         )
     } else {
         null
