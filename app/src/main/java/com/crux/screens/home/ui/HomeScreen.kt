@@ -104,7 +104,7 @@ internal fun HomeScreen(
                 verticalArrangement = Arrangement.spacedBy(4.dp),
                 contentPadding = PaddingValues(vertical = 8.dp, horizontal = 12.dp),
                 content = {
-                    groupedTasks.onEachIndexed { index, (group, tasksInGroup) ->
+                    groupedTasks.onEachIndexed { index, (taskGroup, tasksInGroup) ->
                         stickyHeader {
                             Row(
                                 modifier = Modifier
@@ -113,7 +113,7 @@ internal fun HomeScreen(
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
                                 Text(
-                                    text = getTaskGroupLabel(group),
+                                    text = getTaskGroupLabel(taskGroup),
                                     style = MaterialTheme.typography.bodyMedium,
                                     color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.8f)
                                 )
@@ -129,6 +129,7 @@ internal fun HomeScreen(
                         ) { task ->
                             TaskListItemView(
                                 task = task,
+                                taskGroup = taskGroup,
                                 onClick = {
                                     onClickTask(task.id)
                                 },

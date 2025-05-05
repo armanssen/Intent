@@ -1,5 +1,6 @@
 package com.crux.screens.home.ui.component
 
+import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -23,32 +24,37 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
+import com.crux.R
+import com.crux.screens.add_or_edit_task.ui.isAllDay
+import com.crux.ui.model.TaskGroup
 import com.crux.ui.model.TaskPreviewParameterProvider
 import com.crux.ui.model.TaskUi
 import java.time.Instant
-import java.time.LocalDate
 import java.time.ZoneId
+import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
-import java.time.format.TextStyle
-import java.util.Locale
 
 @Composable
 internal fun TaskListItemView(
     task: TaskUi,
+    taskGroup: TaskGroup,
     onClick: () -> Unit,
     onCheckedChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val context = LocalContext.current
+
     var isChecked by remember(task.isCompleted) {
         mutableStateOf(task.isCompleted)
     }
 
-    val dueText by remember(task.dueDateTime) {
-        mutableStateOf(formatDueDateTime(task.dueDateTime))
+    val dueText = remember(task.dueDateTime, taskGroup) {
+        formatDueDateTime(context, task.dueDateTime, taskGroup)
     }
 
     Row(
@@ -103,26 +109,51 @@ internal fun TaskListItemView(
     }
 }
 
-fun formatDueDateTime(timestamp: Long?): String? {
-    if (timestamp == null) return null
+fun formatDueDateTime(
+    context: Context,
+    dueDate: Long?,
+    taskGroup: TaskGroup
+): String? {
+    if (dueDate == null) return null
 
-    val dueDateTime = Instant.ofEpochMilli(timestamp)
-        .atZone(ZoneId.systemDefault())
-        .toLocalDateTime()
+    val zone = ZoneId.systemDefault()
+    val zonedDateTime = Instant.ofEpochMilli(dueDate).atZone(zone)
+    val dueDateOnly = zonedDateTime.toLocalDate()
+    val today = ZonedDateTime.now(zone).toLocalDate()
+    val yesterday = today.minusDays(1)
 
-    val now = LocalDate.now()
-    val dueDate = dueDateTime.toLocalDate()
-
-    val datePart = when {
-        dueDate.isEqual(now) -> "Today"
-        dueDate.isEqual(now.plusDays(1)) -> "Tomorrow"
-        dueDate.isBefore(now.plusWeeks(1)) -> dueDate.dayOfWeek.getDisplayName(TextStyle.FULL, Locale.getDefault()) // "Monday"
-        else -> dueDateTime.format(DateTimeFormatter.ofPattern("MMM d, yyyy")) // "Apr 15, 2025"
+    val datePart = when (taskGroup) {
+        TaskGroup.Overdue -> {
+            when (dueDateOnly) {
+                today -> context.getString(R.string.overdue_today)
+                yesterday -> context.getString(R.string.overdue_yesterday)
+                else -> zonedDateTime.format(DateTimeFormatter.ofPattern("dd MMM, yyyy"))
+            }
+        }
+        TaskGroup.Today,
+        TaskGroup.Tomorrow,
+        is TaskGroup.WeekDay -> null
+        else -> {
+            zonedDateTime.format(
+                DateTimeFormatter.ofPattern("dd MMM, yyyy")
+            )
+        }
     }
 
-    val timePart = dueDateTime.format(DateTimeFormatter.ofPattern("h:mm a")) // "9:30 AM"
+    val timePart = if (!isAllDay(dueDate)) {
+         zonedDateTime.format(
+            DateTimeFormatter.ofPattern("HH:mm")
+        )
+    } else {
+        null
+    }
 
-    return "$datePart at $timePart"
+    return when {
+        datePart != null && timePart != null -> "$datePart • $timePart"
+        datePart != null -> datePart
+        timePart != null -> timePart
+        else -> null
+    }
 }
 
 @Preview
@@ -132,6 +163,7 @@ private fun Preview(
 ) {
     TaskListItemView(
         task = task,
+        taskGroup = TaskGroup.Today,
         onClick = {},
         onCheckedChange = {}
     )

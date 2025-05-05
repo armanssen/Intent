@@ -20,7 +20,7 @@ sealed class TaskGroup(
     object Later : TaskGroup(R.string.task_group_later)
     object SomeDay : TaskGroup(R.string.task_group_some_day)
 
-    class WeekDay(
+    data class WeekDay(
         val day: DayOfWeek
     ) : TaskGroup(R.string.task_group_weekday) // This will be dynamic
 }

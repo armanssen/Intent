@@ -41,6 +41,8 @@
 
     <string name="completed_tasks_screen_title">Completed Tasks</string>
 
+    <string name="overdue_yesterday">Yesterday</string>
+    <string name="overdue_today">Today</string>
     <string name="task_group_overdue">Overdue</string>
     <string name="task_group_today">Today</string>
     <string name="task_group_tomorrow">Tomorrow</string>
