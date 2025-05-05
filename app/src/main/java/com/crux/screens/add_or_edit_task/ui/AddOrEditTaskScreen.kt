@@ -22,15 +22,15 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.crux.R
-import com.crux.screens.add_or_edit_task.ui.component.AddOrEditTaskDatePickerDialogView
-import com.crux.screens.add_or_edit_task.ui.component.AddOrEditTaskDueDateView
+import com.crux.screens.add_or_edit_task.ui.component.DatePickerDialogView
+import com.crux.screens.add_or_edit_task.ui.component.MenuItemDueDate
 import com.crux.screens.add_or_edit_task.ui.component.AddOrEditTaskFloatingActionButtonView
 import com.crux.screens.add_or_edit_task.ui.component.MenuItemSelectTaskList
 import com.crux.screens.add_or_edit_task.ui.component.AddOrEditTaskTextFieldView
 import com.crux.screens.add_or_edit_task.ui.component.AddOrEditTaskTopAppBarView
 import com.crux.screens.add_or_edit_task.ui.component.AddOrEditTaskDeleteTaskDialogView
-import com.crux.screens.add_or_edit_task.ui.component.AddOrEditTaskTimePickerDialogView
-import com.crux.screens.add_or_edit_task.ui.component.AddOrEditTaskTimeView
+import com.crux.screens.add_or_edit_task.ui.component.TimePickerDialogView
+import com.crux.screens.add_or_edit_task.ui.component.MenuItemTime
 import com.crux.screens.add_or_edit_task.ui.component.MenuItemMarkAsCompleted
 import com.crux.ui.component.AddOrEditTaskListDialogView
 import com.crux.util.LaunchAndRepeatWithLifecycle
@@ -115,7 +115,7 @@ internal fun AddOrEditTaskScreen(
             } else {
                 Spacer(Modifier.height(36.dp))
             }
-            AddOrEditTaskDueDateView(
+            MenuItemDueDate(
                 dueDate = uiState.dueDate,
                 onClick = {
                     onEvent(DueDateEvent.OnClickDueDate)
@@ -125,9 +125,13 @@ internal fun AddOrEditTaskScreen(
                 }
             )
             if (uiState.dueDate != null) {
-                AddOrEditTaskTimeView(
+                MenuItemTime(
+                    dueDate = uiState.dueDate,
                     onClick = {
                         onEvent(DueDateEvent.OnClickTime)
+                    },
+                    onClickRemove = {
+                        onEvent(DueDateEvent.OnClickRemoveTime)
                     }
                 )
             }
@@ -162,7 +166,7 @@ internal fun AddOrEditTaskScreen(
     }
 
     if (uiState.isDatePickerDialogVisible) {
-        AddOrEditTaskDatePickerDialogView(
+        DatePickerDialogView(
             dueDate = uiState.dueDate,
             onDismiss = {
                 onEvent(DueDateEvent.OnDismissDatePicker)
@@ -174,8 +178,10 @@ internal fun AddOrEditTaskScreen(
     }
 
     if (uiState.isTimePickerDialogVisible) {
-        AddOrEditTaskTimePickerDialogView(
-            onConfirm = {},
+        TimePickerDialogView(
+            onConfirm = { hour, minute ->
+                onEvent(DueDateEvent.OnSelectTime(hour, minute))
+            },
             onDismiss = {
                 onEvent(DueDateEvent.OnDismissTimePicker)
             }

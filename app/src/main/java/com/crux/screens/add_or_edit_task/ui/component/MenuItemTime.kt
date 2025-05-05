@@ -15,10 +15,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.crux.R
+import com.crux.screens.add_or_edit_task.ui.formatDueTime
+import com.crux.screens.add_or_edit_task.ui.isAllDay
 
 @Composable
-internal fun AddOrEditTaskTimeView(
+internal fun MenuItemTime(
+    dueDate: Long,
     onClick: () -> Unit,
+    onClickRemove: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Row(
@@ -38,17 +42,16 @@ internal fun AddOrEditTaskTimeView(
             }
         )
         Text(
-            text = if (false) {
-                ""
-            } else {
+            text = if (isAllDay(dueDate)) {
                 stringResource(R.string.add_or_edit_task_screen_time_not_set)
+            } else {
+                formatDueTime(dueDate)
             },
             modifier = Modifier.weight(1f)
         )
-        if (true) {
+        if (!isAllDay(dueDate)) {
             IconButton(
-                onClick = {
-                },
+                onClick = onClickRemove,
                 content = {
                     Icon(
                         imageVector = Icons.Outlined.Close,

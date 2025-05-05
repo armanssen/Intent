@@ -18,7 +18,7 @@ import com.crux.R
 import com.crux.screens.add_or_edit_task.ui.formatDate
 
 @Composable
-internal fun AddOrEditTaskDueDateView(
+internal fun MenuItemDueDate(
     dueDate: Long?,
     onClick: () -> Unit,
     onClickRemove: () -> Unit,

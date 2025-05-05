@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun AddOrEditTaskDatePickerDialogView(
+internal fun DatePickerDialogView(
     dueDate: Long?,
     onDismiss: () -> Unit,
     onDateSelected: (Long) -> Unit,

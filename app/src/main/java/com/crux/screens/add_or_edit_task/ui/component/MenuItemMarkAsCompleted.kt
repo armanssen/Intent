@@ -5,11 +5,13 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
+import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextDecoration
 
 @Composable
 internal fun MenuItemMarkAsCompleted(
@@ -35,7 +37,17 @@ internal fun MenuItemMarkAsCompleted(
             )
         )
         Text(
-            text = "Mark as completed"
+            text = "Mark as completed",
+            style = LocalTextStyle.current.let { style ->
+                if (isChecked) {
+                    style.copy(
+                        textDecoration = TextDecoration.LineThrough,
+                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
+                    )
+                } else {
+                    style
+                }
+            }
         )
     }
 }

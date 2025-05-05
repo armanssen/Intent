@@ -21,6 +21,7 @@ internal sealed interface AddOrEditTaskScreenEvent {
 
 internal sealed interface DueDateEvent : AddOrEditTaskScreenEvent {
 
+    // Date
     data object OnClickDueDate : DueDateEvent
 
     data object OnDismissDatePicker : DueDateEvent
@@ -29,9 +30,17 @@ internal sealed interface DueDateEvent : AddOrEditTaskScreenEvent {
 
     data class OnSelectDueDate(val date: Long) : DueDateEvent
 
+    // Time
     data object OnClickTime : DueDateEvent
 
     data object OnDismissTimePicker : DueDateEvent
+
+    data object OnClickRemoveTime : DueDateEvent
+
+    data class OnSelectTime(
+        val hour: Int,
+        val minute: Int
+    ) : DueDateEvent
 }
 
 internal sealed interface TaskListEvent : AddOrEditTaskScreenEvent {

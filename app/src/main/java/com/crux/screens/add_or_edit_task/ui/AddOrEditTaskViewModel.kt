@@ -19,6 +19,9 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.time.Instant
+import java.time.ZoneId
+import java.time.ZoneOffset
 import javax.inject.Inject
 
 @HiltViewModel
@@ -54,6 +57,22 @@ internal class AddOrEditTaskViewModel
             }
         }
         collectTaskLists()
+    }
+
+    private suspend fun getTask(id: Int) {
+        val task = repository.getTaskById(id)?.toUi()
+
+        if (task != null) {
+            _uiState.update {
+                it.copy(
+                    task = task,
+                    textFieldValue = task.title,
+                    isCompleted = task.isCompleted,
+                    selectedTaskListId = task.listId,
+                    dueDate = task.dueDateTime
+                )
+            }
+        }
     }
 
     fun onEvent(event: AddOrEditTaskScreenEvent) {
@@ -116,9 +135,7 @@ internal class AddOrEditTaskViewModel
                 }
             }
             is DueDateEvent.OnSelectDueDate -> {
-                _uiState.update {
-                    it.copy(dueDate = event.date)
-                }
+                onSelectDueDate(event.date)
             }
             DueDateEvent.OnClickTime -> {
                 _uiState.update {
@@ -129,6 +146,18 @@ internal class AddOrEditTaskViewModel
                 _uiState.update {
                     it.copy(isTimePickerDialogVisible = false)
                 }
+            }
+            DueDateEvent.OnClickRemoveTime -> {
+                val dueDate = _uiState.value.dueDate
+                if (dueDate == null) return
+
+                onSelectDueDate(dueDate)
+            }
+            is DueDateEvent.OnSelectTime -> {
+                onSelectTime(
+                    hour = event.hour,
+                    minute = event.minute
+                )
             }
         }
     }
@@ -161,22 +190,6 @@ internal class AddOrEditTaskViewModel
         }
     }
 
-    private suspend fun getTask(id: Int) {
-        val task = repository.getTaskById(id)?.toUi()
-
-        if (task != null) {
-            _uiState.update {
-                it.copy(
-                    task = task,
-                    textFieldValue = task.title,
-                    isCompleted = task.isCompleted,
-                    selectedTaskListId = task.listId,
-                    dueDate = task.dueDateTime
-                )
-            }
-        }
-    }
-
     private fun collectTaskLists() {
         viewModelScope.launch(Dispatchers.IO) {
             repository.getTaskLists().collect { taskLists ->
@@ -188,6 +201,72 @@ internal class AddOrEditTaskViewModel
                     )
                 }
             }
+        }
+    }
+
+    private fun deleteTaskById(id: Int) {
+        viewModelScope.launch {
+            repository.deleteTaskById(id = id)
+
+            _uiState.update {
+                it.copy(isDeleteTaskDialogVisible = false)
+            }
+
+            _sideEffects.send(AddOrEditTaskScreenSideEffect.TaskDeleted)
+        }
+    }
+
+    private fun onClickConfirmAddTaskList() {
+        viewModelScope.launch {
+            val newTaskListId = repository.addTaskList(
+                name = _uiState.value.addTextFieldValue.trim()
+            )
+
+            _uiState.update {
+                it.copy(
+                    selectedTaskListId = newTaskListId.toInt(),
+                    addTextFieldValue = "",
+                    isAddTaskListDialogVisible = false
+                )
+            }
+        }
+    }
+
+    private fun onSelectDueDate(date: Long) {
+        val dueDate = Instant.ofEpochMilli(date)
+            .atZone(ZoneId.systemDefault())
+            .withHour(23)
+            .withMinute(59)
+            .withSecond(59)
+            .withNano(0)
+            .withZoneSameInstant(ZoneOffset.UTC)
+            .toInstant()
+            .toEpochMilli()
+
+        _uiState.update {
+            it.copy(dueDate = dueDate)
+        }
+    }
+
+    private fun onSelectTime(
+        hour: Int,
+        minute: Int
+    ) {
+        val dueDate = _uiState.value.dueDate
+        if (dueDate == null) return
+
+        val dueDateWithTime = Instant.ofEpochMilli(dueDate)
+            .atZone(ZoneId.systemDefault())
+            .withHour(hour)
+            .withMinute(minute)
+            .withSecond(0)
+            .withNano(0)
+            .withZoneSameInstant(ZoneOffset.UTC)
+            .toInstant()
+            .toEpochMilli()
+
+        _uiState.update {
+            it.copy(dueDate = dueDateWithTime)
         }
     }
 
@@ -207,13 +286,12 @@ internal class AddOrEditTaskViewModel
 
             if (task != null) {
                 repository.updateTask(
-                    task = task
-                        .copy(
-                            title = title.trim(),
-                            isCompleted = _uiState.value.isCompleted,
-                            listId = _uiState.value.selectedTaskListId,
-                            dueDateTime = _uiState.value.dueDate
-                        ).toDomain()
+                    task = task.copy(
+                        title = title.trim(),
+                        isCompleted = _uiState.value.isCompleted,
+                        listId = _uiState.value.selectedTaskListId,
+                        dueDateTime = _uiState.value.dueDate
+                    ).toDomain()
                 )
             } else {
                 repository.insertTask(
@@ -229,34 +307,6 @@ internal class AddOrEditTaskViewModel
             }
 
             _sideEffects.send(AddOrEditTaskScreenSideEffect.TaskSaved)
-        }
-    }
-
-    private fun deleteTaskById(id: Int) {
-        viewModelScope.launch {
-            repository.deleteTaskById(id = id)
-
-            _uiState.update {
-                it.copy(isDeleteTaskDialogVisible = false)
-            }
-
-            _sideEffects.send(AddOrEditTaskScreenSideEffect.TaskDeleted)
-        }
-    }
-
-    private fun onClickConfirmAddTaskList() {
-        viewModelScope.launch(Dispatchers.IO) {
-            val newTaskListId = repository.addTaskList(
-                name = _uiState.value.addTextFieldValue.trim()
-            )
-
-            _uiState.update {
-                it.copy(
-                    selectedTaskListId = newTaskListId.toInt(),
-                    addTextFieldValue = "",
-                    isAddTaskListDialogVisible = false
-                )
-            }
         }
     }
 }
