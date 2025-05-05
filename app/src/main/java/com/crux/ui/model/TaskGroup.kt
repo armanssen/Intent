@@ -12,20 +12,13 @@ sealed class TaskGroup(
     @StringRes val labelResId: Int
 ) {
     object Overdue : TaskGroup(R.string.task_group_overdue)
+    object Today : TaskGroup(R.string.task_group_today)
     object Tomorrow : TaskGroup(R.string.task_group_tomorrow)
     object NextWeek : TaskGroup(R.string.task_group_next_week)
     object ThisMonth : TaskGroup(R.string.task_group_this_month)
     object NextMonth : TaskGroup(R.string.task_group_next_month)
     object Later : TaskGroup(R.string.task_group_later)
     object SomeDay : TaskGroup(R.string.task_group_some_day)
-
-    class Today(val timeOfDay: TimeOfDay) : TaskGroup(
-        when (timeOfDay) {
-            TimeOfDay.MORNING -> R.string.task_group_morning
-            TimeOfDay.NOON -> R.string.task_group_noon
-            TimeOfDay.EVENING -> R.string.task_group_evening
-        }
-    )
 
     class WeekDay(
         val day: DayOfWeek
@@ -65,17 +58,15 @@ fun groupTasksByDueDateTime(
         val dueDate = due.toLocalDate()
 
         when {
-            due.isBefore(now) -> TaskGroup.Overdue
-            dueDate.isEqual(today) -> {
-                val hour = due.hour
-                val timeOfDay = when (hour) {
-                    in 5..11 -> TimeOfDay.MORNING
-                    in 12..16 -> TimeOfDay.NOON
-                    else -> TimeOfDay.EVENING
-                }
-                TaskGroup.Today(timeOfDay)
+            due.isBefore(now) -> {
+                TaskGroup.Overdue
             }
-            dueDate.isEqual(tomorrow) -> TaskGroup.Tomorrow
+            dueDate.isEqual(today) -> {
+                TaskGroup.Today
+            }
+            dueDate.isEqual(tomorrow) -> {
+                TaskGroup.Tomorrow
+            }
             dueDate.isAfter(tomorrow) && dueDate.isBefore(nextWeekStart) -> {
                 TaskGroup.WeekDay(dueDate.dayOfWeek)
             }
@@ -88,7 +79,9 @@ fun groupTasksByDueDateTime(
             !dueDate.isBefore(nextMonthStart) && !dueDate.isAfter(nextMonthEnd) -> {
                 TaskGroup.NextMonth
             }
-            else -> TaskGroup.Later
+            else -> {
+                TaskGroup.Later
+            }
         }
     }
 

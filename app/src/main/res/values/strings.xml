@@ -42,9 +42,7 @@
     <string name="completed_tasks_screen_title">Completed Tasks</string>
 
     <string name="task_group_overdue">Overdue</string>
-    <string name="task_group_morning">Morning</string>
-    <string name="task_group_noon">Noon</string>
-    <string name="task_group_evening">Evening</string>
+    <string name="task_group_today">Today</string>
     <string name="task_group_tomorrow">Tomorrow</string>
     <string name="task_group_next_week">Next week</string>
     <string name="task_group_this_month">This Month</string>

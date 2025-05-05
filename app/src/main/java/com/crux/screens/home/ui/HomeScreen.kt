@@ -1,5 +1,7 @@
 package com.crux.screens.home.ui
 
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -8,20 +10,10 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Circle
-import androidx.compose.material.icons.outlined.Bedtime
-import androidx.compose.material.icons.outlined.CalendarToday
-import androidx.compose.material.icons.outlined.WbSunny
-import androidx.compose.material.icons.outlined.WbTwilight
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -36,7 +28,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -48,12 +39,15 @@ import com.crux.screens.home.ui.component.MainScreenFloatingActionButtonView
 import com.crux.screens.home.ui.component.MainScreenTopAppBarView
 import com.crux.screens.home.ui.component.TaskListItemView
 import com.crux.ui.model.TaskGroup
-import com.crux.ui.model.TimeOfDay
+import com.crux.ui.model.TaskUi
 import com.crux.ui.model.groupTasksByDueDateTime
 import java.time.format.TextStyle
 import java.util.Locale
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(
+    ExperimentalMaterial3Api::class,
+    ExperimentalFoundationApi::class
+)
 @Composable
 internal fun HomeScreen(
     onClickAddNewTask: () -> Unit,
@@ -111,14 +105,11 @@ internal fun HomeScreen(
                 contentPadding = PaddingValues(vertical = 8.dp, horizontal = 12.dp),
                 content = {
                     groupedTasks.onEachIndexed { index, (group, tasksInGroup) ->
-                        item {
-                            if (index != 0) {
-                                Spacer(Modifier.height(16.dp))
-                            }
+                        stickyHeader {
                             Row(
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(bottom = 8.dp),
+                                    .background(MaterialTheme.colorScheme.surface),
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
                                 Text(
@@ -128,9 +119,13 @@ internal fun HomeScreen(
                                 )
                             }
                         }
+                        item {
+                            Spacer(Modifier.height(4.dp))
+                        }
                         items(
                             items = tasksInGroup,
-                            key = { it.id }
+                            key = { it.id },
+                            contentType = { TaskUi }
                         ) { task ->
                             TaskListItemView(
                                 task = task,
@@ -147,6 +142,9 @@ internal fun HomeScreen(
                                 },
                                 modifier = Modifier.animateItem()
                             )
+                        }
+                        item {
+                            Spacer(Modifier.height(16.dp))
                         }
                     }
                     item {
@@ -169,42 +167,6 @@ internal fun HomeScreen(
                 onEvent(HomeScreenEvent.OnSelectTaskList(taskListId))
             }
         )
-    }
-}
-
-fun getTaskGroupIcon(group: TaskGroup): ImageVector {
-    return when (group) {
-        TaskGroup.Overdue -> {
-            Icons.Outlined.CalendarToday
-        }
-        is TaskGroup.Today -> {
-            when (group.timeOfDay) {
-                TimeOfDay.MORNING -> {
-                    Icons.Outlined.WbTwilight
-                }
-                TimeOfDay.NOON -> {
-                    Icons.Outlined.WbSunny
-                }
-                TimeOfDay.EVENING -> {
-                    Icons.Outlined.Bedtime
-                }
-            }
-        }
-        else -> {
-            Icons.Outlined.CalendarToday
-        }
-//        is TaskGroup.WeekDay -> TODO()
-//        TaskGroup.NextWeek -> TODO()
-//
-//        TaskGroup.NextMonth -> TODO()
-//        TaskGroup.SomeDay -> TODO()
-//        TaskGroup.ThisMonth -> TODO()
-//
-//        TaskGroup.Tomorrow -> TODO()
-//
-//        TaskGroup.Later -> {
-//
-//        }
     }
 }
 
