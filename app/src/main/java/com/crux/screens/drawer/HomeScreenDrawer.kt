@@ -37,11 +37,7 @@ import kotlinx.coroutines.launch
 @Composable
 internal fun HomeScreenDrawer(
     drawerState: DrawerState,
-    onClickAppearance: () -> Unit,
-    onClickTaskLists: () -> Unit,
-    onClickCompletedTasks: () -> Unit,
-    onClickAbout: () -> Unit,
-    navigateToSettings: () -> Unit,
+    onNavigationEvent: (DrawerNavigationEvent) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val coroutineScope = rememberCoroutineScope()
@@ -81,7 +77,7 @@ internal fun HomeScreenDrawer(
                     coroutineScope.launch {
                         drawerState.close()
                     }
-                    onClickTaskLists()
+                    onNavigationEvent(DrawerNavigationEvent.NavigateToTaskLists)
                 }
             )
             DrawerItemView(
@@ -91,7 +87,7 @@ internal fun HomeScreenDrawer(
                     coroutineScope.launch {
                         drawerState.close()
                     }
-                    onClickCompletedTasks()
+                    onNavigationEvent(DrawerNavigationEvent.NavigateToCompletedTasks)
                 }
             )
             DrawerItemView(
@@ -101,7 +97,7 @@ internal fun HomeScreenDrawer(
                     coroutineScope.launch {
                         drawerState.close()
                     }
-                    onClickAppearance()
+                    onNavigationEvent(DrawerNavigationEvent.NavigateToAppearance)
                 }
             )
             HorizontalDivider(
@@ -130,7 +126,7 @@ internal fun HomeScreenDrawer(
                     coroutineScope.launch {
                         drawerState.close()
                     }
-                    navigateToSettings()
+                    onNavigationEvent(DrawerNavigationEvent.NavigateToSettings)
                 }
             )
             HorizontalDivider(
@@ -173,7 +169,7 @@ internal fun HomeScreenDrawer(
                     coroutineScope.launch {
                         drawerState.close()
                     }
-                    onClickAbout()
+                    onNavigationEvent(DrawerNavigationEvent.NavigateToAbout)
                 }
             )
         }

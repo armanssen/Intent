@@ -19,24 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavOptions
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.rememberNavController
 import com.crux.domain.model.AppTheme
-import com.crux.screens.add_or_edit_task.ui.AddOrEditTaskScreenDestination
-import com.crux.screens.add_or_edit_task.ui.addOrEditTaskScreen
-import com.crux.screens.appearance.ui.AppearanceScreenDestination
-import com.crux.screens.appearance.ui.appearanceScreen
-import com.crux.screens.about.AboutScreenDestination
-import com.crux.screens.about.aboutScreen
-import com.crux.screens.completed_tasks.ui.CompletedTasksScreenDestination
-import com.crux.screens.completed_tasks.ui.completedTasksScreen
-import com.crux.screens.home.ui.HomeScreenDestination
-import com.crux.screens.home.ui.homeScreen
-import com.crux.screens.settings.ui.SettingsDestination
-import com.crux.screens.settings.ui.settingsScreen
-import com.crux.screens.task_lists.ui.TaskListsDestination
-import com.crux.screens.task_lists.ui.taskListsScreen
 import com.crux.ui.theme.CruxTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -91,76 +74,11 @@ class MainActivity : ComponentActivity() {
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
-                        .background(MaterialTheme.colorScheme.surface)
-                ) {
-                    val navController = rememberNavController()
-
-                    NavHost(
-                        navController = navController,
-                        startDestination = HomeScreenDestination
-                    ) {
-                        homeScreen(
-                            onClickAddNewTask = {
-                                navController.navigate(
-                                    AddOrEditTaskScreenDestination()
-                                )
-                            },
-                            onClickTask = { taskId ->
-                                navController.navigate(
-                                    route = AddOrEditTaskScreenDestination(taskId = taskId),
-                                    navOptions = NavOptions.Builder()
-                                        .setLaunchSingleTop(true)
-                                        .build()
-                                )
-                            },
-                            onClickTaskLists = {
-                                navController.navigate(TaskListsDestination)
-                            },
-                            onClickAppearance = {
-                                navController.navigate(AppearanceScreenDestination)
-                            },
-                            onClickAbout = {
-                                navController.navigate(AboutScreenDestination)
-                            },
-                            onClickCompletedTasks = {
-                                navController.navigate(CompletedTasksScreenDestination)
-                            },
-                            navigateToSettings = {
-                                navController.navigate(SettingsDestination)
-                            }
-                        )
-                        addOrEditTaskScreen(
-                            onClickBack = {
-                                navController.navigateUp()
-                            }
-                        )
-                        taskListsScreen(
-                            onClickBack = {
-                                navController.navigateUp()
-                            }
-                        )
-                        completedTasksScreen(
-                            onClickBack = {
-                                navController.navigateUp()
-                            }
-                        )
-                        appearanceScreen(
-                            onClickBack = {
-                                navController.navigateUp()
-                            }
-                        )
-                        aboutScreen(
-                            onClickBack = {
-                                navController.navigateUp()
-                            }
-                        )
-                        settingsScreen(
-                            navigateBack = {
-                                navController.navigateUp()
-                            }
-                        )
+                        .background(MaterialTheme.colorScheme.surface),
+                    content = {
+                        AppNavHost()
                     }
-                }
+                )
             }
         }
     }
