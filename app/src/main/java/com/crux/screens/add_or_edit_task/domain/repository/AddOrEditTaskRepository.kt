@@ -10,21 +10,13 @@ internal interface AddOrEditTaskRepository {
 
     suspend fun getTaskById(id: Int): Task?
 
-    suspend fun insertTask(
-        task: Task
-    )
+    suspend fun insertTask(task: Task)
 
-    suspend fun updateTask(
-        task: Task
-    )
+    suspend fun updateTask(task: Task)
 
-    suspend fun deleteTaskById(
-        id: Int
-    )
+    suspend fun deleteTaskById(id: Int)
 
     fun getTaskLists(): Flow<List<TaskList>>
 
-    suspend fun addTaskList(
-        name: String
-    ): Long
+    suspend fun addTaskList(name: String): Long
 }

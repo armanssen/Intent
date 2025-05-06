@@ -1,6 +1,5 @@
-package com.crux.screens.home.ui.component
+package com.crux.screens.completed_tasks.ui.component
 
-import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -24,39 +23,27 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextDecoration
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
-import com.crux.R
-import com.crux.screens.add_or_edit_task.ui.isAllDay
-import com.crux.ui.model.TaskGroup
-import com.crux.ui.model.TaskPreviewParameterProvider
 import com.crux.ui.model.TaskUi
 import java.time.Instant
 import java.time.ZoneId
-import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 
 @Composable
 internal fun TaskItemView(
     task: TaskUi,
-    taskGroup: TaskGroup,
     onClick: () -> Unit,
     onCheckedChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val context = LocalContext.current
 
     var isChecked by remember(task.isCompleted) {
         mutableStateOf(task.isCompleted)
     }
-
-    val dueText = remember(task.dueDateTime, taskGroup) {
-        formatDueDateTime(context, task.dueDateTime, taskGroup)
+    val dueText = remember(task.dueDateTime) {
+        formatDueDateTime(task.dueDateTime)
     }
-
     Row(
         modifier = modifier
             .clip(MaterialTheme.shapes.medium)
@@ -109,63 +96,14 @@ internal fun TaskItemView(
 }
 
 private fun formatDueDateTime(
-    context: Context,
-    dueDate: Long?,
-    taskGroup: TaskGroup
+    dueDate: Long?
 ): String? {
     if (dueDate == null) return null
 
-    val zone = ZoneId.systemDefault()
-    val zonedDateTime = Instant.ofEpochMilli(dueDate).atZone(zone)
-    val dueDateOnly = zonedDateTime.toLocalDate()
-    val today = ZonedDateTime.now(zone).toLocalDate()
-    val yesterday = today.minusDays(1)
-
-    val datePart = when (taskGroup) {
-        TaskGroup.Overdue -> {
-            when (dueDateOnly) {
-                today -> context.getString(R.string.overdue_today)
-                yesterday -> context.getString(R.string.overdue_yesterday)
-                else -> zonedDateTime.format(
-                    DateTimeFormatter.ofPattern("d MMM")
-                )
-            }
-        }
-        TaskGroup.Today,
-        TaskGroup.Tomorrow,
-        is TaskGroup.WeekDay -> null
-        else -> {
-            zonedDateTime.format(
-                DateTimeFormatter.ofPattern("d MMM")
-            )
-        }
-    }
-
-    val timePart = if (!isAllDay(dueDate)) {
-         zonedDateTime.format(
-            DateTimeFormatter.ofPattern("H:mm")
+    return Instant
+        .ofEpochMilli(dueDate)
+        .atZone(ZoneId.systemDefault())
+        .format(
+            DateTimeFormatter.ofPattern("d MMM, yyyy")
         )
-    } else {
-        null
-    }
-
-    return when {
-        datePart != null && timePart != null -> "$datePart • $timePart"
-        datePart != null -> datePart
-        timePart != null -> timePart
-        else -> null
-    }
-}
-
-@Preview
-@Composable
-private fun Preview(
-    @PreviewParameter(TaskPreviewParameterProvider::class) task: TaskUi
-) {
-    TaskItemView(
-        task = task,
-        taskGroup = TaskGroup.Today,
-        onClick = {},
-        onCheckedChange = {}
-    )
 }

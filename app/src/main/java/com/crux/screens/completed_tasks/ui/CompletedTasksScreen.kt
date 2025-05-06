@@ -24,6 +24,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.crux.R
+import com.crux.screens.completed_tasks.ui.component.TaskItemView
+import com.crux.ui.model.TaskUi
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -68,11 +70,18 @@ internal fun CompletedTasksScreen(
             ) {
                 items(
                     items = uiState.tasks,
-                    key = {
-                        it.id
-                    }
+                    key = { it.id },
+                    contentType = { TaskUi }
                 ) { task ->
-                    Text(text = task.toString())
+                    TaskItemView(
+                        task = task,
+                        onClick = {
+
+                        },
+                        onCheckedChange = {
+
+                        }
+                    )
                 }
             }
         }
