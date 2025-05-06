@@ -41,6 +41,7 @@ internal fun HomeScreenDrawer(
     onClickTaskLists: () -> Unit,
     onClickCompletedTasks: () -> Unit,
     onClickAbout: () -> Unit,
+    navigateToSettings: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val coroutineScope = rememberCoroutineScope()
@@ -126,7 +127,10 @@ internal fun HomeScreenDrawer(
                 label = "Settings",
                 icon = Icons.Outlined.Settings,
                 onClick = {
-
+                    coroutineScope.launch {
+                        drawerState.close()
+                    }
+                    navigateToSettings()
                 }
             )
             HorizontalDivider(

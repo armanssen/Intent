@@ -40,7 +40,7 @@ import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 
 @Composable
-internal fun TaskListItemView(
+internal fun TaskItemView(
     task: TaskUi,
     taskGroup: TaskGroup,
     onClick: () -> Unit,
@@ -128,7 +128,7 @@ fun formatDueDateTime(
                 today -> context.getString(R.string.overdue_today)
                 yesterday -> context.getString(R.string.overdue_yesterday)
                 else -> zonedDateTime.format(
-                    DateTimeFormatter.ofPattern("d MMM, yyyy")
+                    DateTimeFormatter.ofPattern("d MMM")
                 )
             }
         }
@@ -137,7 +137,7 @@ fun formatDueDateTime(
         is TaskGroup.WeekDay -> null
         else -> {
             zonedDateTime.format(
-                DateTimeFormatter.ofPattern("d MMM, yyyy")
+                DateTimeFormatter.ofPattern("d MMM")
             )
         }
     }
@@ -163,7 +163,7 @@ fun formatDueDateTime(
 private fun Preview(
     @PreviewParameter(TaskPreviewParameterProvider::class) task: TaskUi
 ) {
-    TaskListItemView(
+    TaskItemView(
         task = task,
         taskGroup = TaskGroup.Today,
         onClick = {},

@@ -122,6 +122,7 @@ dependencies {
     testImplementation(libs.androidx.room.testing)
     ksp(libs.androidx.room.compiler)
 
+    // DataStore
     implementation(libs.androidx.datastore.preferences)
 
     // Timber

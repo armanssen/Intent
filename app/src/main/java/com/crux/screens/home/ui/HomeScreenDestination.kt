@@ -22,7 +22,8 @@ fun NavGraphBuilder.homeScreen(
     onClickAddNewTask: () -> Unit,
     onClickAbout: () -> Unit,
     onClickCompletedTasks: () -> Unit,
-    onClickTask: (taskId: Int) -> Unit
+    onClickTask: (taskId: Int) -> Unit,
+    navigateToSettings: () -> Unit
 ) {
     composable<HomeScreenDestination>(
         popEnterTransition = {
@@ -46,7 +47,8 @@ fun NavGraphBuilder.homeScreen(
                     onClickAppearance = onClickAppearance,
                     onClickTaskLists = onClickTaskLists,
                     onClickAbout = onClickAbout,
-                    onClickCompletedTasks = onClickCompletedTasks
+                    onClickCompletedTasks = onClickCompletedTasks,
+                    navigateToSettings = navigateToSettings
                 )
             }
         ) {

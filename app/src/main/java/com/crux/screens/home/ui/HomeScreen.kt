@@ -37,7 +37,7 @@ import com.crux.R
 import com.crux.screens.home.ui.component.HomeScreenBottomSheetView
 import com.crux.screens.home.ui.component.MainScreenFloatingActionButtonView
 import com.crux.screens.home.ui.component.MainScreenTopAppBarView
-import com.crux.screens.home.ui.component.TaskListItemView
+import com.crux.screens.home.ui.component.TaskItemView
 import com.crux.ui.model.TaskGroup
 import com.crux.ui.model.TaskUi
 import com.crux.ui.model.groupTasksByDueDateTime
@@ -127,7 +127,7 @@ internal fun HomeScreen(
                             key = { it.id },
                             contentType = { TaskUi }
                         ) { task ->
-                            TaskListItemView(
+                            TaskItemView(
                                 task = task,
                                 taskGroup = taskGroup,
                                 onClick = {

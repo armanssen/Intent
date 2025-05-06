@@ -33,6 +33,8 @@ import com.crux.screens.completed_tasks.ui.CompletedTasksScreenDestination
 import com.crux.screens.completed_tasks.ui.completedTasksScreen
 import com.crux.screens.home.ui.HomeScreenDestination
 import com.crux.screens.home.ui.homeScreen
+import com.crux.screens.settings.ui.SettingsDestination
+import com.crux.screens.settings.ui.settingsScreen
 import com.crux.screens.task_lists.ui.TaskListsDestination
 import com.crux.screens.task_lists.ui.taskListsScreen
 import com.crux.ui.theme.CruxTheme
@@ -122,6 +124,9 @@ class MainActivity : ComponentActivity() {
                             },
                             onClickCompletedTasks = {
                                 navController.navigate(CompletedTasksScreenDestination)
+                            },
+                            navigateToSettings = {
+                                navController.navigate(SettingsDestination)
                             }
                         )
                         addOrEditTaskScreen(
@@ -146,6 +151,11 @@ class MainActivity : ComponentActivity() {
                         )
                         aboutScreen(
                             onClickBack = {
+                                navController.navigateUp()
+                            }
+                        )
+                        settingsScreen(
+                            navigateBack = {
                                 navController.navigateUp()
                             }
                         )
