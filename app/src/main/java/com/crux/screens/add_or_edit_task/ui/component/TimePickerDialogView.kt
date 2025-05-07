@@ -8,21 +8,32 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.TimePicker
 import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import com.crux.util.DateTimeUtils
 import java.util.Calendar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun TimePickerDialogView(
+    dueDate: Long?,
     onConfirm: (hour: Int, minute: Int) -> Unit,
     onDismiss: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val currentTime = Calendar.getInstance()
+    val initialHour = remember(dueDate) {
+        dueDate?.let { DateTimeUtils.getDateHour(it) }
+            ?: Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
+    }
+
+    val initialMinute = remember(dueDate) {
+        dueDate?.let { DateTimeUtils.getDateMinute(it) }
+            ?: Calendar.getInstance().get(Calendar.MINUTE)
+    }
 
     val timePickerState = rememberTimePickerState(
-        initialHour = currentTime.get(Calendar.HOUR_OF_DAY),
-        initialMinute = currentTime.get(Calendar.MINUTE),
+        initialHour = initialHour,
+        initialMinute = initialMinute,
         is24Hour = true
     )
 

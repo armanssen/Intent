@@ -8,6 +8,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -17,12 +18,14 @@ import com.crux.R
 @Composable
 internal fun AddOrEditTaskTopAppBarView(
     isEditTask: Boolean,
+    scrollBehavior: TopAppBarScrollBehavior,
     onClickBack: () -> Unit,
     onClickDelete: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     TopAppBar(
         modifier = modifier,
+        scrollBehavior = scrollBehavior,
         title = {
             if (!isEditTask) {
                 Text(

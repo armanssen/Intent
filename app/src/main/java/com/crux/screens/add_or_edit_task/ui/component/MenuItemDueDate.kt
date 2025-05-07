@@ -15,7 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.crux.R
-import com.crux.screens.add_or_edit_task.ui.formatDate
+import com.crux.util.DateTimeUtils
 
 @Composable
 internal fun MenuItemDueDate(
@@ -42,7 +42,10 @@ internal fun MenuItemDueDate(
         )
         Text(
             text = if (dueDate != null) {
-                formatDate(dueDate)
+                DateTimeUtils.formatDate(
+                    millis = dueDate,
+                    formatPattern = DateTimeUtils.FORMAT_FULL_DATE
+                )
             } else {
                 stringResource(R.string.add_or_edit_task_screen_due_date)
             },

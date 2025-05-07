@@ -9,6 +9,7 @@ import com.crux.screens.add_or_edit_task.domain.repository.AddOrEditTaskReposito
 import com.crux.ui.model.toUi
 import com.crux.util.ALL_TASK_LISTS_ID
 import com.crux.util.DEFAULT_TASK_LIST_ID
+import com.crux.util.DateTimeUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.Dispatchers
@@ -19,9 +20,6 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import java.time.Instant
-import java.time.ZoneId
-import java.time.ZoneOffset
 import javax.inject.Inject
 
 @HiltViewModel
@@ -233,15 +231,13 @@ internal class AddOrEditTaskViewModel
     }
 
     private fun onSelectDueDate(date: Long) {
-        val dueDate = Instant.ofEpochMilli(date)
-            .atZone(ZoneId.systemDefault())
-            .withHour(23)
-            .withMinute(59)
-            .withSecond(59)
-            .withNano(0)
-            .withZoneSameInstant(ZoneOffset.UTC)
-            .toInstant()
-            .toEpochMilli()
+        val dueDate = DateTimeUtils
+            .getDateWithTime(
+                millis = date,
+                hour = DateTimeUtils.ALL_DAY_HOUR,
+                minute = DateTimeUtils.ALL_DAY_MINUTE,
+                second = DateTimeUtils.ALL_DAY_SECOND
+            )
 
         _uiState.update {
             it.copy(dueDate = dueDate)
@@ -255,15 +251,11 @@ internal class AddOrEditTaskViewModel
         val dueDate = _uiState.value.dueDate
         if (dueDate == null) return
 
-        val dueDateWithTime = Instant.ofEpochMilli(dueDate)
-            .atZone(ZoneId.systemDefault())
-            .withHour(hour)
-            .withMinute(minute)
-            .withSecond(0)
-            .withNano(0)
-            .withZoneSameInstant(ZoneOffset.UTC)
-            .toInstant()
-            .toEpochMilli()
+        val dueDateWithTime = DateTimeUtils.getDateWithTime(
+            millis = dueDate,
+            hour = hour,
+            minute = minute
+        )
 
         _uiState.update {
             it.copy(dueDate = dueDateWithTime)

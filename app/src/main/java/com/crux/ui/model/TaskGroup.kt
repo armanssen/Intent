@@ -25,13 +25,9 @@ sealed class TaskGroup(
     ) : TaskGroup(R.string.task_group_weekday) // This will be dynamic
 }
 
-enum class TimeOfDay {
-    MORNING, NOON, EVENING
-}
-
 fun groupTasksByDueDateTime(
     tasks: List<TaskUi>,
-    startOfWeek: DayOfWeek = DayOfWeek.MONDAY // or DayOfWeek.MONDAY
+    startOfWeek: DayOfWeek = DayOfWeek.MONDAY // or DayOfWeek.SUNDAY
 ): Map<TaskGroup, List<TaskUi>> {
     val now = LocalDateTime.now()
     val today = now.toLocalDate()

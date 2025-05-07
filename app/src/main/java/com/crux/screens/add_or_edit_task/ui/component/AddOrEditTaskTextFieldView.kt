@@ -10,10 +10,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import com.crux.R
 
@@ -26,12 +24,9 @@ internal fun AddOrEditTaskTextFieldView(
     modifier: Modifier = Modifier
 ) {
     TextField(
-        value = TextFieldValue(
-            text = textFieldValue,
-            selection = TextRange(textFieldValue.length)
-        ),
+        value = textFieldValue,
         onValueChange = {
-            onValueChange(it.text)
+            onValueChange(it)
         },
         placeholder = {
             Text(

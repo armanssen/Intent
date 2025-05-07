@@ -30,10 +30,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import com.crux.R
-import com.crux.screens.add_or_edit_task.ui.isAllDay
 import com.crux.ui.model.TaskGroup
 import com.crux.ui.model.TaskPreviewParameterProvider
 import com.crux.ui.model.TaskUi
+import com.crux.util.DateTimeUtils
 import java.time.Instant
 import java.time.ZoneId
 import java.time.ZonedDateTime
@@ -141,7 +141,7 @@ private fun formatDueDateTime(
         }
     }
 
-    val timePart = if (!isAllDay(dueDate)) {
+    val timePart = if (!DateTimeUtils.isAllDay(dueDate)) {
          zonedDateTime.format(
             DateTimeFormatter.ofPattern("H:mm")
         )

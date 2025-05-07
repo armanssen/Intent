@@ -26,9 +26,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import com.crux.ui.model.TaskUi
-import java.time.Instant
-import java.time.ZoneId
-import java.time.format.DateTimeFormatter
+import com.crux.util.DateTimeUtils
 
 @Composable
 internal fun TaskItemView(
@@ -42,7 +40,12 @@ internal fun TaskItemView(
         mutableStateOf(task.isCompleted)
     }
     val dueText = remember(task.dueDateTime) {
-        formatDueDateTime(task.dueDateTime)
+        task.dueDateTime?.let {
+            DateTimeUtils.formatDate(
+                millis = it,
+                formatPattern = "d MMM, yyyy"
+            )
+        }
     }
     Row(
         modifier = modifier
@@ -93,17 +96,4 @@ internal fun TaskItemView(
             }
         }
     }
-}
-
-private fun formatDueDateTime(
-    dueDate: Long?
-): String? {
-    if (dueDate == null) return null
-
-    return Instant
-        .ofEpochMilli(dueDate)
-        .atZone(ZoneId.systemDefault())
-        .format(
-            DateTimeFormatter.ofPattern("d MMM, yyyy")
-        )
 }

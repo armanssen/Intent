@@ -9,6 +9,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBarDefaults
@@ -83,6 +84,7 @@ internal fun AddOrEditTaskScreen(
         topBar = {
             AddOrEditTaskTopAppBarView(
                 isEditTask = args.taskId != null,
+                scrollBehavior = scrollBehavior,
                 onClickBack = onClickBack,
                 onClickDelete = {
                     onEvent(AddOrEditTaskScreenEvent.OnClickDelete)
@@ -141,6 +143,12 @@ internal fun AddOrEditTaskScreen(
                     }
                 )
             }
+            HorizontalDivider(
+                modifier = Modifier.padding(
+                    horizontal = 16.dp,
+                    vertical = 16.dp
+                )
+            )
             MenuItemSelectTaskList(
                 selectedTaskListId = uiState.selectedTaskListId,
                 taskLists = uiState.taskLists,
@@ -151,6 +159,7 @@ internal fun AddOrEditTaskScreen(
                     onEvent(TaskListEvent.OnClickAddTaskList)
                 }
             )
+            Spacer(Modifier.height(96.dp))
         }
     }
 
@@ -185,6 +194,7 @@ internal fun AddOrEditTaskScreen(
 
     if (uiState.isTimePickerDialogVisible) {
         TimePickerDialogView(
+            dueDate = uiState.dueDate,
             onConfirm = { hour, minute ->
                 onEvent(DueDateEvent.OnSelectTime(hour, minute))
             },
