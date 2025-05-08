@@ -130,6 +130,7 @@ internal fun HomeScreen(
                             TaskItemView(
                                 task = task,
                                 taskGroup = taskGroup,
+                                isOverdue = taskGroup == TaskGroup.Overdue,
                                 onClick = {
                                     onClickTask(task.id)
                                 },

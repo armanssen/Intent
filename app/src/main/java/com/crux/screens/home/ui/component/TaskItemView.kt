@@ -10,8 +10,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CornerSize
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.LocalMinimumInteractiveComponentSize
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
@@ -33,6 +36,7 @@ import com.crux.R
 import com.crux.ui.model.TaskGroup
 import com.crux.ui.model.TaskPreviewParameterProvider
 import com.crux.ui.model.TaskUi
+import com.crux.ui.theme.ErrorIndicatorColor
 import com.crux.util.DateTimeUtils
 import java.time.Instant
 import java.time.ZoneId
@@ -43,6 +47,7 @@ import java.time.format.DateTimeFormatter
 internal fun TaskItemView(
     task: TaskUi,
     taskGroup: TaskGroup,
+    isOverdue: Boolean,
     onClick: () -> Unit,
     onCheckedChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier
@@ -57,55 +62,81 @@ internal fun TaskItemView(
         formatDueDateTime(context, task.dueDateTime, taskGroup)
     }
 
-    Row(
+    Column(
         modifier = modifier
-            .clip(MaterialTheme.shapes.medium)
-            .clickable(
-                onClick = onClick
-            )
-            .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.surfaceVariant)
-            .padding(16.dp)
     ) {
-        CompositionLocalProvider(LocalMinimumInteractiveComponentSize provides 0.dp) {
-            Checkbox(
-                checked = isChecked,
-                onCheckedChange = {
-                    isChecked = it
-                    onCheckedChange(isChecked)
-                },
-                colors = CheckboxDefaults.colors().copy(
-                    checkedBorderColor = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f),
-                    checkedBoxColor = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f),
-                    uncheckedBoxColor = MaterialTheme.colorScheme.surfaceContainer
+        Row(
+            modifier = Modifier
+                .clip(
+                    RoundedCornerShape(
+                        topStart = MaterialTheme.shapes.medium.topStart,
+                        topEnd = MaterialTheme.shapes.medium.topEnd,
+                        bottomStart = if (isOverdue) {
+                            CornerSize(0.dp)
+                        } else {
+                            MaterialTheme.shapes.medium.bottomStart
+                        },
+                        bottomEnd = if (isOverdue) {
+                            CornerSize(0.dp)
+                        } else {
+                            MaterialTheme.shapes.medium.bottomEnd
+                        }
+                    )
                 )
-            )
-        }
-        Spacer(Modifier.width(8.dp))
-        Column {
-            Text(
-                text = task.title,
-                style = LocalTextStyle.current.let { style ->
-                    if (isChecked) {
-                        style.copy(
-                            textDecoration = TextDecoration.LineThrough,
-                            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
-                        )
-                    } else {
-                        style
-                    }
-                }
-            )
-            dueText?.let {
-                Spacer(modifier = Modifier.height(4.dp))
-                Text(
-                    text = it,
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                .clickable(
+                    onClick = onClick
+                )
+                .fillMaxWidth()
+                .background(MaterialTheme.colorScheme.surfaceVariant)
+                .padding(16.dp)
+        ) {
+            CompositionLocalProvider(LocalMinimumInteractiveComponentSize provides 0.dp) {
+                Checkbox(
+                    checked = isChecked,
+                    onCheckedChange = {
+                        isChecked = it
+                        onCheckedChange(isChecked)
+                    },
+                    colors = CheckboxDefaults.colors().copy(
+                        checkedBorderColor = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f),
+                        checkedBoxColor = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f),
+                        uncheckedBoxColor = MaterialTheme.colorScheme.surfaceContainer
+                    )
                 )
             }
+            Spacer(Modifier.width(8.dp))
+            Column {
+                Text(
+                    text = task.title,
+                    style = LocalTextStyle.current.let { style ->
+                        if (isChecked) {
+                            style.copy(
+                                textDecoration = TextDecoration.LineThrough,
+                                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
+                            )
+                        } else {
+                            style
+                        }
+                    }
+                )
+                dueText?.let {
+                    Spacer(modifier = Modifier.height(4.dp))
+                    Text(
+                        text = it,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+            }
+        }
+        if (isOverdue) {
+            HorizontalDivider(
+                color = ErrorIndicatorColor,
+                thickness = 2.dp
+            )
         }
     }
+
 }
 
 private fun formatDueDateTime(
@@ -165,6 +196,7 @@ private fun Preview(
     TaskItemView(
         task = task,
         taskGroup = TaskGroup.Today,
+        isOverdue = true,
         onClick = {},
         onCheckedChange = {}
     )
