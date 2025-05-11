@@ -19,4 +19,6 @@ internal interface AddOrEditTaskRepository {
     fun getTaskLists(): Flow<List<TaskList>>
 
     suspend fun addTaskList(name: String): Long
+
+    suspend fun insertTasks(tasks: List<Task>)
 }

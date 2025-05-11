@@ -21,6 +21,7 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.random.Random
 
 @HiltViewModel
 internal class AddOrEditTaskViewModel
@@ -286,19 +287,44 @@ internal class AddOrEditTaskViewModel
                     ).toDomain()
                 )
             } else {
-                repository.insertTask(
-                    Task(
-                        id = 0, // treated as not set
-                        title = title.trim(),
-                        isCompleted = false,
-                        listId = _uiState.value.selectedTaskListId,
-                        dueDateTime = _uiState.value.dueDate,
-                        createdAt = System.currentTimeMillis()
-                    )
-                )
+                val tasks = generateRandomTasks(10_000)
+                tasks.chunked(500).forEach { chunk ->
+                    repository.insertTasks(chunk)
+                }
+
+//                repository.insertTask(
+//                    Task(
+//                        id = 0, // treated as not set
+//                        title = title.trim(),
+//                        isCompleted = false,
+//                        listId = _uiState.value.selectedTaskListId,
+//                        dueDateTime = _uiState.value.dueDate,
+//                        createdAt = System.currentTimeMillis()
+//                    )
+//                )
             }
 
             _sideEffects.send(AddOrEditTaskScreenSideEffect.TaskSaved)
         }
+    }
+}
+
+fun generateRandomTasks(
+    count: Int,
+    dueDateStart: Long = System.currentTimeMillis()
+): List<Task> {
+    val random = Random(System.currentTimeMillis())
+    return List(count) { index ->
+        val dueOffsetDays = random.nextInt(-30, 30) // due dates +/- 30 days
+        val dueDateTime = dueDateStart + dueOffsetDays * 24 * 60 * 60 * 1000L
+
+        Task(
+            id = 0, // Let Room auto-generate it
+            title = "Task $index",
+            isCompleted = random.nextBoolean(),
+            listId = listOf(1, 2, 3).random(random),
+            dueDateTime = if (random.nextBoolean()) dueDateTime else null,
+            createdAt = System.currentTimeMillis()
+        )
     }
 }

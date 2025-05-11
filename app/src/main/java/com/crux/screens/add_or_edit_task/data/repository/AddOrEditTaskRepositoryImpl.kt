@@ -72,4 +72,12 @@ class AddOrEditTaskRepositoryImpl
                 taskList = TaskListEntity(name = name)
             )
     }
+
+    override suspend fun insertTasks(tasks: List<Task>) {
+        database
+            .taskEntityDao()
+            .insertList(
+                tasks.map { it.toEntity() }
+            )
+    }
 }
