@@ -15,6 +15,7 @@ kotlinxCollectionsImmutable = "0.3.8"
 ksp = "2.1.10-1.0.29"
 lifecycle = "2.8.7"
 navigationCompose = "2.8.6"
+paging = "3.3.6"
 pluto = "2.2.2"
 room = "2.6.1"
 splashScreen = "1.0.1"
@@ -53,6 +54,10 @@ androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-view
 androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycle" }
 androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycle" }
 androidx-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycle" }
+
+# Paging
+androidx-paging-runtime = { module = "androidx.paging:paging-runtime", version.ref = "paging" }
+androidx-paging-compose = { module = "androidx.paging:paging-compose", version.ref = "paging" }
 
 # Pluto
 pluto = { module = "com.plutolib:pluto", version.ref = "pluto" }

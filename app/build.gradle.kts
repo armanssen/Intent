@@ -113,6 +113,10 @@ dependencies {
     ksp(libs.hilt.android.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
 
+    // Paging
+    implementation(libs.androidx.paging.runtime)
+    implementation(libs.androidx.paging.compose)
+
     // Pluto
     debugImplementation(libs.pluto)
     debugImplementation(libs.pluto.plugins)
