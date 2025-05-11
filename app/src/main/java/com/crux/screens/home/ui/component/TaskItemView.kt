@@ -36,6 +36,7 @@ import com.crux.R
 import com.crux.ui.model.TaskGroup
 import com.crux.ui.model.TaskPreviewParameterProvider
 import com.crux.ui.model.TaskUi
+import com.crux.ui.theme.CruxTheme
 import com.crux.ui.theme.ErrorIndicatorColor
 import com.crux.util.DateTimeUtils
 import java.time.Instant
@@ -131,7 +132,7 @@ internal fun TaskItemView(
         }
         if (isOverdue) {
             HorizontalDivider(
-                color = ErrorIndicatorColor,
+                color = CruxTheme.colorScheme.errorIndicator,
                 thickness = 2.dp
             )
         }

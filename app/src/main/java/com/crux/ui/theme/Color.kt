@@ -31,3 +31,4 @@ val GeistDarkGray9 = Color(0xFFA1A1A1)
 val GeistDarkGray10 = Color(0xFFEDEDED)
 
 val ErrorIndicatorColor = Color(0xFFB3261E)
+val ErrorIndicatorColorDark = Color(0xFFF2B8B5)

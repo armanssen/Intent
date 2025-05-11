@@ -5,44 +5,13 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Shapes
-import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
-import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.crux.domain.model.AppTheme
-
-private val LightColorScheme = lightColorScheme(
-    background = GeistLightBackground,
-
-    surface = GeistLightBackgroundSecondary,
-    surfaceContainer = GeistLightGray1,
-    surfaceVariant = GeistLightGray2,
-    surfaceContainerHigh = GeistLightGray3,
-    surfaceContainerHighest = GeistLightGray4,
-
-    primary = GeistLightGray10,
-    onPrimary = Color.White,
-
-    outlineVariant = GeistLightGray5
-)
-
-private val DarkColorScheme = darkColorScheme(
-    background = GeistDarkBackground,
-
-    surface = GeistDarkBackgroundSecondary,
-    surfaceContainer = GeistDarkGray1,
-    surfaceVariant = GeistDarkGray2,
-    surfaceContainerHigh = GeistDarkGray3,
-    surfaceContainerHighest = GeistDarkGray4,
-
-    primary = GeistDarkGray10,
-    onPrimary = Color.Black,
-    outlineVariant = GeistDarkGray5
-)
 
 private val AppShapes = Shapes(
     extraSmall = RoundedCornerShape(4.dp),
@@ -55,7 +24,6 @@ private val RoundedAppShapes = Shapes(
     small = RoundedCornerShape(32.dp),
     medium = RoundedCornerShape(32.dp)
 )
-
 
 @Composable
 fun CruxTheme(
@@ -88,9 +56,21 @@ fun CruxTheme(
         }
     }
 
+    val customColorScheme = if (isDarkThemeEnabled) {
+        DarkCustomColorScheme
+    } else {
+        LightCustomColorScheme
+    }
+
     MaterialTheme(
         colorScheme = colorScheme,
         shapes = AppShapes,
-        content = content
+        content = {
+            CompositionLocalProvider(
+                LocalCustomColors provides customColorScheme
+            ) {
+                content()
+            }
+        }
     )
 }

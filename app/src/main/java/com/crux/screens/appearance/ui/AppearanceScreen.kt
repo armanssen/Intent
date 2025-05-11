@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -63,8 +64,13 @@ internal fun AppearanceScreen(
                     onEvent(AppearanceScreenEvent.OnSelectAppTheme(it))
                 }
             )
-            Spacer(Modifier.height(8.dp))
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                HorizontalDivider(
+                    modifier = Modifier.padding(
+                        horizontal = 16.dp,
+                        vertical = 16.dp
+                    )
+                )
                 AppearanceDynamicColorView(
                     isDynamicColorEnabled = uiState.isDynamicColorEnabled,
                     onClick = { isChecked ->
