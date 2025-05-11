@@ -1,3 +1,4 @@
+import com.android.build.gradle.internal.api.BaseVariantOutputImpl
 import java.io.FileInputStream
 import java.util.Properties
 
@@ -20,7 +21,7 @@ android {
         minSdk = 27
         targetSdk = 35
         versionCode = 1
-        versionName = "1.0.0"
+        versionName = "0.1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -49,8 +50,8 @@ android {
             isDebuggable = true
             applicationIdSuffix = ".debug"
             versionNameSuffix = "-debug"
-            manifestPlaceholders["appName"] = "@string/app_name_debug"
             signingConfig = signingConfigs.getByName("debug")
+            manifestPlaceholders["appName"] = "@string/app_name_debug"
         }
         release {
             isDebuggable = false
@@ -63,6 +64,15 @@ android {
             signingConfig = signingConfigs.getByName("release")
             manifestPlaceholders["appName"] = "@string/app_name"
         }
+    }
+    applicationVariants.all {
+        val variant = this
+        variant.outputs
+            .map { it as BaseVariantOutputImpl }
+            .forEach { output ->
+                output.outputFileName =
+                    "crux-${variant.versionName}.apk"
+            }
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
