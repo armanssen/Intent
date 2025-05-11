@@ -3,6 +3,7 @@ package com.crux.screens.appearance.data.repository
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
+import com.crux.data.datastore.PreferenceDefaultValues.IS_DYNAMIC_COLOR_ENABLED_DEFAULT
 import com.crux.data.datastore.PreferenceKeys
 import com.crux.domain.model.AppTheme
 import com.crux.screens.appearance.domain.repository.AppearanceRepository
@@ -39,7 +40,8 @@ class AppearanceRepositoryImpl
 
     override fun getIsDynamicColorEnabled(): Flow<Boolean> {
         return appPreferences.data.map {
-            it[PreferenceKeys.IS_DYNAMIC_COLOR_ENABLED] ?: false
+            it[PreferenceKeys.IS_DYNAMIC_COLOR_ENABLED]
+                ?: IS_DYNAMIC_COLOR_ENABLED_DEFAULT
         }
     }
 }

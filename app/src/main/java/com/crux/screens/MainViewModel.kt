@@ -3,6 +3,7 @@ package com.crux.screens
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.crux.data.datastore.PreferenceDefaultValues.IS_DYNAMIC_COLOR_ENABLED_DEFAULT
 import com.crux.data.datastore.PreferenceKeys
 import com.crux.data.datastore.appPreferences
 import com.crux.domain.model.AppTheme
@@ -53,7 +54,8 @@ class MainViewModel
     private fun collectIsDynamicColorEnabled() {
         viewModelScope.launch(Dispatchers.IO) {
             context.appPreferences.data.map {
-                it[PreferenceKeys.IS_DYNAMIC_COLOR_ENABLED] == true
+                it[PreferenceKeys.IS_DYNAMIC_COLOR_ENABLED]
+                    ?: IS_DYNAMIC_COLOR_ENABLED_DEFAULT
             }.collectLatest { isDynamicColorEnabled ->
                 _uiState.update {
                     it.copy(isDynamicColorEnabled = isDynamicColorEnabled)
