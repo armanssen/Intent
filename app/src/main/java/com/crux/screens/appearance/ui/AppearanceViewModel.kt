@@ -2,7 +2,7 @@ package com.crux.screens.appearance.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.crux.domain.model.AppTheme
+import com.crux.core.domain.model.AppTheme
 import com.crux.screens.appearance.domain.repository.AppearanceRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

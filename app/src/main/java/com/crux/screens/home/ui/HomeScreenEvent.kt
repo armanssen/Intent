@@ -1,6 +1,6 @@
 package com.crux.screens.home.ui
 
-import com.crux.ui.model.TaskUi
+import com.crux.core.ui.model.TaskUi
 
 sealed interface HomeScreenEvent {
 

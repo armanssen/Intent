@@ -35,7 +35,7 @@ import com.crux.screens.add_or_edit_task.ui.component.AddOrEditTaskDeleteTaskDia
 import com.crux.screens.add_or_edit_task.ui.component.TimePickerDialogView
 import com.crux.screens.add_or_edit_task.ui.component.MenuItemTime
 import com.crux.screens.add_or_edit_task.ui.component.MenuItemMarkAsCompleted
-import com.crux.ui.component.AddOrEditTaskListDialogView
+import com.crux.core.ui.component.AddOrEditTaskListDialogView
 import com.crux.util.LaunchAndRepeatWithLifecycle
 import com.crux.util.requestFocusWithDelay
 import kotlinx.coroutines.flow.collectLatest

@@ -24,7 +24,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.crux.R
-import com.crux.domain.model.AppTheme
+import com.crux.core.domain.model.AppTheme
 
 @Composable
 internal fun AppearanceChooseThemeView(

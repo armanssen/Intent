@@ -4,9 +4,9 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
-import com.crux.domain.model.Task
+import com.crux.core.domain.model.Task
 import com.crux.screens.add_or_edit_task.domain.repository.AddOrEditTaskRepository
-import com.crux.ui.model.toUi
+import com.crux.core.ui.model.toUi
 import com.crux.util.ALL_TASK_LISTS_ID
 import com.crux.util.DEFAULT_TASK_LIST_ID
 import com.crux.util.DateTimeUtils

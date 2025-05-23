@@ -33,11 +33,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import com.crux.R
-import com.crux.ui.model.TaskGroup
-import com.crux.ui.model.TaskPreviewParameterProvider
-import com.crux.ui.model.TaskUi
-import com.crux.ui.theme.CruxTheme
-import com.crux.ui.theme.ErrorIndicatorColor
+import com.crux.core.ui.model.TaskGroup
+import com.crux.core.ui.model.TaskPreviewParameterProvider
+import com.crux.core.ui.model.TaskUi
+import com.crux.core.ui.theme.CruxTheme
+import com.crux.core.ui.theme.ErrorIndicatorColor
 import com.crux.util.DateTimeUtils
 import java.time.Instant
 import java.time.ZoneId

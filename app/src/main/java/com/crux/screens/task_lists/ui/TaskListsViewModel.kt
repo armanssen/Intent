@@ -3,7 +3,7 @@ package com.crux.screens.task_lists.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.crux.screens.task_lists.domain.repository.TaskListsRepository
-import com.crux.ui.model.toUi
+import com.crux.core.ui.model.toUi
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.Dispatchers

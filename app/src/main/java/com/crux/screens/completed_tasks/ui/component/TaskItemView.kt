@@ -25,7 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
-import com.crux.ui.model.TaskUi
+import com.crux.core.ui.model.TaskUi
 import com.crux.util.DateTimeUtils
 
 @Composable

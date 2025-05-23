@@ -1,6 +1,6 @@
 package com.crux.screens.task_lists.ui
 
-import com.crux.ui.model.TaskListUi
+import com.crux.core.ui.model.TaskListUi
 
 sealed interface TaskListsScreenEvent {
 

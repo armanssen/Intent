@@ -33,7 +33,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.crux.R
-import com.crux.ui.model.TaskListUi
+import com.crux.core.ui.model.TaskListUi
 import com.crux.util.DEFAULT_TASK_LIST_ID
 
 @Composable

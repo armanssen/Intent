@@ -3,10 +3,10 @@ package com.crux.screens
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.crux.data.datastore.PreferenceDefaultValues.IS_DYNAMIC_COLOR_ENABLED_DEFAULT
-import com.crux.data.datastore.PreferenceKeys
-import com.crux.data.datastore.appPreferences
-import com.crux.domain.model.AppTheme
+import com.crux.core.data.datastore.PreferenceDefaultValues.IS_DYNAMIC_COLOR_ENABLED_DEFAULT
+import com.crux.core.data.datastore.PreferenceKeys
+import com.crux.core.data.datastore.appPreferences
+import com.crux.core.domain.model.AppTheme
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers

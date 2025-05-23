@@ -3,9 +3,9 @@ package com.crux.screens.appearance.data.repository
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
-import com.crux.data.datastore.PreferenceDefaultValues.IS_DYNAMIC_COLOR_ENABLED_DEFAULT
-import com.crux.data.datastore.PreferenceKeys
-import com.crux.domain.model.AppTheme
+import com.crux.core.data.datastore.PreferenceDefaultValues.IS_DYNAMIC_COLOR_ENABLED_DEFAULT
+import com.crux.core.data.datastore.PreferenceKeys
+import com.crux.core.domain.model.AppTheme
 import com.crux.screens.appearance.domain.repository.AppearanceRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map

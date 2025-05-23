@@ -1,6 +1,6 @@
 package com.crux.screens
 
-import com.crux.domain.model.AppTheme
+import com.crux.core.domain.model.AppTheme
 
 data class MainState(
     val isSplashScreenVisible: Boolean = true,

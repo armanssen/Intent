@@ -1,6 +1,6 @@
 package com.crux.screens.appearance.ui
 
-import com.crux.domain.model.AppTheme
+import com.crux.core.domain.model.AppTheme
 
 data class AppearanceScreenState(
     val isDynamicColorEnabled: Boolean = false,

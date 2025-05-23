@@ -3,8 +3,8 @@ package com.crux.screens.home.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.crux.screens.home.domain.repository.HomeRepository
-import com.crux.ui.model.TaskUi
-import com.crux.ui.model.toUi
+import com.crux.core.ui.model.TaskUi
+import com.crux.core.ui.model.toUi
 import com.crux.util.ALL_TASK_LISTS_ID
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.toPersistentList

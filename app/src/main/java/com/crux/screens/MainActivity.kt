@@ -19,8 +19,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.crux.domain.model.AppTheme
-import com.crux.ui.theme.CruxTheme
+import com.crux.core.domain.model.AppTheme
+import com.crux.core.ui.theme.CruxTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

@@ -1,7 +1,7 @@
 package com.crux.screens.add_or_edit_task.ui
 
-import com.crux.ui.model.TaskListUi
-import com.crux.ui.model.TaskUi
+import com.crux.core.ui.model.TaskListUi
+import com.crux.core.ui.model.TaskUi
 import com.crux.util.DEFAULT_TASK_LIST_ID
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf

@@ -1,7 +1,7 @@
 package com.crux.screens.home.domain.repository
 
-import com.crux.domain.model.Task
-import com.crux.domain.model.TaskListWithCount
+import com.crux.core.domain.model.Task
+import com.crux.core.domain.model.TaskListWithCount
 import kotlinx.coroutines.flow.Flow
 
 internal interface HomeRepository {

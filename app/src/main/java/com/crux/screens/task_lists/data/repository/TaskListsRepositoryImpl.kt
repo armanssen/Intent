@@ -3,10 +3,10 @@ package com.crux.screens.task_lists.data.repository
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
-import com.crux.data.database.AppDatabase
-import com.crux.data.database.model.TaskListEntity
-import com.crux.data.datastore.PreferenceKeys
-import com.crux.domain.model.TaskListWithCount
+import com.crux.core.data.database.AppDatabase
+import com.crux.core.data.database.model.TaskListEntity
+import com.crux.core.data.datastore.PreferenceKeys
+import com.crux.core.domain.model.TaskListWithCount
 import com.crux.screens.task_lists.domain.repository.TaskListsRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map

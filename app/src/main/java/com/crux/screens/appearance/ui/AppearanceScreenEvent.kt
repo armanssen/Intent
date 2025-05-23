@@ -1,6 +1,6 @@
 package com.crux.screens.appearance.ui
 
-import com.crux.domain.model.AppTheme
+import com.crux.core.domain.model.AppTheme
 
 sealed interface AppearanceScreenEvent {
 

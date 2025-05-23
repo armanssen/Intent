@@ -38,9 +38,9 @@ import com.crux.screens.home.ui.component.HomeScreenBottomSheetView
 import com.crux.screens.home.ui.component.MainScreenFloatingActionButtonView
 import com.crux.screens.home.ui.component.MainScreenTopAppBarView
 import com.crux.screens.home.ui.component.TaskItemView
-import com.crux.ui.model.TaskGroup
-import com.crux.ui.model.TaskUi
-import com.crux.ui.model.groupTasksByDueDateTime
+import com.crux.core.ui.model.TaskGroup
+import com.crux.core.ui.model.TaskUi
+import com.crux.core.ui.model.groupTasksByDueDateTime
 import java.time.format.TextStyle
 import java.util.Locale
 

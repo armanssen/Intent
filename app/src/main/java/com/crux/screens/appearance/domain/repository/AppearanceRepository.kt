@@ -1,6 +1,6 @@
 package com.crux.screens.appearance.domain.repository
 
-import com.crux.domain.model.AppTheme
+import com.crux.core.domain.model.AppTheme
 import kotlinx.coroutines.flow.Flow
 
 interface AppearanceRepository {

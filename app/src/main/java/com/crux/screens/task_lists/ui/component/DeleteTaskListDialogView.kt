@@ -26,7 +26,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.crux.R
-import com.crux.ui.model.TaskListUi
+import com.crux.core.ui.model.TaskListUi
 
 @Composable
 internal fun DeleteTaskListDialogView(

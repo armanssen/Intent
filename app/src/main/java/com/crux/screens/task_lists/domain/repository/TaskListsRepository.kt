@@ -1,6 +1,6 @@
 package com.crux.screens.task_lists.domain.repository
 
-import com.crux.domain.model.TaskListWithCount
+import com.crux.core.domain.model.TaskListWithCount
 import kotlinx.coroutines.flow.Flow
 
 interface TaskListsRepository {

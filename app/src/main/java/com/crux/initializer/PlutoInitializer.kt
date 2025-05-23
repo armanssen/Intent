@@ -3,9 +3,9 @@ package com.crux.initializer
 import android.app.Application
 import android.content.Context
 import androidx.startup.Initializer
-import com.crux.data.database.AppDatabase
-import com.crux.data.datastore.APP_PREFERENCES_NAME
-import com.crux.data.datastore.appPreferences
+import com.crux.core.data.database.AppDatabase
+import com.crux.core.data.datastore.APP_PREFERENCES_NAME
+import com.crux.core.data.datastore.appPreferences
 import com.pluto.Pluto
 import com.pluto.plugins.datastore.pref.PlutoDatastorePreferencesPlugin
 import com.pluto.plugins.datastore.pref.PlutoDatastoreWatcher

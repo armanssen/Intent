@@ -3,8 +3,8 @@ package com.crux.screens.completed_tasks.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.crux.screens.completed_tasks.domain.repository.CompletedTasksRepository
-import com.crux.ui.model.TaskUi
-import com.crux.ui.model.toUi
+import com.crux.core.ui.model.TaskUi
+import com.crux.core.ui.model.toUi
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.Dispatchers

@@ -23,7 +23,7 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.crux.R
-import com.crux.ui.model.TaskListWithCountUi
+import com.crux.core.ui.model.TaskListWithCountUi
 import com.crux.util.ALL_TASK_LISTS_ID
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.launch

@@ -1,8 +1,8 @@
 package com.crux.screens.home.ui
 
-import com.crux.data.datastore.PreferenceDefaultValues
-import com.crux.ui.model.TaskListWithCountUi
-import com.crux.ui.model.TaskUi
+import com.crux.core.data.datastore.PreferenceDefaultValues
+import com.crux.core.ui.model.TaskListWithCountUi
+import com.crux.core.ui.model.TaskUi
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 
