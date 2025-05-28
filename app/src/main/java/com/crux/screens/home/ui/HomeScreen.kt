@@ -61,7 +61,9 @@ internal fun HomeScreen(
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
 
     var isBottomSheetVisible by rememberSaveable { mutableStateOf(false) }
-    val bottomSheetState = rememberModalBottomSheetState()
+    val bottomSheetState = rememberModalBottomSheetState(
+        skipPartiallyExpanded = true
+    )
 
     val lazyListState = rememberLazyListState()
 
