@@ -15,7 +15,7 @@ import javax.inject.Inject
 class TaskListsRepositoryImpl
 @Inject constructor(
     private val database: AppDatabase,
-    private val appPreferences: DataStore<Preferences>
+    private val dataStorePreferences: DataStore<Preferences>
 ) : TaskListsRepository {
 
     override fun getAllTaskListsFlow(): Flow<List<TaskListWithCount>> {
@@ -57,7 +57,7 @@ class TaskListsRepositoryImpl
     }
 
     override suspend fun setSelectedTaskListId(taskListId: Int) {
-        appPreferences.edit { preferences ->
+        dataStorePreferences.edit { preferences ->
             preferences[PreferenceKeys.SELECTED_TASK_LIST_ID] = taskListId
         }
     }

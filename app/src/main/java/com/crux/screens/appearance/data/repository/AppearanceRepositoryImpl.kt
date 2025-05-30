@@ -13,19 +13,19 @@ import javax.inject.Inject
 
 class AppearanceRepositoryImpl
 @Inject constructor(
-    private val appPreferences: DataStore<Preferences>
+    private val dataStorePreferences: DataStore<Preferences>
 ) : AppearanceRepository {
 
     override suspend fun updateAppTheme(
         appTheme: AppTheme
     ) {
-        appPreferences.edit { preferences ->
+        dataStorePreferences.edit { preferences ->
             preferences[PreferenceKeys.APP_THEME] = appTheme.name
         }
     }
 
     override fun getAppTheme(): Flow<AppTheme> {
-        return appPreferences.data.map {
+        return dataStorePreferences.data.map {
             AppTheme.valueOf(it[PreferenceKeys.APP_THEME] ?: AppTheme.SYSTEM_DEFAULT.name)
         }
     }
@@ -33,13 +33,13 @@ class AppearanceRepositoryImpl
     override suspend fun updateIsDynamicColorEnabled(
         isEnabled: Boolean
     ) {
-        appPreferences.edit { preferences ->
+        dataStorePreferences.edit { preferences ->
             preferences[PreferenceKeys.IS_DYNAMIC_COLOR_ENABLED] = isEnabled
         }
     }
 
     override fun getIsDynamicColorEnabled(): Flow<Boolean> {
-        return appPreferences.data.map {
+        return dataStorePreferences.data.map {
             it[PreferenceKeys.IS_DYNAMIC_COLOR_ENABLED]
                 ?: IS_DYNAMIC_COLOR_ENABLED_DEFAULT
         }

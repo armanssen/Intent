@@ -1,9 +1,9 @@
-package com.crux.core.data.di
+package com.crux.core.data.datastore.di
 
 import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
-import com.crux.core.data.datastore.appPreferences
+import com.crux.core.data.datastore.dataStorePreferences
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,13 +13,13 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object DataModule {
+object DatastoreModule {
 
     @Provides
     @Singleton
-    fun provideAppPreferences(
+    fun provideDataStorePreferences(
         @ApplicationContext context: Context
     ): DataStore<Preferences> {
-        return context.appPreferences
+        return context.dataStorePreferences
     }
 }

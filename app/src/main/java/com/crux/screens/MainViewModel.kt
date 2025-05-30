@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.crux.core.data.datastore.PreferenceDefaultValues.IS_DYNAMIC_COLOR_ENABLED_DEFAULT
 import com.crux.core.data.datastore.PreferenceKeys
-import com.crux.core.data.datastore.appPreferences
+import com.crux.core.data.datastore.dataStorePreferences
 import com.crux.core.domain.model.AppTheme
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -41,7 +41,7 @@ class MainViewModel
 
     private fun collectAppTheme() {
         viewModelScope.launch(Dispatchers.IO) {
-            context.appPreferences.data.map {
+            context.dataStorePreferences.data.map {
                 AppTheme.valueOf(it[PreferenceKeys.APP_THEME] ?: AppTheme.SYSTEM_DEFAULT.name)
             }.collectLatest { appTheme ->
                 _uiState.update {
@@ -53,7 +53,7 @@ class MainViewModel
 
     private fun collectIsDynamicColorEnabled() {
         viewModelScope.launch(Dispatchers.IO) {
-            context.appPreferences.data.map {
+            context.dataStorePreferences.data.map {
                 it[PreferenceKeys.IS_DYNAMIC_COLOR_ENABLED]
                     ?: IS_DYNAMIC_COLOR_ENABLED_DEFAULT
             }.collectLatest { isDynamicColorEnabled ->

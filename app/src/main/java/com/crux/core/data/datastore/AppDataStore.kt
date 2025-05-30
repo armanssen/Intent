@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.map
 
 const val APP_PREFERENCES_NAME = "app_preferences"
 
-val Context.appPreferences: DataStore<Preferences> by preferencesDataStore(
+val Context.dataStorePreferences: DataStore<Preferences> by preferencesDataStore(
     name = APP_PREFERENCES_NAME
 )
 

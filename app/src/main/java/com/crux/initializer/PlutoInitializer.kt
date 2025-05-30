@@ -5,7 +5,7 @@ import android.content.Context
 import androidx.startup.Initializer
 import com.crux.core.data.database.AppDatabase
 import com.crux.core.data.datastore.APP_PREFERENCES_NAME
-import com.crux.core.data.datastore.appPreferences
+import com.crux.core.data.datastore.dataStorePreferences
 import com.pluto.Pluto
 import com.pluto.plugins.datastore.pref.PlutoDatastorePreferencesPlugin
 import com.pluto.plugins.datastore.pref.PlutoDatastoreWatcher
@@ -34,7 +34,7 @@ class PlutoInitializer : Initializer<Unit> {
         )
         PlutoDatastoreWatcher.watch(
             APP_PREFERENCES_NAME,
-            context.appPreferences
+            context.dataStorePreferences
         )
     }
 

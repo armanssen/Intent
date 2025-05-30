@@ -17,7 +17,7 @@ import javax.inject.Inject
 class HomeRepositoryImpl
 @Inject constructor(
     private val database: AppDatabase,
-    private val appPreferences: DataStore<Preferences>
+    private val dataStorePreferences: DataStore<Preferences>
 ) : HomeRepository {
 
     override fun getAllTasksFlow(): Flow<List<Task>> {
@@ -55,27 +55,27 @@ class HomeRepositoryImpl
     }
 
     override suspend fun setSelectedTaskListId(taskListId: Int) {
-        appPreferences.edit { preferences ->
+        dataStorePreferences.edit { preferences ->
             preferences[PreferenceKeys.SELECTED_TASK_LIST_ID] = taskListId
         }
     }
 
     override fun getSelectedTaskListIdFlow(): Flow<Int> {
-        return appPreferences.data.map {
+        return dataStorePreferences.data.map {
             it[PreferenceKeys.SELECTED_TASK_LIST_ID]
                 ?: PreferenceDefaultValues.SELECTED_TASK_LIST_ID
         }
     }
 
     override fun getIsHideCompletedTasksEnabled(): Flow<Boolean> {
-        return appPreferences.data.map {
+        return dataStorePreferences.data.map {
             it[PreferenceKeys.IS_HIDE_COMPLETED_TASKS_ENABLED]
                 ?: HIDE_COMPLETED_TASK_DEFAULT_VALUE
         }
     }
 
     override suspend fun updateIsHideCompletedTasksEnabled(value: Boolean) {
-        appPreferences.edit { preferences ->
+        dataStorePreferences.edit { preferences ->
             preferences[PreferenceKeys.IS_HIDE_COMPLETED_TASKS_ENABLED] = value
         }
     }
