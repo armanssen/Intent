@@ -16,7 +16,7 @@ import com.intent.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun AddOrEditTaskTopAppBarView(
+internal fun TopAppBarView(
     isEditTask: Boolean,
     scrollBehavior: TopAppBarScrollBehavior,
     onClickBack: () -> Unit,

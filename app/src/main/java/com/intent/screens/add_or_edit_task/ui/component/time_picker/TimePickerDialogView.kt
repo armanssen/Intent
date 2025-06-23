@@ -1,4 +1,4 @@
-package com.intent.screens.add_or_edit_task.ui.component
+package com.intent.screens.add_or_edit_task.ui.component.time_picker
 
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api

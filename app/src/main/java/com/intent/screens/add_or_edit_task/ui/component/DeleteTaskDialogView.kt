@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 
 @Composable
-internal fun AddOrEditTaskDeleteTaskDialogView(
+internal fun DeleteTaskDialogView(
     onDismissRequest: () -> Unit,
     onClickConfirm: () -> Unit
 ) {

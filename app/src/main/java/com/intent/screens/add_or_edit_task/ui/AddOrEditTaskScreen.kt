@@ -25,15 +25,15 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.intent.R
-import com.intent.screens.add_or_edit_task.ui.component.DatePickerDialogView
-import com.intent.screens.add_or_edit_task.ui.component.MenuItemDueDate
+import com.intent.screens.add_or_edit_task.ui.component.date_picker.DatePickerDialogView
+import com.intent.screens.add_or_edit_task.ui.component.date_picker.MenuItemDueDate
 import com.intent.screens.add_or_edit_task.ui.component.AddOrEditTaskFloatingActionButtonView
-import com.intent.screens.add_or_edit_task.ui.component.MenuItemSelectTaskList
+import com.intent.screens.add_or_edit_task.ui.component.task_list_picker.MenuItemSelectTaskList
 import com.intent.screens.add_or_edit_task.ui.component.AddOrEditTaskTextFieldView
-import com.intent.screens.add_or_edit_task.ui.component.AddOrEditTaskTopAppBarView
-import com.intent.screens.add_or_edit_task.ui.component.AddOrEditTaskDeleteTaskDialogView
-import com.intent.screens.add_or_edit_task.ui.component.TimePickerDialogView
-import com.intent.screens.add_or_edit_task.ui.component.MenuItemTime
+import com.intent.screens.add_or_edit_task.ui.component.TopAppBarView
+import com.intent.screens.add_or_edit_task.ui.component.DeleteTaskDialogView
+import com.intent.screens.add_or_edit_task.ui.component.time_picker.TimePickerDialogView
+import com.intent.screens.add_or_edit_task.ui.component.time_picker.MenuItemTime
 import com.intent.screens.add_or_edit_task.ui.component.MenuItemMarkAsCompleted
 import com.intent.core.ui.component.AddOrEditTaskListDialogView
 import com.intent.util.LaunchAndRepeatWithLifecycle
@@ -82,7 +82,7 @@ internal fun AddOrEditTaskScreen(
             .nestedScroll(scrollBehavior.nestedScrollConnection),
         containerColor = MaterialTheme.colorScheme.surface,
         topBar = {
-            AddOrEditTaskTopAppBarView(
+            TopAppBarView(
                 isEditTask = args.taskId != null,
                 scrollBehavior = scrollBehavior,
                 onClickBack = onClickBack,
@@ -205,7 +205,7 @@ internal fun AddOrEditTaskScreen(
     }
 
     if (uiState.isDeleteTaskDialogVisible) {
-        AddOrEditTaskDeleteTaskDialogView(
+        DeleteTaskDialogView(
             onDismissRequest = {
                 onEvent(AddOrEditTaskScreenEvent.OnDismissDeleteConfirmation)
             },

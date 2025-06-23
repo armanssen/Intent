@@ -1,4 +1,4 @@
-package com.intent.screens.add_or_edit_task.ui.component
+package com.intent.screens.add_or_edit_task.ui.component.date_picker
 
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDialog

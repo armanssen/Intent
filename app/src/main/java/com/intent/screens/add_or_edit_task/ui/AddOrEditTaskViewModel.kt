@@ -58,18 +58,16 @@ internal class AddOrEditTaskViewModel
     }
 
     private suspend fun getTask(id: Int) {
-        val task = repository.getTaskById(id)?.toUi()
+        val task = repository.getTaskById(id)?.toUi() ?: return
 
-        if (task != null) {
-            _uiState.update {
-                it.copy(
-                    task = task,
-                    textFieldValue = task.title,
-                    isCompleted = task.isCompleted,
-                    selectedTaskListId = task.listId,
-                    dueDate = task.dueDateTime
-                )
-            }
+        _uiState.update {
+            it.copy(
+                task = task,
+                textFieldValue = task.title,
+                isCompleted = task.isCompleted,
+                selectedTaskListId = task.listId,
+                dueDate = task.dueDateTime
+            )
         }
     }
 
@@ -146,8 +144,7 @@ internal class AddOrEditTaskViewModel
                 }
             }
             DueDateEvent.OnClickRemoveTime -> {
-                val dueDate = _uiState.value.dueDate
-                if (dueDate == null) return
+                val dueDate = _uiState.value.dueDate ?: return
 
                 onSelectDueDate(dueDate)
             }
@@ -248,8 +245,7 @@ internal class AddOrEditTaskViewModel
         hour: Int,
         minute: Int
     ) {
-        val dueDate = _uiState.value.dueDate
-        if (dueDate == null) return
+        val dueDate = _uiState.value.dueDate ?: return
 
         val dueDateWithTime = DateTimeUtils.getDateWithTime(
             millis = dueDate,

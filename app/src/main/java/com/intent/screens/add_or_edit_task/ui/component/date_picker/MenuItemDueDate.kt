@@ -1,10 +1,10 @@
-package com.intent.screens.add_or_edit_task.ui.component
+package com.intent.screens.add_or_edit_task.ui.component.date_picker
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.AccessTime
+import androidx.compose.material.icons.outlined.CalendarToday
 import androidx.compose.material.icons.outlined.Close
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -18,8 +18,8 @@ import com.intent.R
 import com.intent.util.DateTimeUtils
 
 @Composable
-internal fun MenuItemTime(
-    dueDate: Long,
+internal fun MenuItemDueDate(
+    dueDate: Long?,
     onClick: () -> Unit,
     onClickRemove: () -> Unit,
     modifier: Modifier = Modifier
@@ -34,24 +34,24 @@ internal fun MenuItemTime(
             onClick = onClick,
             content = {
                 Icon(
-                    imageVector = Icons.Outlined.AccessTime,
-                    contentDescription = "time icon",
+                    imageVector = Icons.Outlined.CalendarToday,
+                    contentDescription = "calendar icon",
                     tint = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
         )
         Text(
-            text = if (DateTimeUtils.isAllDay(dueDate)) {
-                stringResource(R.string.add_or_edit_task_screen_time_not_set)
-            } else {
+            text = if (dueDate != null) {
                 DateTimeUtils.formatDate(
                     millis = dueDate,
-                    formatPattern = DateTimeUtils.FORMAT_FULL_TIME_24
+                    formatPattern = DateTimeUtils.FORMAT_FULL_DATE
                 )
+            } else {
+                stringResource(R.string.add_or_edit_task_screen_due_date)
             },
             modifier = Modifier.weight(1f)
         )
-        if (!DateTimeUtils.isAllDay(dueDate)) {
+        if (dueDate != null) {
             IconButton(
                 onClick = onClickRemove,
                 content = {

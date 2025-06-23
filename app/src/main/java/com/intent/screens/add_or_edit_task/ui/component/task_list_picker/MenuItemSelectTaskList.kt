@@ -1,4 +1,4 @@
-package com.intent.screens.add_or_edit_task.ui.component
+package com.intent.screens.add_or_edit_task.ui.component.task_list_picker
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
