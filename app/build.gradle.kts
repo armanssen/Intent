@@ -13,11 +13,11 @@ plugins {
 }
 
 android {
-    namespace = "com.crux"
+    namespace = "com.intent"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.crux"
+        applicationId = "com.intent"
         minSdk = 27
         targetSdk = 35
         versionCode = 1
@@ -71,7 +71,7 @@ android {
             .map { it as BaseVariantOutputImpl }
             .forEach { output ->
                 output.outputFileName =
-                    "crux-${variant.versionName}.apk"
+                    "intent-${variant.versionName}.apk"
             }
     }
     compileOptions {

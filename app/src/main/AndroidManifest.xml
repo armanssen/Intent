@@ -34,10 +34,10 @@
             android:exported="false"
             tools:node="merge">
             <meta-data
-                android:name="com.crux.initializer.PlutoInitializer"
+                android:name="com.intent.initializer.PlutoInitializer"
                 android:value="androidx.startup" />
             <meta-data
-                android:name="com.crux.initializer.TimberInitializer"
+                android:name="com.intent.initializer.TimberInitializer"
                 android:value="androidx.startup" />
         </provider>
 

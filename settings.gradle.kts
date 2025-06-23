@@ -19,5 +19,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Crux"
+rootProject.name = "Intent"
 include(":app")
