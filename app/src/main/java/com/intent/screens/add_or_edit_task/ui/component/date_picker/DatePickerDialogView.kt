@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 internal fun DatePickerDialogView(
     dueDate: Long?,
     onDismiss: () -> Unit,
-    onDateSelected: (Long) -> Unit,
+    onDateSelect: (Long) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val datePickerState = rememberDatePickerState(
@@ -31,7 +31,7 @@ internal fun DatePickerDialogView(
                 shape = MaterialTheme.shapes.medium,
                 onClick = {
                     datePickerState.selectedDateMillis?.let {
-                        onDateSelected(it)
+                        onDateSelect(it)
                     }
                     onDismiss()
                 },

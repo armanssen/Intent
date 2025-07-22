@@ -125,11 +125,15 @@ internal fun AddOrEditTaskScreen(
             }
             MenuItemDueDate(
                 dueDate = uiState.dueDate,
+                isNewTask = args.taskId == null,
                 onClick = {
                     onEvent(DueDateEvent.OnClickDueDate)
                 },
                 onClickRemove = {
                     onEvent(DueDateEvent.OnClickRemoveDueDate)
+                },
+                onDateSelect = { selectedDate ->
+                    onEvent(DueDateEvent.OnSelectDueDate(selectedDate))
                 }
             )
             if (uiState.dueDate != null) {
@@ -186,7 +190,7 @@ internal fun AddOrEditTaskScreen(
             onDismiss = {
                 onEvent(DueDateEvent.OnDismissDatePicker)
             },
-            onDateSelected = { selectedDate ->
+            onDateSelect = { selectedDate ->
                 onEvent(DueDateEvent.OnSelectDueDate(selectedDate))
             }
         )
