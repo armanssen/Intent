@@ -13,6 +13,7 @@ kotlin = "2.1.10"
 kotlinxSerializationJson = "1.6.3"
 kotlinxCollectionsImmutable = "0.3.8"
 ksp = "2.1.10-1.0.29"
+leakCanary = "2.14"
 lifecycle = "2.8.7"
 navigationCompose = "2.8.6"
 paging = "3.3.6"
@@ -48,6 +49,9 @@ androidx-compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4
 
 # DataStore
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
+
+# LeakCanary
+leakcanary = { module = "com.squareup.leakcanary:leakcanary-android", version.ref = "leakCanary"}
 
 # Lifecycle. Simplifies working with lifecycle-aware components
 androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycle" }

@@ -127,6 +127,9 @@ dependencies {
     implementation(libs.androidx.paging.runtime)
     implementation(libs.androidx.paging.compose)
 
+    // LeakCanary
+    debugImplementation(libs.leakcanary)
+
     // Pluto
     debugImplementation(libs.pluto)
     debugImplementation(libs.pluto.plugins)
