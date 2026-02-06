@@ -21,6 +21,7 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -39,6 +40,7 @@ import com.intent.core.ui.component.AddOrEditTaskListDialogView
 import com.intent.util.LaunchAndRepeatWithLifecycle
 import com.intent.util.requestFocusWithDelay
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.collections.immutable.persistentListOf
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -50,7 +52,6 @@ internal fun AddOrEditTaskScreen(
     uiState: AddOrEditTaskScreenState = viewModel.uiState.collectAsStateWithLifecycle().value,
     onEvent: (AddOrEditTaskScreenEvent) -> Unit = viewModel::onEvent
 ) {
-    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     val focusRequester = remember { FocusRequester() }
     val focusManager = LocalFocusManager.current
 
@@ -76,6 +77,28 @@ internal fun AddOrEditTaskScreen(
             }
         }
     }
+
+    ScreenContent(
+        modifier = modifier,
+        onClickBack = onClickBack,
+        onEvent = onEvent,
+        uiState = uiState,
+        args = args,
+        focusRequester = focusRequester
+    )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun ScreenContent(
+    modifier: Modifier = Modifier,
+    onClickBack: () -> Unit,
+    onEvent: (AddOrEditTaskScreenEvent) -> Unit,
+    uiState: AddOrEditTaskScreenState,
+    args: AddOrEditTaskScreenDestination,
+    focusRequester: FocusRequester
+) {
+    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
 
     Scaffold(
         modifier = modifier
@@ -218,4 +241,18 @@ internal fun AddOrEditTaskScreen(
             }
         )
     }
+}
+
+@Preview
+@Composable
+private fun AddOrEditTaskScreenPreview() {
+    ScreenContent(
+        onClickBack = {},
+        onEvent = {},
+        uiState = AddOrEditTaskScreenState(
+            taskLists = persistentListOf()
+        ),
+        args = AddOrEditTaskScreenDestination(taskId = null),
+        focusRequester = FocusRequester()
+    )
 }
