@@ -18,7 +18,7 @@ android {
 
     defaultConfig {
         applicationId = "com.intent"
-        minSdk = 27
+        minSdk = 27 // android 8.1 and up
         targetSdk = 35
         versionCode = 2
         versionName = "0.2.0"
@@ -142,6 +142,9 @@ dependencies {
     implementation(libs.androidx.room.paging)
     testImplementation(libs.androidx.room.testing)
     ksp(libs.androidx.room.compiler)
+
+    // WorkManager
+    implementation(libs.androidx.work.manager)
 
     // DataStore
     implementation(libs.androidx.datastore.preferences)

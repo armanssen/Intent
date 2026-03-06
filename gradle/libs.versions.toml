@@ -22,6 +22,7 @@ room = "2.6.1"
 splashScreen = "1.0.1"
 startup = "1.2.0"
 timber = "5.0.1"
+workManager = "2.11.1"
 
 [libraries]
 # Kotlin-specific set of extensions for Android's core framework, designed to
@@ -75,6 +76,9 @@ androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref =
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
 androidx-room-testing = { module = "androidx.room:room-testing", version.ref = "room" }
 androidx-room-paging = { module = "androidx.room:room-paging", version.ref = "room" }
+
+# WorkManager
+androidx-work-manager = { module = "androidx.work:work-runtime-ktx", version.ref = "workManager" }
 
 # Timber
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
