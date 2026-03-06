@@ -10,11 +10,11 @@ internal val LightColorScheme = lightColorScheme(
 
     surface = GeistLightBackgroundSecondary,
     surfaceContainer = GeistLightGray1,
-    surfaceVariant = GeistLightGray2,
+    surfaceVariant = LinearGray,
     surfaceContainerHigh = GeistLightGray3,
     surfaceContainerHighest = GeistLightGray4,
 
-    primary = GeistLightGray10,
+    primary = LinearBlack,
     onPrimary = Color.White,
 
     outlineVariant = GeistLightGray5
